@@ -21,7 +21,9 @@
                 Main page for this 2. semester start project used at cphbusiness.dk
             </div>
 
-            <c:if test="${sessionScope.role == 'employee' }">
+            <a href="${pageContext.request.contextPath}/fc/designpage">Tryk her</a>
+
+                       <c:if test="${sessionScope.role == 'employee' }">
                 <p style="font-size: larger">This is what you can do,
                     since your are logged in as an employee</p>
                  <p><a href="fc/employeepage">Employee Page</a>
