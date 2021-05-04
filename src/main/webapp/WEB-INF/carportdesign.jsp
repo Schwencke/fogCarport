@@ -13,9 +13,13 @@
     </jsp:attribute>
 
     <jsp:body>
+
+    <div class="col-sm-3 col-lg-1"></div>
+        <div class="col-sm-6 col-lg-10">
+            <div class="row justify-content-center">
         <label for="width">Carport bredde</label>
             <select id="width" type="text">
-            </select><br>
+            </select>
 
         <label for="længde">Carport længde</label>
             <select id="længde" type="text">
@@ -36,6 +40,7 @@
             <select id="shedLength" type="text">
             </select><br>
 
+
         <label for="name">Navn</label>
         <input id="name" type="text"><br>
         <label for="adress">Adresse</label>
@@ -50,6 +55,7 @@
         <input id="etc" type="text"><br>
         <button type="submit">Send forspørgsel</button>
         <p>* Hvis du f.eks. har valgt en carport med målene 240x360 cm kan redskabsrummet maksimalt måle 210x330 cm.</p>
-
+            </div></div>
+        <div class="col-sm-3 col-lg-1"></div>
     </jsp:body>
 </t:genericpage>
