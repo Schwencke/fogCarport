@@ -85,7 +85,7 @@ public class AuthorizationFilter implements Filter
         if (fs == FailingStrategy.REDIRECT_TO_LOGIN)
         {
             req.setAttribute("error", msg);
-            req.getRequestDispatcher("/WEB-INF/loginpage.jsp").forward(req, res);
+            req.getRequestDispatcher("/WEB-INF/login.jsp").forward(req, res);
         } else
         {
             res.sendError(errCode);

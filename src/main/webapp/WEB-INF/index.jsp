@@ -14,28 +14,51 @@
 
     <jsp:body>
 
-        <div>
-            <h2>Our Cool Site</h2>
+        <div class="col-sm-3 col-lg-1"></div>
+        <div class="col-sm-6 col-lg-10">
+            <div class="row justify-content-center">
+                <label for="width">Carport bredde</label>
+                <select id="width" type="text">
+                </select>
 
-            <div style="margin-top: 3em;margin-bottom: 3em;">
-                Main page for this 2. semester start project used at cphbusiness.dk
+                <label for="længde">Carport længde</label>
+                <select id="længde" type="text">
+                </select><br>
+
+                <label for="roof">Tag</label>
+                <select id="roof" type="text">
+                </select><br>
+
+                <label for="shed">Redskabsrum<br>Redskabsrum:
+                    NB! Der skal beregnes 15 cm tagudhæng på hver side af redskabsrummet*</label>
+                <select id="shed" type="text">
+                </select><br>
+                <label for="shedWidth">Redskabsrum bredde</label>
+                <select id="shedWidth" type="text">
+                </select><br>
+                <label for="shedLength">Redskabsrum længde</label>
+                <select id="shedLength" type="text">
+                </select><br>
+
+
+                <label for="name">Navn</label>
+                <input id="name" type="text"><br>
+                <label for="adress">Adresse</label>
+                <input id="adress" type="text"><br>
+                <label for="zipAndCity">Postnummer og by</label>
+                <input id="zipAndCity" type="text"><br>
+                <label for="phoneNo">Telefon</label>
+                <input id="phoneNo" type="text"><br>
+                <label for="email">E-mail adresse</label>
+                <input id="email" type="text"><br>
+                <label for="etc">Evt. bemærkninger</label>
+                <input id="etc" type="text"><br>
+                <button type="submit">Send forspørgsel</button>
+                <p>* Hvis du f.eks. har valgt en carport med målene 240x360 cm kan redskabsrummet maksimalt måle 210x330
+                    cm.</p>
             </div>
-
-            <a href="${pageContext.request.contextPath}/fc/designpage">Tryk her</a>
-
-                       <c:if test="${sessionScope.role == 'employee' }">
-                <p style="font-size: larger">This is what you can do,
-                    since your are logged in as an employee</p>
-                 <p><a href="fc/employeepage">Employee Page</a>
-             </c:if>
-
-             <c:if test="${sessionScope.role == 'customer' }">
-                <p style="font-size: larger">This is what you can do, since your
-                    are logged in as a customer</p>
-                <p><a href="fc/customerpage">Customer Page</a>
-            </c:if>
-
         </div>
+        <div class="col-sm-3 col-lg-1"></div>
 
     </jsp:body>
 </t:genericpage>

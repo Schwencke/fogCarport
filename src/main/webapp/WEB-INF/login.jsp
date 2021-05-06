@@ -12,7 +12,7 @@
 
     <jsp:body>
         <div style="margin-top: 5em;" class="container">
-            <form name="login" action="${pageContext.request.contextPath}/fc/logincommand"  method="POST">
+            <form name="login" action="${pageContext.request.contextPath}/fc/commandlogin" method="POST">
                 <div class="row mb-3">
                     <label class="col-sm-1 col-form-label" for="email">Email</label>
                     <div class="col-sm-4">
@@ -36,8 +36,6 @@
                 </c:if>
                 <button class="btn btn-primary" type="submit" value="Login">Sign in</button>
             </form>
-
-
         </div>
     </jsp:body>
 </t:genericpage>
