@@ -22,7 +22,7 @@ public class FrontController extends HttpServlet {
 
     public static Database database;
 
-    public void init() throws ServletException {
+    public void init() {
         // Initialize database connection
         if (database == null) {
             try {

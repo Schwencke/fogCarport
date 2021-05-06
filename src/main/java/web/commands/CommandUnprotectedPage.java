@@ -1,7 +1,6 @@
 package web.commands;
 
 import business.exceptions.UserException;
-import business.persistence.Database;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

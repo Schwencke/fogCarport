@@ -14,15 +14,16 @@ public class UserMapper {
 
     public void createUser(User user) throws UserException {
         try (Connection connection = database.connect()) {
-            String sql = "INSERT INTO `user` (`name`, `address`, `zip_code`, `phone_no`, `email`, `password`) VALUES (?, ?, ?, ?, ?, ?)";
+            String sql = "INSERT INTO `user` (`name`, `address`, `postal_code`, `city`, `phone_no`, `email`, `password`) VALUES (?, ?, ?, ?, ?, ?, ?)";
 
             try (PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
                 ps.setString(1, user.getName());
                 ps.setString(2, user.getAddress());
-                ps.setInt(3, user.getZipCode());
-                ps.setString(4, user.getPhoneNo());
-                ps.setString(2, user.getEmail());
-                ps.setString(2, user.getPassword());
+                ps.setInt(3, user.getPostalCode());
+                ps.setString(4, user.getCity());
+                ps.setString(5, user.getPhoneNo());
+                ps.setString(6, user.getEmail());
+                ps.setString(7, user.getPassword());
                 ps.executeUpdate();
                 ResultSet ids = ps.getGeneratedKeys();
                 ids.next();
@@ -32,7 +33,7 @@ public class UserMapper {
                 throw new UserException(ex.getMessage());
             }
 
-            String sql2 = "SELECT `role_id`, `balance` FROM user WHERE `user_id`= ?";
+            String sql2 = "SELECT `role_id` FROM user WHERE `user_id`= ?";
             try (PreparedStatement ps2 = connection.prepareStatement(sql2)) {
                 ps2.setInt(1, user.getUserId());
                 ResultSet rs2 = ps2.executeQuery();
@@ -62,13 +63,15 @@ public class UserMapper {
                     int roleId = rs.getInt("role_id");
                     String name = rs.getString("name");
                     String address = rs.getString("address");
-                    int zipCode = rs.getInt("zip_code");
+                    int postalCode = rs.getInt("postal_code");
+                    String city = rs.getString("city");
                     String phoneNo = rs.getString("phone_no");
                     user.setUserId(userId);
                     user.setRoleId(roleId);
                     user.setName(name);
                     user.setAddress(address);
-                    user.setZipCode(zipCode);
+                    user.setPostalCode(postalCode);
+                    user.setCity(city);
                     user.setPhoneNo(phoneNo);
                     user.setEmail(email);
                     user.setPassword(password);

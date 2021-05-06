@@ -45,8 +45,8 @@
                 <input id="name" type="text"><br>
                 <label for="adress">Adresse</label>
                 <input id="adress" type="text"><br>
-                <label for="zipAndCity">Postnummer og by</label>
-                <input id="zipAndCity" type="text"><br>
+                <label for="postalCodeAndCity">Postnummer og by</label>
+                <input id="postalCodeAndCity" type="text"><br>
                 <label for="phoneNo">Telefon</label>
                 <input id="phoneNo" type="text"><br>
                 <label for="email">E-mail adresse</label>

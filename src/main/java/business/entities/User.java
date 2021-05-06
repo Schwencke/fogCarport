@@ -4,10 +4,11 @@ public class User
 {
     private int userId;
     private int roleId;
-    private String role;
+    private String role; // TODO: Klassen role bruges ikke - Vi skal lige have kigget på 3NF
     private String name;
     private String address;
-    private int zipCode;
+    private int postalCode;
+    private String city;
     private String phoneNo;
     private String email;
     private String password;
@@ -15,21 +16,11 @@ public class User
     public User() {
     }
 
-    public User(String name, String address, int zipCode, String phoneNo, String email, String password) {
+    public User(String name, String address, int postalCode, String city, String phoneNo, String email, String password) {
         this.name = name;
         this.address = address;
-        this.zipCode = zipCode;
-        this.phoneNo = phoneNo;
-        this.email = email;
-        this.password = password;
-    }
-
-    public User(int userId, int roleId, String name, String address, int zipCode, String phoneNo, String email, String password) {
-        this.userId = userId;
-        this.roleId = roleId;
-        this.name = name;
-        this.address = address;
-        this.zipCode = zipCode;
+        this.postalCode = postalCode;
+        this.city = city;
         this.phoneNo = phoneNo;
         this.email = email;
         this.password = password;
@@ -51,6 +42,14 @@ public class User
         this.roleId = roleId;
     }
 
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
     public String getName() {
         return name;
     }
@@ -67,12 +66,20 @@ public class User
         this.address = address;
     }
 
-    public int getZipCode() {
-        return zipCode;
+    public int getPostalCode() {
+        return postalCode;
     }
 
-    public void setZipCode(int zipCode) {
-        this.zipCode = zipCode;
+    public void setPostalCode(int postalCode) {
+        this.postalCode = postalCode;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
     }
 
     public String getPhoneNo() {
@@ -97,13 +104,5 @@ public class User
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public void setRole(String role) {
-        this.role = role;
-    }
-
-    public String getRole() {
-        return role;
     }
 }

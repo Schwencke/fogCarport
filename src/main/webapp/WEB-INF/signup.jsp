@@ -9,7 +9,6 @@
     <jsp:attribute name="footer">
     </jsp:attribute>
     <jsp:body>
-        // TODO: Fix den her!
         <div style="margin-top: 5em;">
             <form name="login" action="${pageContext.request.contextPath}/fc/commandsignup" method="POST">
                 <div class="row mb-3">
@@ -21,13 +20,19 @@
                 <div class="row mb-3">
                     <label class="col-sm-1 col-form-label" for="address">Adresse</label>
                     <div class="col-sm-4">
-                        <input id="address" class="form-control" type="text" name="address" value="${param.address}" placeholder="Angiv din adresse">
+                        <input id="address" class="form-control" type="text" name="address" value="${param.address}" placeholder="Angiv adresse">
                     </div>
                 </div>
                 <div class="row mb-3">
-                    <label class="col-sm-1 col-form-label" for="zipcode">Postnummer</label>
+                    <label class="col-sm-1 col-form-label" for="postalcode">Postnummer</label>
                     <div class="col-sm-4">
-                        <input id="zipcode" class="form-control" type="text" name="zipcode" value="${param.zipcode}" placeholder="Angiv postnummer">
+                        <input id="postalcode" class="form-control" type="text" name="postalcode" value="${param.postalcode}" placeholder="Angiv postnummer">
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label class="col-sm-1 col-form-label" for="city">By</label>
+                    <div class="col-sm-4">
+                        <input id="city" class="form-control" type="text" name="city" value="${param.city}" placeholder="Angiv by">
                     </div>
                 </div>
                 <div class="row mb-3">
@@ -55,7 +60,7 @@
                     </div>
                 </div>
 
-                <input class="btn btn-primary" type="submit" type="submit" value="Submit">
+                <input class="btn btn-primary" type="submit" value="Submit">
             </form>
 
             <c:if test="${requestScope.error != null }">

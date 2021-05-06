@@ -85,7 +85,7 @@ DROP TABLE IF EXISTS `order`;
 CREATE TABLE `order` (
   `order_id` int NOT NULL,
   `user_id` int NOT NULL,
-  `status_id` int NOT NULL,
+  `status_id` int NOT NULL DEFAULT '1',
   `price` double NOT NULL,
   `time_created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `time_updated` timestamp NOT NULL ON UPDATE CURRENT_TIMESTAMP,
@@ -114,6 +114,30 @@ CREATE TABLE `order` (
 LOCK TABLES `order` WRITE;
 /*!40000 ALTER TABLE `order` DISABLE KEYS */;
 /*!40000 ALTER TABLE `order` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `postal_code`
+--
+
+DROP TABLE IF EXISTS `postal_code`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `postal_code` (
+  `postal_code` int NOT NULL,
+  `name` varchar(45) NOT NULL,
+  PRIMARY KEY (`postal_code`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `postal_code`
+--
+
+LOCK TABLES `postal_code` WRITE;
+/*!40000 ALTER TABLE `postal_code` DISABLE KEYS */;
+INSERT INTO `postal_code` VALUES (3700,'Rønne'),(3720,'Aakirkeby'),(3730,'Nexø'),(3740,'Svaneke'),(3760,'Gudhjem'),(3770,'Allinge'),(3790,'Hasle');
+/*!40000 ALTER TABLE `postal_code` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -273,10 +297,11 @@ DROP TABLE IF EXISTS `user`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `user` (
   `user_id` int NOT NULL AUTO_INCREMENT,
-  `role_id` int NOT NULL,
+  `role_id` int NOT NULL DEFAULT '1',
   `name` varchar(90) NOT NULL,
   `address` varchar(90) NOT NULL,
-  `zip_code` varchar(4) NOT NULL,
+  `postal_code` int NOT NULL,
+  `city` varchar(45) NOT NULL,
   `phone_no` varchar(20) NOT NULL,
   `email` varchar(45) NOT NULL,
   `password` varchar(45) NOT NULL,
@@ -292,7 +317,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES (1,2,'Ansat','Adminstratorgade 1','3700','12345678','a@a.dk','a'),(2,1,'Kunde','Kundegade 1','1050','10203040','q@q.dk','q');
+INSERT INTO `user` VALUES (1,2,'Ansat','Adminstratorgade 1',3700,'Rønne','12345678','a@a.dk','a'),(2,1,'Kunde','Kundegade 1',3720,'Aakrikeby','10203040','q@q.dk','q');
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -305,4 +330,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-05-05 16:06:15
+-- Dump completed on 2021-05-06 20:50:03
