@@ -1,10 +1,10 @@
 CREATE DATABASE  IF NOT EXISTS `carport` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
 USE `carport`;
--- MySQL dump 10.13  Distrib 8.0.22, for Linux (x86_64)
+-- MySQL dump 10.13  Distrib 8.0.22, for Win64 (x86_64)
 --
 -- Host: localhost    Database: carport
 -- ------------------------------------------------------
--- Server version	8.0.23-0ubuntu0.20.04.1
+-- Server version	8.0.22
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -26,7 +26,7 @@ DROP TABLE IF EXISTS `cladding`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `cladding` (
   `cladding_id` int NOT NULL,
-  `material_id` int DEFAULT NULL,
+  `material_id` int NOT NULL,
   PRIMARY KEY (`cladding_id`),
   KEY `fk_cladding_material1_idx` (`material_id`),
   CONSTRAINT `fk_cladding_material1` FOREIGN KEY (`material_id`) REFERENCES `material` (`material_id`)
@@ -126,9 +126,9 @@ DROP TABLE IF EXISTS `predefined_carport`;
 CREATE TABLE `predefined_carport` (
   `id` int NOT NULL AUTO_INCREMENT,
   `width` int DEFAULT NULL,
-  `lenght` int DEFAULT NULL,
+  `length` int DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -137,6 +137,7 @@ CREATE TABLE `predefined_carport` (
 
 LOCK TABLES `predefined_carport` WRITE;
 /*!40000 ALTER TABLE `predefined_carport` DISABLE KEYS */;
+INSERT INTO `predefined_carport` VALUES (1,240,240),(2,270,270),(3,300,300),(4,330,330),(5,360,360),(6,390,390),(7,420,420),(8,450,450),(9,480,480),(10,510,510),(11,540,540),(12,570,570),(13,600,600),(14,630,630),(15,660,660),(16,690,690),(17,720,720),(18,750,750),(19,NULL,780);
 /*!40000 ALTER TABLE `predefined_carport` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -149,10 +150,10 @@ DROP TABLE IF EXISTS `predefined_shed`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `predefined_shed` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `width` int NOT NULL,
-  `length` int NOT NULL,
+  `width` int DEFAULT NULL,
+  `length` int DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=57 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -161,6 +162,7 @@ CREATE TABLE `predefined_shed` (
 
 LOCK TABLES `predefined_shed` WRITE;
 /*!40000 ALTER TABLE `predefined_shed` DISABLE KEYS */;
+INSERT INTO `predefined_shed` VALUES (37,NULL,150),(38,NULL,180),(39,210,210),(40,240,240),(41,270,270),(42,300,300),(43,330,330),(44,360,360),(45,390,390),(46,420,420),(47,450,450),(48,480,480),(49,510,510),(50,540,540),(51,570,570),(52,600,600),(53,630,630),(54,660,660),(55,690,690),(56,720,NULL);
 /*!40000 ALTER TABLE `predefined_shed` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -184,6 +186,7 @@ CREATE TABLE `role` (
 
 LOCK TABLES `role` WRITE;
 /*!40000 ALTER TABLE `role` DISABLE KEYS */;
+INSERT INTO `role` VALUES (1,'customer'),(2,'salesperson');
 /*!40000 ALTER TABLE `role` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -196,7 +199,7 @@ DROP TABLE IF EXISTS `roofing`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `roofing` (
   `roof_id` int NOT NULL,
-  `material_id` int DEFAULT NULL,
+  `material_id` int NOT NULL,
   PRIMARY KEY (`roof_id`),
   KEY `fk_roofing_material1_idx` (`material_id`),
   CONSTRAINT `fk_roofing_material1` FOREIGN KEY (`material_id`) REFERENCES `material` (`material_id`)
@@ -271,16 +274,16 @@ DROP TABLE IF EXISTS `user`;
 CREATE TABLE `user` (
   `user_id` int NOT NULL AUTO_INCREMENT,
   `role_id` int NOT NULL,
-  `name` varchar(45) NOT NULL,
-  `address` varchar(45) NOT NULL,
-  `zip_code` varchar(45) NOT NULL,
-  `phone_no` varchar(45) NOT NULL,
+  `name` varchar(90) NOT NULL,
+  `address` varchar(90) NOT NULL,
+  `zip_code` varchar(4) NOT NULL,
+  `phone_no` varchar(20) NOT NULL,
   `email` varchar(45) NOT NULL,
   `password` varchar(45) NOT NULL,
   PRIMARY KEY (`user_id`),
   KEY `fk_user_role1_idx` (`role_id`),
   CONSTRAINT `fk_user_role1` FOREIGN KEY (`role_id`) REFERENCES `role` (`role_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -289,6 +292,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
+INSERT INTO `user` VALUES (1,2,'Ansat','Adminstratorgade 1','3700','12345678','a@a.dk','a'),(2,1,'Kunde','Kundegade 1','1050','10203040','q@q.dk','q');
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -301,4 +305,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-05-05 14:51:33
+-- Dump completed on 2021-05-05 16:06:15
