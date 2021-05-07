@@ -88,7 +88,7 @@ CREATE TABLE `order` (
   `status_id` int NOT NULL DEFAULT '1',
   `price` double NOT NULL DEFAULT '0',
   `time_created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `time_updated` timestamp NOT NULL ON UPDATE CURRENT_TIMESTAMP,
+  `time_updated` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `carport_length` int NOT NULL,
   `carport_width` int NOT NULL,
   `cladding_id` int NOT NULL,

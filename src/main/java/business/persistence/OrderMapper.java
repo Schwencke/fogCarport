@@ -20,16 +20,16 @@ public class OrderMapper {
     //<editor-fold desc="createOrder">
     public void createOrder(Order order) throws UserException {
         try (Connection connection = database.connect()) {
-            String sql = "INSERT INTO `order` (`user_id`, `carport_length`, `carport_width`, `cladding_id`, `roofing_id`, `shed_width`, `shed_length`) VALUES (?, ?, ?, ?, ?, ?, ?)";
-
+            String sql = "INSERT INTO `order` (`user_id`, `carport_length`, `carport_width`,`cladding_id`, `roofing_id`, `shed_width`, `shed_length`) VALUES (?, ?, ?, ?, ?, ?, ?)";
+//
             try (PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
                 ps.setInt(1, order.getUserId());
-                ps.setInt(1, order.getCarportLength());
-                ps.setInt(1, order.getCarportWidth());
-                ps.setInt(1, order.getCladdingId());
-                ps.setInt(1, order.getRoofingId());
-                ps.setInt(1, order.getShedWidth());
-                ps.setInt(1, order.getShedLength());
+                ps.setInt(2, order.getCarportLength());
+                ps.setInt(3, order.getCarportWidth());
+                ps.setInt(4, order.getCladdingId());
+                ps.setInt(5, order.getRoofingId());
+                ps.setInt(6, order.getShedWidth());
+                ps.setInt(7, order.getShedLength());
                 ps.executeUpdate();
                 ResultSet ids = ps.getGeneratedKeys();
                 ids.next();
@@ -85,7 +85,8 @@ public class OrderMapper {
     }
     //</editor-fold>
 
-    //lists to populate measurements on requestpage
+
+    //<editor-fold desc="getPredefined measurements for carport and shed">
     public Map<String, List<Integer>> getPredefined() throws SQLException {
 
         List<Integer> predefinedCarportWidth = new ArrayList<>();
@@ -103,10 +104,10 @@ public class OrderMapper {
                 while (rs.next()) {
                     int width = rs.getInt("width");
                     int length = rs.getInt("length");
-                    if (width > 0){
+                    if (width > 0) {
                         predefinedCarportWidth.add(width);
                     }
-                    if (length > 0){
+                    if (length > 0) {
                         predefinedCarportLength.add(length);
                     }
 
@@ -121,20 +122,79 @@ public class OrderMapper {
                         int width = rs2.getInt("width");
                         int length = rs2.getInt("length");
 
-                        if (width > 0){
+                        if (width > 0) {
                             predefinedShedWidth.add(width);
                         }
-                        if (length > 0){
+                        if (length > 0) {
                             predefinedShedLength.add(length);
                         }
 
                     }
-                listMap.put("shedWidth", predefinedShedWidth);
-                listMap.put("shedLength", predefinedShedLength);
+                    listMap.put("shedWidth", predefinedShedWidth);
+                    listMap.put("shedLength", predefinedShedLength);
                 }
             }
         }
         return listMap;
 
+    } //</editor-fold>
+
+    public Map<Integer, Integer> getRoofing() {
+        Map<Integer, Integer> roofMap = new HashMap<>();
+
+        try (Connection connection = database.connect()) {
+            String sql = "SELECT * FROM `roofing`";
+
+            try (PreparedStatement ps = connection.prepareStatement(sql)) {
+                ResultSet rs = ps.executeQuery();
+                while (rs.next()) {
+                    int roofId = rs.getInt("roof_id");
+                    int materialId = rs.getInt("material_id");
+                    roofMap.put(roofId, materialId);
+                }
+
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return roofMap;
+    }
+
+    public Map<Integer, Integer> getCladding() {
+        Map<Integer, Integer> claddingMap = new HashMap<>();
+
+        try (Connection connection = database.connect()) {
+            String sql = "SELECT * FROM `cladding`";
+
+            try (PreparedStatement ps = connection.prepareStatement(sql)) {
+                ResultSet rs = ps.executeQuery();
+                while (rs.next()) {
+                    int claddingId = rs.getInt("cladding_id");
+                    int materialId = rs.getInt("material_id");
+                    claddingMap.put(claddingId, materialId);
+                }
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return claddingMap;
+    }
+
+    public String getMaterialNameById(int material_id) {
+        String materialName ="";
+        try (Connection connection = database.connect()) {
+            String sql = "SELECT `name` FROM `material` WHERE `material_id`=?";
+            try (PreparedStatement ps = connection.prepareStatement(sql)) {
+                ps.setInt(1, material_id);
+
+                ResultSet rs = ps.executeQuery();
+                while (rs.next()) {
+                    materialName = rs.getString("name");
+                }
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return materialName;
     }
 }

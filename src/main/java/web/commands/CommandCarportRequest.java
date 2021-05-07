@@ -1,6 +1,7 @@
 package web.commands;
 
 import business.entities.Order;
+import business.entities.User;
 import business.exceptions.UserException;
 import business.services.OrderFacade;
 
@@ -20,13 +21,16 @@ public class CommandCarportRequest extends CommandProtectedPage{
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws UserException {
+    HttpSession session = request.getSession();
+    User user = (User) session.getAttribute("user");
 
        int carportLength = Integer.parseInt(request.getParameter("carportlength"));
        int carportWidth = Integer.parseInt(request.getParameter("carportwidth"));
-       int claddingId = Integer.parseInt(request.getParameter("claddingid"));
-       int roofingId = Integer.parseInt(request.getParameter("roofingid"));
+       int claddingId = Integer.parseInt(request.getParameter("cladding"));
+       int roofingId = Integer.parseInt(request.getParameter("roofing"));
        int shedWidth = Integer.parseInt(request.getParameter("shedwidth"));
        int shedLength = Integer.parseInt(request.getParameter("shedlength"));
+       int userId = user.getUserId();
 
     if(order == null){
         order = new Order();
@@ -35,6 +39,7 @@ public class CommandCarportRequest extends CommandProtectedPage{
     order.setCarportWidth(carportWidth);
     order.setCladdingId(claddingId);
     order.setRoofingId(roofingId);
+    order.setUserId(userId);
     if(shedWidth != 0){
         order.setShedWidth(shedWidth);
         order.setShedLength(shedLength);

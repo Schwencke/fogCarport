@@ -1,35 +1,26 @@
 package web;
 
-import business.entities.User;
+//<editor-fold desc="Imports">
 import business.exceptions.UserException;
 import business.persistence.Database;
-<<<<<<< HEAD
-import business.persistence.OrderMapper;
 import business.services.OrderFacade;
-import web.commands.*;
-
-import java.awt.image.AreaAveragingScaleFilter;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.sql.SQLException;
 import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import java.util.stream.Collectors;
-=======
 import business.services.UserFacade;
 import web.commands.Command;
 import web.commands.CommandUnknown;
-
-
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import java.util.HashMap;
+//</editor-fold>
 
 
 @WebServlet(name = "FrontController", urlPatterns = {"/fc/*"})
@@ -54,7 +45,6 @@ public class FrontController extends HttpServlet {
 
         // Initialize global datastructures here:
         ServletContext application = getServletContext();
-
 
         OrderFacade orderFacade = new OrderFacade(database);
         Map<String, List<Integer>> predefined = new HashMap<>();
@@ -91,8 +81,28 @@ public class FrontController extends HttpServlet {
         }
         application.setAttribute("cities", cities);
 
-    }
+        HashMap<Integer, Integer> roofing;
+        roofing = (HashMap<Integer, Integer>) orderFacade.getRoofing();
+        application.setAttribute("roofing", roofing);
 
+        HashMap<Integer, Integer> cladding;
+        cladding = (HashMap<Integer, Integer>) orderFacade.getCladding();
+        application.setAttribute("cladding", cladding);
+
+        HashMap<Integer, String> clads = new HashMap<>();
+        for (Integer value : cladding.values()) {
+            for (Integer integer : cladding.keySet()) {
+                clads.put(integer,orderFacade.getMaterialNameById(value));
+            }}
+        application.setAttribute("claddinglist",clads);
+
+        HashMap<Integer, String> roofs = new HashMap<>();
+        for (Integer value : roofing.values()) {
+            for (Integer integer : cladding.keySet()) {
+            roofs.put(integer,orderFacade.getMaterialNameById(value));
+        }}
+        application.setAttribute("roofinglist", roofs);
+    }
     protected void processRequest(
             HttpServletRequest request,
             HttpServletResponse response)

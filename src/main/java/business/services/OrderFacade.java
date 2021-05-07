@@ -30,4 +30,18 @@ public class OrderFacade {
         return orderMapper.getPredefined();
     }
 
+    public Map<Integer, Integer> getRoofing(){
+        return orderMapper.getRoofing();
+
+    }
+
+    public Map<Integer, Integer> getCladding(){
+        return orderMapper.getCladding();
+
+    }
+
+    public String getMaterialNameById(int id){
+        return orderMapper.getMaterialNameById(id);
+    }
+
 }
