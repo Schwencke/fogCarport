@@ -1,13 +1,18 @@
 package web;
 
+import business.entities.Role;
+import business.entities.User;
 import business.exceptions.UserException;
 import business.persistence.Database;
+import business.services.UserFacade;
 import web.commands.*;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -22,7 +27,7 @@ public class FrontController extends HttpServlet {
 
     public static Database database;
 
-    public void init() {
+    public void init() throws ServletException {
         // Initialize database connection
         if (database == null) {
             try {
@@ -33,7 +38,16 @@ public class FrontController extends HttpServlet {
         }
 
         // Initialize global datastructures here:
+        ServletContext application = getServletContext();
 
+        UserFacade userFacade = new UserFacade(database);
+        List<Role> roleList;
+        try {
+            roleList = userFacade.getAllRoles();
+        } catch (UserException ex) {
+            throw new ServletException(ex.getMessage());
+        }
+        application.setAttribute("rolelist", roleList);
     }
 
     protected void processRequest(

@@ -1,9 +1,12 @@
 package business.persistence;
 
+import business.entities.Role;
 import business.exceptions.UserException;
 import business.entities.User;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class UserMapper {
     private Database database;
@@ -76,24 +79,31 @@ public class UserMapper {
                     user.setEmail(email);
                     user.setPassword(password);
                 }
-            } catch (SQLException ex) {
-                throw new UserException(ex.getMessage());
-            }
-
-            String sql2 = "SELECT `name` FROM `role` WHERE `role_id` = ?";
-            try (PreparedStatement ps2 = connection.prepareStatement(sql2)) {
-                ps2.setInt(1, user.getRoleId());
-                ResultSet rs2 = ps2.executeQuery();
-                if (rs2.next()) {
-                    String name = rs2.getString("name");
-                    user.setRole(name);
-                    return user;
-                } else {
-                    throw new UserException("Could not validate user");
-                }
+                return user;
             } catch (SQLException ex) {
                 throw new UserException("Connection to database could not be established");
             }
         }
+    }
+
+    public List<Role> getAllRoles() throws UserException {
+        List<Role> roleList = new ArrayList<>();
+        try (Connection connection = database.connect()) {
+            String sql = "SELECT * FROM `role`";
+
+            try (PreparedStatement ps = connection.prepareStatement(sql)) {
+                ResultSet resultSet = ps.executeQuery();
+                while (resultSet.next()) {
+                    int roleId = resultSet.getInt("role_id");
+                    String name = resultSet.getString("name");
+                    roleList.add(new Role(roleId, name));
+                }
+            } catch (SQLException ex) {
+                throw new UserException(ex.getMessage());
+            }
+        } catch (SQLException ex) {
+            throw new UserException("Connection to database could not be established");
+        }
+        return roleList;
     }
 }

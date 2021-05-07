@@ -4,7 +4,6 @@ public class User
 {
     private int userId;
     private int roleId;
-    private String role; // TODO: Klassen role bruges ikke - Vi skal lige have kigget på 3NF
     private String name;
     private String address;
     private int postalCode;
@@ -40,14 +39,6 @@ public class User
 
     public void setRoleId(int roleId) {
         this.roleId = roleId;
-    }
-
-    public String getRole() {
-        return role;
-    }
-
-    public void setRole(String role) {
-        this.role = role;
     }
 
     public String getName() {

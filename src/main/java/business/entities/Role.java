@@ -2,18 +2,22 @@ package business.entities;
 
 public class Role {
     int roleId;
-    String role;
+    String name;
 
-    public Role(int roleId, String role) {
+    public Role(int roleId) {
         this.roleId = roleId;
-        this.role = role;
     }
 
-    public String getRole() {
-        return role;
+    public Role(int roleId, String name) {
+        this.roleId = roleId;
+        this.name = name;
     }
 
-    public void setRole(String role) {
-        this.role = role;
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }

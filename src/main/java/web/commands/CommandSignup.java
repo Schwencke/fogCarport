@@ -30,10 +30,10 @@ public class CommandSignup extends CommandUnprotectedPage {
         if (password1.equals(password2)) {
             User user = userFacade.createUser(name, address, postalcode, city, phoneNo, email, password1);
             HttpSession session = request.getSession();
-            user.setRole("customer");
+            //user.setRole("customer");
             session.setAttribute("email", email);
             session.setAttribute("user", user);
-            session.setAttribute("role", user.getRole());
+            //session.setAttribute("role", user.getRole());
             return "customer";
         } else {
             request.setAttribute("error", "the two passwords did not match");
