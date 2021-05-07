@@ -19,10 +19,16 @@
             <div class="row justify-content-center">
                 <label for="width">Carport bredde</label>
                 <select id="width" type="text">
+                    <c:forEach var="carportWidth" items="${applicationScope.carportWidth}">
+                        <option value="${carportWidth}">${carportWidth}</option>
+                    </c:forEach>
                 </select>
 
                 <label for="længde">Carport længde</label>
                 <select id="længde" type="text">
+                    <c:forEach var="carportLength" items="${applicationScope.carportLength}">
+                        <option value="${carportLength}">${carportLength}</option>
+                    </c:forEach>
                 </select><br>
 
                 <label for="roof">Tag</label>
