@@ -1,18 +1,27 @@
 package web;
 
+import business.entities.User;
 import business.exceptions.UserException;
 import business.persistence.Database;
+import business.persistence.OrderMapper;
+import business.services.OrderFacade;
 import web.commands.*;
 
+import java.awt.image.AreaAveragingScaleFilter;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.sql.SQLException;
+import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.swing.*;
 
 @WebServlet(name = "FrontController", urlPatterns = {"/fc/*"})
 public class FrontController extends HttpServlet {
@@ -21,6 +30,7 @@ public class FrontController extends HttpServlet {
     private final static String URL = "jdbc:mysql://localhost:3306/carport?serverTimezone=CET";
 
     public static Database database;
+
 
     public void init() {
         // Initialize database connection
@@ -33,7 +43,24 @@ public class FrontController extends HttpServlet {
         }
 
         // Initialize global datastructures here:
+        ServletContext application = getServletContext();
 
+        OrderFacade orderFacade = new OrderFacade(database);
+        Map<String, List<Integer>> predefined = new HashMap<>();
+        try {
+            predefined = orderFacade.getPredefined();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        List<Integer> predefinedCarportWidth = new ArrayList<>(predefined.get("carportWidth"));
+        List<Integer> predefinedCarportLength = new ArrayList<>(predefined.get("carportLength"));
+        List<Integer> predefinedShedWidth = new ArrayList<>(predefined.get("shedWidth"));
+        List<Integer> predefinedShedLength = new ArrayList<>(predefined.get("shedLength"));
+
+        application.setAttribute("carportWidth", predefinedCarportWidth);
+        application.setAttribute("carportLength", predefinedCarportLength);
+        application.setAttribute("shedWidth", predefinedShedWidth);
+        application.setAttribute("shedLength", predefinedShedLength);
     }
 
     protected void processRequest(

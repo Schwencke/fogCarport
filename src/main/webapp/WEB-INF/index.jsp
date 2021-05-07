@@ -35,6 +35,9 @@
                 </select><br>
                 <label for="shedWidth">Redskabsrum bredde</label>
                 <select id="shedWidth" type="text">
+                    <c:forEach var="shed" items="${applicationScope.ca}">
+                        <option value="${shed}"
+                    </c:forEach>
                 </select><br>
                 <label for="shedLength">Redskabsrum længde</label>
                 <select id="shedLength" type="text">
