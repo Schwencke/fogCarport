@@ -13,7 +13,7 @@
     </jsp:attribute>
 
     <jsp:body>
-
+        <form>
         <div class="col-sm-3 col-lg-1"></div>
         <div class="col-sm-6 col-lg-10">
             <div class="row justify-content-center">
@@ -54,10 +54,12 @@
                 <label for="etc">Evt. bemærkninger</label>
                 <input id="etc" type="text"><br>
                 <button type="submit">Send forspørgsel</button>
+
                 <p>* Hvis du f.eks. har valgt en carport med målene 240x360 cm kan redskabsrummet maksimalt måle 210x330
                     cm.</p>
             </div>
         </div>
+        </form>
         <div class="col-sm-3 col-lg-1"></div>
 
     </jsp:body>
