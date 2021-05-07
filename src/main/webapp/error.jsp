@@ -22,10 +22,9 @@
             <c:if test="${pageContext.errorData.statusCode == 401 }">
                 <h4 style="color:darkred;font-size: larger">
                     Attempt to access a protected resource without being authenticated.
-                    <a href="loginpage">Please login first!</a>
+                    <a href="${pageContext.request.contextPath}/fc/login">Please login first!</a>
                 </h4>.
 
-                </p>
             </c:if>
 
             <c:if test="${pageContext.errorData.statusCode == 403 }">
