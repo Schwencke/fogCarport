@@ -14,7 +14,6 @@ import java.util.List;
 
 public class CommandLogin extends CommandUnprotectedPage {
     private UserFacade userFacade;
-    List<Role> roleList;
 
     public CommandLogin(String pageToShow) {
         super(pageToShow);
@@ -30,8 +29,8 @@ public class CommandLogin extends CommandUnprotectedPage {
             User user = userFacade.login(email, password);
 
             ServletContext application = request.getServletContext();
-            roleList = (List<Role>) application.getAttribute("rolelist");
-            String role = roleList.get(user.getRoleId()-1).getName();
+            List<Role> roleList = (List<Role>) application.getAttribute("rolelist");
+            String role = roleList.get(user.getRoleId() - 1).getName();
 
             HttpSession session = request.getSession();
             session.setAttribute("user", user);

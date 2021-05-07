@@ -36,6 +36,7 @@ public class UserMapper {
                 throw new UserException(ex.getMessage());
             }
 
+            // Get default user id from database
             String sql2 = "SELECT `role_id` FROM user WHERE `user_id`= ?";
             try (PreparedStatement ps2 = connection.prepareStatement(sql2)) {
                 ps2.setInt(1, user.getUserId());
