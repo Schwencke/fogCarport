@@ -13,7 +13,7 @@
     </jsp:attribute>
 
     <jsp:body>
-        <form>
+        <form method="post" action="${pageContext.request.contextPath}/fc/CommandCarportRequest">
         <div class="col-sm-3 col-lg-1"></div>
         <div class="col-sm-6 col-lg-10">
             <div class="row justify-content-center">
@@ -28,26 +28,25 @@
                 <label for="roof">Tag</label>
                 <select id="roof" type="text">
                 </select><br>
-
-                <label for="shed">Redskabsrum<br>Redskabsrum:
-                    NB! Der skal beregnes 15 cm tagudhæng på hver side af redskabsrummet*</label>
-                <select id="shed" type="text">
-                </select><br>
+                <label>Redskabsrum: NB! Der skal beregnes 15 cm tagudhæng på hver side af redskabsrummet*</label>
                 <label for="shedWidth">Redskabsrum bredde</label>
                 <select id="shedWidth" type="text">
-                    <c:forEach var="shed" items="${applicationScope.ca}">
-                        <option value="${shed}"
+                    <c:forEach var="shedWidth" items="${applicationScope.shedWidth}">
+                        <option value="${shedWidth}">${shedWidth}</option>
                     </c:forEach>
                 </select><br>
                 <label for="shedLength">Redskabsrum længde</label>
                 <select id="shedLength" type="text">
+                    <c:forEach var="shedLength" items="${applicationScope.shedLength}">
+                        <option value="${shedLength}">${shedLength}</option>
+                    </c:forEach>
                 </select><br>
 
 
                 <label for="name">Navn</label>
-                <input id="name" type="text"><br>
-                <label for="adress">Adresse</label>
-                <input id="adress" type="text"><br>
+                <input id="name" name="name" type="text"><br>
+                <label for="address">Adresse</label>
+                <input id="address" name="address" type="text"><br>
                 <label for="postalCodeAndCity">Postnummer og by</label>
                 <input id="postalCodeAndCity" type="text"><br>
                 <label for="phoneNo">Telefon</label>

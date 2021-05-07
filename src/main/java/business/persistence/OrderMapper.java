@@ -103,8 +103,13 @@ public class OrderMapper {
                 while (rs.next()) {
                     int width = rs.getInt("width");
                     int length = rs.getInt("length");
-                    predefinedCarportWidth.add(width);
-                    predefinedCarportLength.add(length);
+                    if (width > 0){
+                        predefinedCarportWidth.add(width);
+                    }
+                    if (length > 0){
+                        predefinedCarportLength.add(length);
+                    }
+
                 }
                 listMap.put("carportWidth", predefinedCarportWidth);
                 listMap.put("carportLength", predefinedCarportLength);
@@ -115,8 +120,14 @@ public class OrderMapper {
                     while (rs2.next()) {
                         int width = rs2.getInt("width");
                         int length = rs2.getInt("length");
-                        predefinedShedWidth.add(width);
-                        predefinedShedLength.add(length);
+
+                        if (width > 0){
+                            predefinedShedWidth.add(width);
+                        }
+                        if (length > 0){
+                            predefinedShedLength.add(length);
+                        }
+
                     }
                 listMap.put("shedWidth", predefinedShedWidth);
                 listMap.put("shedLength", predefinedShedLength);
