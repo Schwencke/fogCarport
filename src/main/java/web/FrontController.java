@@ -1,22 +1,22 @@
 package web;
 
-import business.entities.Role;
 import business.exceptions.UserException;
 import business.persistence.Database;
 import business.services.UserFacade;
-import web.commands.*;
+import web.commands.Command;
+import web.commands.CommandUnknown;
 
-import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.util.HashMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 @WebServlet(name = "FrontController", urlPatterns = {"/fc/*"})
 public class FrontController extends HttpServlet {
@@ -40,13 +40,13 @@ public class FrontController extends HttpServlet {
         ServletContext application = getServletContext();
 
         UserFacade userFacade = new UserFacade(database);
-        List<Role> roleList;
+        HashMap<Integer, String> roles;
         try {
-            roleList = userFacade.getAllRoles();
+            roles = userFacade.getAllRoles();
         } catch (UserException ex) {
             throw new ServletException(ex.getMessage());
         }
-        application.setAttribute("rolelist", roleList);
+        application.setAttribute("roles", roles);
     }
 
     protected void processRequest(

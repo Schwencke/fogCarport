@@ -1,13 +1,12 @@
 package business.services;
 
-import business.entities.Role;
 import business.entities.User;
+import business.exceptions.UserException;
 import business.persistence.Database;
 import business.persistence.UserMapper;
-import business.exceptions.UserException;
 
 import java.sql.SQLException;
-import java.util.List;
+import java.util.HashMap;
 
 public class UserFacade {
     UserMapper userMapper;
@@ -26,7 +25,7 @@ public class UserFacade {
         return user;
     }
 
-    public List<Role> getAllRoles() throws UserException {
+    public HashMap<Integer, String> getAllRoles() throws UserException {
         return userMapper.getAllRoles();
     }
 }

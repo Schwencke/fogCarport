@@ -31,7 +31,7 @@ public class CommandSignup extends CommandUnprotectedPage {
         if (password1.equals(password2)) {
             User user = userFacade.createUser(name, address, postalCode, city, phoneNo, email, password1);
 
-            String role = Utility.getRoleById(request, user.getRoleId());
+            String role = Utility.getNameById(request, "roles", user.getRoleId());
 
             HttpSession session = request.getSession();
             session.setAttribute("email", email);

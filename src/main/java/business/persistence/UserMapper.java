@@ -1,12 +1,10 @@
 package business.persistence;
 
-import business.entities.Role;
-import business.exceptions.UserException;
 import business.entities.User;
+import business.exceptions.UserException;
 
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
 
 public class UserMapper {
     private Database database;
@@ -87,8 +85,8 @@ public class UserMapper {
         }
     }
 
-    public List<Role> getAllRoles() throws UserException {
-        List<Role> roleList = new ArrayList<>();
+    public HashMap<Integer, String> getAllRoles() throws UserException {
+        HashMap<Integer, String> roles = new HashMap<>();
         try (Connection connection = database.connect()) {
             String sql = "SELECT * FROM `role`";
 
@@ -97,7 +95,7 @@ public class UserMapper {
                 while (resultSet.next()) {
                     int roleId = resultSet.getInt("role_id");
                     String name = resultSet.getString("name");
-                    roleList.add(new Role(roleId, name));
+                    roles.put(roleId, name);
                 }
             } catch (SQLException ex) {
                 throw new UserException(ex.getMessage());
@@ -105,6 +103,6 @@ public class UserMapper {
         } catch (SQLException ex) {
             throw new UserException("Connection to database could not be established");
         }
-        return roleList;
+        return roles;
     }
 }

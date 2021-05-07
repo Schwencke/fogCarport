@@ -1,19 +1,14 @@
 package business.services;
 
-import business.entities.Role;
-
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
-
-import java.util.List;
+import java.util.HashMap;
 
 public class Utility {
 
-    // Return role name from role id
-    public static String getRoleById(HttpServletRequest request, int userId) {
+    public static String getNameById(HttpServletRequest request, String name, int userId) {
         ServletContext application = request.getServletContext();
-        List<Role> roleList = (List<Role>) application.getAttribute("rolelist");
-
-        return roleList.get(userId - 1).getName();
+        HashMap<Integer, String> roles = (HashMap<Integer, String>) application.getAttribute(name);
+        return roles.get(userId);
     }
 }

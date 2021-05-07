@@ -26,7 +26,7 @@ public class CommandLogin extends CommandUnprotectedPage {
         try {
             User user = userFacade.login(email, password);
 
-            String role = Utility.getRoleById(request, user.getRoleId());
+            String role = Utility.getNameById(request, "roles", user.getRoleId());
 
             HttpSession session = request.getSession();
             session.setAttribute("user", user);
