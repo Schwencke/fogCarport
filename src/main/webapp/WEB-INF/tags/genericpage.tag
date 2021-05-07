@@ -26,24 +26,27 @@
 -->
 <header class="d-flex flex-column flex-md-row align-items-center p-3 pb-0 px-md-4 mb-4 bg-white border-bottom shadow-sm">
     <div class="h5 my-0 me-md-auto fw-normal">
-        <p>Demo Project for DAT 2. semester</p>
+        <p>Fog® - Byg selv carport</p>
         <p style="font-size: larger">
             <jsp:invoke fragment="header"/>
         </p>
     </div>
     <nav class="my-2 my-md-0 me-md-3">
         <c:if test="${addHomeLink == null }">
-            <a class="p-2 text-dark" href="<%=request.getContextPath()%>">Home</a>
+            <a class="p-2 text-dark" href="<%=request.getContextPath()%>">Forside</a>
         </c:if>
-        <a class="p-2 text-dark" href="#">Orders</a>
-        <a class="p-2 text-dark" href="#">Profile</a>
-        <a class="p-2 text-dark" href="#">About</a>
+        <c:if test="${sessionScope.role == 'customer'}">
+            <a class="p-2 text-dark" href="${pageContext.request.contextPath}/fc/customer">Oversigt</a>
+        </c:if>
+        <c:if test="${sessionScope.role == 'salesperson'}">
+            <a class="p-2 text-dark" href="${pageContext.request.contextPath}/fc/admin">Oversigt</a>
+        </c:if>
     </nav>
 
     <div>
 
         <c:if test="${sessionScope.user != null }">
-            ${sessionScope.user.email}
+            ${sessionScope.user.email}&nbsp;&nbsp;&nbsp;&nbsp;
         </c:if>
 
         <c:set var="thisPage" value="${pageContext.request.servletPath}"/>
@@ -51,18 +54,20 @@
         <c:set var="isNotRegisterPage" value="${!fn:endsWith(thisPage,'signup.jsp')}"/>
 
         <c:if test="${isNotLoginPage && isNotRegisterPage}">
-        <c:if test="${sessionScope.user != null }">
-            <a type="button" class="btn btn-sm  btn-outline-secondary"
-               href="${pageContext.request.contextPath}/fc/commandlogout">Logout</a>
-        </c:if>
-        <c:if test="${sessionScope.user == null }">
-            <a type="button" class="btn btn-sm  btn-outline-secondary"
-               href="${pageContext.request.contextPath}/fc/login">Login</a>
-            <a type="button" class="btn btn-sm  btn-outline-secondary"
-               href="${pageContext.request.contextPath}/fc/signup">Sign up</a>
+            <c:if test="${sessionScope.user != null }">
+                <a type="button" class="btn btn-sm  btn-outline-secondary"
+                   href="${pageContext.request.contextPath}/fc/commandlogout">Log ud</a>
+            </c:if>
+
+            <c:if test="${sessionScope.user == null }">
+                <a type="button" class="btn btn-sm  btn-outline-secondary"
+                   href="${pageContext.request.contextPath}/fc/login">Log ind</a>
+                <a type="button" class="btn btn-sm  btn-outline-secondary"
+                   href="${pageContext.request.contextPath}/fc/signup">Opret bruger</a>
+            </c:if>
         </c:if>
     </div>
-    </c:if>
+
 </header>
 
 <div id="body" class="container" style="min-height: 20vh;">
@@ -74,6 +79,7 @@
     <br>
     <hr>
     <br>
+    <p align="center">Johannes Fog A/S - Firskovvej 20 - 2800 Lyngby - CVR-nr. 16314439</p>
     <jsp:invoke fragment="footer"/>
 </div>
 
