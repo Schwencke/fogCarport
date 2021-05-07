@@ -40,6 +40,7 @@ public class FrontController extends HttpServlet {
         ServletContext application = getServletContext();
 
         UserFacade userFacade = new UserFacade(database);
+
         HashMap<Integer, String> roles;
         try {
             roles = userFacade.getAllRoles();
@@ -47,6 +48,14 @@ public class FrontController extends HttpServlet {
             throw new ServletException(ex.getMessage());
         }
         application.setAttribute("roles", roles);
+
+        HashMap<Integer, String> cities;
+        try {
+            cities = userFacade.getAllCities();
+        } catch (UserException ex) {
+            throw new ServletException(ex.getMessage());
+        }
+        application.setAttribute("cities", cities);
     }
 
     protected void processRequest(

@@ -22,21 +22,22 @@ public class CommandSignup extends CommandUnprotectedPage {
         String name = request.getParameter("name");
         String address = request.getParameter("address");
         int postalCode = Integer.parseInt(request.getParameter("postalcode"));
-        String city = request.getParameter("city");
         String phoneNo = request.getParameter("phoneno");
         String email = request.getParameter("email");
         String password1 = request.getParameter("password1");
         String password2 = request.getParameter("password2");
 
         if (password1.equals(password2)) {
-            User user = userFacade.createUser(name, address, postalCode, city, phoneNo, email, password1);
+            User user = userFacade.createUser(name, address, postalCode, phoneNo, email, password1);
 
             String role = Utility.getNameById(request, "roles", user.getRoleId());
+            String city = Utility.getNameById(request, "cities", user.getPostalCode());
 
             HttpSession session = request.getSession();
             session.setAttribute("email", email);
             session.setAttribute("user", user);
             session.setAttribute("role", role);
+            session.setAttribute("city", city);
 
             return "customer";
         } else {

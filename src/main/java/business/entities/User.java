@@ -7,7 +7,6 @@ public class User
     private String name;
     private String address;
     private int postalCode;
-    private String city;
     private String phoneNo;
     private String email;
     private String password;
@@ -15,11 +14,10 @@ public class User
     public User() {
     }
 
-    public User(String name, String address, int postalCode, String city, String phoneNo, String email, String password) {
+    public User(String name, String address, int postalCode, String phoneNo, String email, String password) {
         this.name = name;
         this.address = address;
         this.postalCode = postalCode;
-        this.city = city;
         this.phoneNo = phoneNo;
         this.email = email;
         this.password = password;
@@ -63,14 +61,6 @@ public class User
 
     public void setPostalCode(int postalCode) {
         this.postalCode = postalCode;
-    }
-
-    public String getCity() {
-        return city;
-    }
-
-    public void setCity(String city) {
-        this.city = city;
     }
 
     public String getPhoneNo() {
