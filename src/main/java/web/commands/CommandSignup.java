@@ -4,6 +4,7 @@ import business.entities.Role;
 import business.entities.User;
 import business.services.UserFacade;
 import business.exceptions.UserException;
+import business.services.Utility;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
@@ -33,9 +34,7 @@ public class CommandSignup extends CommandUnprotectedPage {
         if (password1.equals(password2)) {
             User user = userFacade.createUser(name, address, postalCode, city, phoneNo, email, password1);
 
-            ServletContext application = request.getServletContext();
-            List<Role> roleList = (List<Role>) application.getAttribute("rolelist");
-            String role = roleList.get(user.getRoleId() - 1).getName();
+            String role = Utility.getRoleById(request, user.getRoleId());
 
             HttpSession session = request.getSession();
             session.setAttribute("email", email);
