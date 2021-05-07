@@ -7,6 +7,9 @@ import business.persistence.Database;
 import business.persistence.OrderMapper;
 
 import java.sql.SQLException;
+import java.util.List;
+import java.util.Map;
+
 
 public class OrderFacade {
     OrderMapper orderMapper;
@@ -22,4 +25,9 @@ public class OrderFacade {
     public Order getOrderById(int orderNo) throws UserException {
        return orderMapper.getOrder(orderNo);
     }
+
+    public Map<String, List<Integer>> getPredefined() throws SQLException {
+        return orderMapper.getPredefined();
+    }
+
 }

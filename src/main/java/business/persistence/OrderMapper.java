@@ -3,6 +3,10 @@ package business.persistence;
 import business.entities.Order;
 import business.exceptions.UserException;
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 
 public class OrderMapper {
@@ -32,7 +36,8 @@ public class OrderMapper {
                 int orderId = ids.getInt(1);
                 order.setOrderId(orderId);
 
-            }} catch (SQLException throwables) {
+            }
+        } catch (SQLException throwables) {
             throw new UserException("ordren kunne ikke gennemføres");
         }
     }
@@ -80,4 +85,45 @@ public class OrderMapper {
     }
     //</editor-fold>
 
+    //lists to populate measurements on requestpage
+    public Map<String, List<Integer>> getPredefined() throws SQLException {
+
+        List<Integer> predefinedCarportWidth = new ArrayList<>();
+        List<Integer> predefinedCarportLength = new ArrayList<>();
+        List<Integer> predefinedShedWidth = new ArrayList<>();
+        List<Integer> predefinedShedLength = new ArrayList<>();
+
+        Map<String, List<Integer>> listMap = new HashMap<>();
+
+        try (Connection connection = database.connect()) {
+            String sql = "SELECT width,length FROM `predefined_carport`";
+
+            try (PreparedStatement ps = connection.prepareStatement(sql)) {
+                ResultSet rs = ps.executeQuery();
+                while (rs.next()) {
+                    int width = rs.getInt("width");
+                    int length = rs.getInt("length");
+                    predefinedCarportWidth.add(width);
+                    predefinedCarportLength.add(length);
+                }
+                listMap.put("carportWidth", predefinedCarportWidth);
+                listMap.put("carportLength", predefinedCarportLength);
+
+                String sql2 = "SELECT width,length FROM `predefined_shed`";
+                try (PreparedStatement ps2 = connection.prepareStatement(sql2)) {
+                    ResultSet rs2 = ps2.executeQuery();
+                    while (rs2.next()) {
+                        int width = rs2.getInt("width");
+                        int length = rs2.getInt("length");
+                        predefinedShedWidth.add(width);
+                        predefinedShedLength.add(length);
+                    }
+                listMap.put("shedWidth", predefinedShedWidth);
+                listMap.put("shedLength", predefinedShedLength);
+                }
+            }
+        }
+        return listMap;
+
+    }
 }
