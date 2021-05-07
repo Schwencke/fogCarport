@@ -83,10 +83,10 @@ DROP TABLE IF EXISTS `order`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `order` (
-  `order_id` int NOT NULL,
+  `order_id` int NOT NULL AUTO_INCREMENT,
   `user_id` int NOT NULL,
   `status_id` int NOT NULL DEFAULT '1',
-  `price` double NOT NULL,
+  `price` double NOT NULL DEFAULT '0',
   `time_created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `time_updated` timestamp NOT NULL ON UPDATE CURRENT_TIMESTAMP,
   `carport_length` int NOT NULL,
@@ -301,12 +301,13 @@ CREATE TABLE `user` (
   `name` varchar(90) NOT NULL,
   `address` varchar(90) NOT NULL,
   `postal_code` int NOT NULL,
-  `city` varchar(45) NOT NULL,
   `phone_no` varchar(20) NOT NULL,
   `email` varchar(45) NOT NULL,
   `password` varchar(45) NOT NULL,
   PRIMARY KEY (`user_id`),
   KEY `fk_user_role1_idx` (`role_id`),
+  KEY `fk_user_postal_code1_idx` (`postal_code`),
+  CONSTRAINT `fk_user_postal_code1` FOREIGN KEY (`postal_code`) REFERENCES `postal_code` (`postal_code`),
   CONSTRAINT `fk_user_role1` FOREIGN KEY (`role_id`) REFERENCES `role` (`role_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -317,7 +318,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES (1,2,'Ansat','Adminstratorgade 1',3700,'Rønne','12345678','a@a.dk','a'),(2,1,'Kunde','Kundegade 1',3720,'Aakrikeby','10203040','q@q.dk','q');
+INSERT INTO `user` VALUES (1,2,'Ansat','Adminstratorgade 1',3700,'12345678','a@a.dk','a'),(2,1,'Kunde','Kundegade 1',3720,'10203040','q@q.dk','q');
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -330,4 +331,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-05-06 20:50:03
+-- Dump completed on 2021-05-07 12:55:18

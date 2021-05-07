@@ -3,6 +3,7 @@ package web.commands;
 import business.entities.User;
 import business.services.UserFacade;
 import business.exceptions.UserException;
+import business.services.Utility;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -25,13 +26,16 @@ public class CommandLogin extends CommandUnprotectedPage {
         try {
             User user = userFacade.login(email, password);
 
+            String role = Utility.getNameById(request, "roles", user.getRoleId());
+            String city = Utility.getNameById(request, "cities", user.getPostalCode());
+
             HttpSession session = request.getSession();
-
             session.setAttribute("user", user);
-            session.setAttribute("role", user.getRole());
             session.setAttribute("email", email);
+            session.setAttribute("role", role);
+            session.setAttribute("city", city);
 
-            String pageToShow = user.getRole();
+            String pageToShow = role;
 
             if (pageToShow.equals("salesperson")) {
                 pageToShow = "admin";

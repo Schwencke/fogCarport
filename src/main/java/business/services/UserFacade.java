@@ -1,11 +1,12 @@
 package business.services;
 
 import business.entities.User;
+import business.exceptions.UserException;
 import business.persistence.Database;
 import business.persistence.UserMapper;
-import business.exceptions.UserException;
 
 import java.sql.SQLException;
+import java.util.HashMap;
 
 public class UserFacade {
     UserMapper userMapper;
@@ -18,9 +19,17 @@ public class UserFacade {
         return userMapper.login(email, password);
     }
 
-    public User createUser(String name, String address, int postalCode, String city, String phoneNo, String email, String password) throws UserException {
-        User user = new User(name, address, postalCode, city, phoneNo, email, password);
+    public User createUser(String name, String address, int postalCode, String phoneNo, String email, String password) throws UserException {
+        User user = new User(name, address, postalCode, phoneNo, email, password);
         userMapper.createUser(user);
         return user;
+    }
+
+    public HashMap<Integer, String> getAllRoles() throws UserException {
+        return userMapper.getAllRoles();
+    }
+
+    public HashMap<Integer, String> getAllCities() throws UserException {
+        return userMapper.getAllCities();
     }
 }

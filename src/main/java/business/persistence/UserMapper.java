@@ -1,9 +1,10 @@
 package business.persistence;
 
-import business.exceptions.UserException;
 import business.entities.User;
+import business.exceptions.UserException;
 
 import java.sql.*;
+import java.util.HashMap;
 
 public class UserMapper {
     private Database database;
@@ -14,16 +15,15 @@ public class UserMapper {
 
     public void createUser(User user) throws UserException {
         try (Connection connection = database.connect()) {
-            String sql = "INSERT INTO `user` (`name`, `address`, `postal_code`, `city`, `phone_no`, `email`, `password`) VALUES (?, ?, ?, ?, ?, ?, ?)";
+            String sql = "INSERT INTO `user` (`name`, `address`, `postal_code`, `phone_no`, `email`, `password`) VALUES (?, ?, ?, ?, ?, ?)";
 
             try (PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
                 ps.setString(1, user.getName());
                 ps.setString(2, user.getAddress());
                 ps.setInt(3, user.getPostalCode());
-                ps.setString(4, user.getCity());
-                ps.setString(5, user.getPhoneNo());
-                ps.setString(6, user.getEmail());
-                ps.setString(7, user.getPassword());
+                ps.setString(4, user.getPhoneNo());
+                ps.setString(5, user.getEmail());
+                ps.setString(6, user.getPassword());
                 ps.executeUpdate();
                 ResultSet ids = ps.getGeneratedKeys();
                 ids.next();
@@ -33,7 +33,8 @@ public class UserMapper {
                 throw new UserException(ex.getMessage());
             }
 
-            String sql2 = "SELECT `role_id` FROM user WHERE `user_id`= ?";
+            // Get default user id from database
+            String sql2 = "SELECT `role_id` FROM `user` WHERE `user_id`= ?";
             try (PreparedStatement ps2 = connection.prepareStatement(sql2)) {
                 ps2.setInt(1, user.getUserId());
                 ResultSet rs2 = ps2.executeQuery();
@@ -64,36 +65,62 @@ public class UserMapper {
                     String name = rs.getString("name");
                     String address = rs.getString("address");
                     int postalCode = rs.getInt("postal_code");
-                    String city = rs.getString("city");
                     String phoneNo = rs.getString("phone_no");
                     user.setUserId(userId);
                     user.setRoleId(roleId);
                     user.setName(name);
                     user.setAddress(address);
                     user.setPostalCode(postalCode);
-                    user.setCity(city);
                     user.setPhoneNo(phoneNo);
                     user.setEmail(email);
                     user.setPassword(password);
                 }
-            } catch (SQLException ex) {
-                throw new UserException(ex.getMessage());
-            }
-
-            String sql2 = "SELECT `name` FROM `role` WHERE `role_id` = ?";
-            try (PreparedStatement ps2 = connection.prepareStatement(sql2)) {
-                ps2.setInt(1, user.getRoleId());
-                ResultSet rs2 = ps2.executeQuery();
-                if (rs2.next()) {
-                    String name = rs2.getString("name");
-                    user.setRole(name);
-                    return user;
-                } else {
-                    throw new UserException("Could not validate user");
-                }
+                return user;
             } catch (SQLException ex) {
                 throw new UserException("Connection to database could not be established");
             }
         }
+    }
+
+    public HashMap<Integer, String> getAllRoles() throws UserException {
+        HashMap<Integer, String> roles = new HashMap<>();
+        try (Connection connection = database.connect()) {
+            String sql = "SELECT * FROM `role`";
+
+            try (PreparedStatement ps = connection.prepareStatement(sql)) {
+                ResultSet resultSet = ps.executeQuery();
+                while (resultSet.next()) {
+                    int roleId = resultSet.getInt("role_id");
+                    String name = resultSet.getString("name");
+                    roles.put(roleId, name);
+                }
+            } catch (SQLException ex) {
+                throw new UserException(ex.getMessage());
+            }
+        } catch (SQLException ex) {
+            throw new UserException("Connection to database could not be established");
+        }
+        return roles;
+    }
+
+    public HashMap<Integer, String> getAllCities() throws UserException {
+        HashMap<Integer, String> cities = new HashMap<>();
+        try (Connection connection = database.connect()) {
+            String sql = "SELECT * FROM `postal_code`";
+
+            try (PreparedStatement ps = connection.prepareStatement(sql)) {
+                ResultSet resultSet = ps.executeQuery();
+                while (resultSet.next()) {
+                    int postalCode = resultSet.getInt("postal_code");
+                    String name = resultSet.getString("name");
+                    cities.put(postalCode, name);
+                }
+            } catch (SQLException ex) {
+                throw new UserException(ex.getMessage());
+            }
+        } catch (SQLException ex) {
+            throw new UserException("Connection to database could not be established");
+        }
+        return cities;
     }
 }

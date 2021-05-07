@@ -3,6 +3,7 @@ package web;
 import business.entities.User;
 import business.exceptions.UserException;
 import business.persistence.Database;
+<<<<<<< HEAD
 import business.persistence.OrderMapper;
 import business.services.OrderFacade;
 import web.commands.*;
@@ -15,13 +16,21 @@ import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
+=======
+import business.services.UserFacade;
+import web.commands.Command;
+import web.commands.CommandUnknown;
+
+
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.swing.*;
+
+import java.util.HashMap;
+
 
 @WebServlet(name = "FrontController", urlPatterns = {"/fc/*"})
 public class FrontController extends HttpServlet {
@@ -32,7 +41,8 @@ public class FrontController extends HttpServlet {
     public static Database database;
 
 
-    public void init() {
+    public void init() throws ServletException {
+
         // Initialize database connection
         if (database == null) {
             try {
@@ -44,6 +54,7 @@ public class FrontController extends HttpServlet {
 
         // Initialize global datastructures here:
         ServletContext application = getServletContext();
+
 
         OrderFacade orderFacade = new OrderFacade(database);
         Map<String, List<Integer>> predefined = new HashMap<>();
@@ -61,6 +72,25 @@ public class FrontController extends HttpServlet {
         application.setAttribute("carportLength", predefinedCarportLength);
         application.setAttribute("shedWidth", predefinedShedWidth);
         application.setAttribute("shedLength", predefinedShedLength);
+
+        UserFacade userFacade = new UserFacade(database);
+
+        HashMap<Integer, String> roles;
+        try {
+            roles = userFacade.getAllRoles();
+        } catch (UserException ex) {
+            throw new ServletException(ex.getMessage());
+        }
+        application.setAttribute("roles", roles);
+
+        HashMap<Integer, String> cities;
+        try {
+            cities = userFacade.getAllCities();
+        } catch (UserException ex) {
+            throw new ServletException(ex.getMessage());
+        }
+        application.setAttribute("cities", cities);
+
     }
 
     protected void processRequest(

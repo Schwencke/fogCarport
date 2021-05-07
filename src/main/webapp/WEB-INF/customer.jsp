@@ -4,15 +4,22 @@
 
 <t:genericpage>
     <jsp:attribute name="header">
-         Demo Page for Customer Roles
+         Oversigt
     </jsp:attribute>
     <jsp:attribute name="footer">
     </jsp:attribute>
 
     <jsp:body>
-        <h1>Hello ${sessionScope.email} </h1>
-        You are now logged in as a CUSTOMER.
-        Role: ${sessionScope.role}
+        You are now logged in as a CUSTOMER.<br>
+        Role: ${sessionScope.role}<br>
+        Role ID: ${sessionScope.user.roleId}<br>
+        User: ${sessionScope.user}<br>
+        Name: ${sessionScope.user.name}<br>
+        Email: ${sessionScope.email}<br>
+        Address: ${sessionScope.user.address}<br>
+        PostalCode: ${sessionScope.user.postalCode}<br>
+        City: ${sessionScope.city}<br>
+        PhoneNo: ${sessionScope.user.phoneNo}<br>
     </jsp:body>
 
 </t:genericpage>

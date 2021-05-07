@@ -29,12 +29,14 @@
                         <input id="postalcode" class="form-control" type="text" name="postalcode" value="${param.postalcode}" placeholder="Angiv postnummer">
                     </div>
                 </div>
+                <!--
                 <div class="row mb-3">
                     <label class="col-sm-1 col-form-label" for="city">By</label>
                     <div class="col-sm-4">
                         <input id="city" class="form-control" type="text" name="city" value="${param.city}" placeholder="Angiv by">
                     </div>
                 </div>
+                -->
                 <div class="row mb-3">
                     <label class="col-sm-1 col-form-label" for="phoneno">Telefonnummer</label>
                     <div class="col-sm-4">
