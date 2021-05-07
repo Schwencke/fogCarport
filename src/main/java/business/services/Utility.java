@@ -13,6 +13,7 @@ public class Utility {
     public static String getRoleById(HttpServletRequest request, int userId) {
         ServletContext application = request.getServletContext();
         List<Role> roleList = (List<Role>) application.getAttribute("rolelist");
+
         return roleList.get(userId - 1).getName();
     }
 }

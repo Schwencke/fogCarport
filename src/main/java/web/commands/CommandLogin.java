@@ -1,17 +1,14 @@
 package web.commands;
 
-import business.entities.Role;
 import business.entities.User;
 import business.services.UserFacade;
 import business.exceptions.UserException;
 import business.services.Utility;
 
-import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.sql.SQLException;
-import java.util.List;
 
 public class CommandLogin extends CommandUnprotectedPage {
     private UserFacade userFacade;

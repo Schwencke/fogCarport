@@ -1,7 +1,6 @@
 package web;
 
 import business.entities.Role;
-import business.entities.User;
 import business.exceptions.UserException;
 import business.persistence.Database;
 import business.services.UserFacade;
