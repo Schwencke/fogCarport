@@ -23,10 +23,9 @@ public class CommandCarportRequest extends CommandProtectedPage{
     public String execute(HttpServletRequest request, HttpServletResponse response) throws UserException {
     HttpSession session = request.getSession();
     User user = (User) session.getAttribute("user");
-
-       int carportLength = Integer.parseInt(request.getParameter("carportlength"));
        int carportWidth = Integer.parseInt(request.getParameter("carportwidth"));
-       int claddingId = Integer.parseInt(request.getParameter("cladding"));
+        int carportLength = Integer.parseInt(request.getParameter("carportlength"));
+        int claddingId = Integer.parseInt(request.getParameter("cladding"));
        int roofingId = Integer.parseInt(request.getParameter("roofing"));
        int shedWidth = Integer.parseInt(request.getParameter("shedwidth"));
        int shedLength = Integer.parseInt(request.getParameter("shedlength"));

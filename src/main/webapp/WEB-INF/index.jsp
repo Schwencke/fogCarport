@@ -1,6 +1,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8" %>
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <t:genericpage>
 
     <jsp:attribute name="header">
@@ -15,15 +16,15 @@
         <div class="col-sm-3 col-lg-1"></div>
         <div class="col-sm-6 col-lg-10">
             <div class="row justify-content-center">
-                <label for="width">Carport bredde</label>
-                <select id="width" name="carportwidth" type="text">
+                <label for="carportwidth">Carport bredde</label>
+                <select id="carportwidth" name="carportwidth" type="text">
                     <c:forEach var="carportWidth" items="${applicationScope.carportWidth}">
                         <option value="${carportWidth}">${carportWidth}</option>
                     </c:forEach>
                 </select>
 
-                <label for="længde">Carport længde</label>
-                <select id="længde" name="carportlength" type="text">
+                <label for="carportlength">Carport længde</label>
+                <select id="carportlength" name="carportlength" type="text">
                     <c:forEach var="carportLength" items="${applicationScope.carportLength}">
                         <option value="${carportLength}">${carportLength}</option>
                     </c:forEach>
@@ -56,25 +57,54 @@
                     </c:forEach>
                 </select><br>
 
-                <label for="name">Navn</label>
-                <input id="name" name="name" type="text"><br>
-                <label for="address">Adresse</label>
-                <input id="address" name="address" type="text"><br>
-                <label for="postalCode">Postnummer</label>
-                <input id="postalCode" name="postalCode">
-                <label for="phoneNo">Telefon</label>
-                <input id="phoneNo" type="text"><br>
-                <label for="email">E-mail adresse</label>
-                <input id="email" type="text"><br>
-                <label for="etc">Evt. bemærkninger</label>
-                <input id="etc" type="text"><br>
-                <button type="submit">Send forspørgsel</button>
+<%--                <label for="name">Navn</label>--%>
+<%--                <input id="name" name="name" type="text"><br>--%>
+<%--                <label for="address">Adresse</label>--%>
+<%--                <input id="address" name="address" type="text"><br>--%>
+<%--                <label for="postalCode">Postnummer</label>--%>
+<%--                <input id="postalCode" name="postalCode">--%>
+<%--                <label for="phoneNo">Telefon</label>--%>
+<%--                <input id="phoneNo" type="text"><br>--%>
+<%--                <label for="email">E-mail adresse</label>--%>
+<%--                <input id="email" type="text"><br>--%>
+<%--                <label for="etc">Evt. bemærkninger</label>--%>
+<%--                <input id="etc" type="text"><br>--%>
+            </form>
+                <c:choose>
+                <c:when test="${sessionScope.user != null}">
+                <button class="btn-outline-success mt-5" onclick="cleardata()" type="submit">Send forspørgsel</button>
+                </c:when>
+                <c:otherwise>
+                        <button class="btn btn-outline-primary" type="button" data-toggle="collapse" data-target="#collapseLogin" aria-expanded="false" aria-controls="collapseExample">
+                           Du skal logge ind før du kan sende en forspørgsel
+                        </button>
+                    <div class="collapse" id="collapseLogin">
+                        <div class="card card-body">
+                            <form class="px-4 py-3" action="${pageContext.request.contextPath}/fc/commandlogin"
+                                  method="post">
+                                <div class="form-group">
+                                    <label for="email">Email address</label>
+                                    <input type="email" class="form-control" id="email" name="email" required
+                                           placeholder="Indtast email">
+                                </div>
+                                <div class="form-group">
+                                    <label for="password">Password</label>
+                                    <input type="password" class="form-control" id="password" name="password" required
+                                           placeholder="Indtast password">
+                                </div>
+                                <button type="submit" onclick="storedata()" <c:set var="front"  scope="session" value="1"/> class="btn btn-primary mt-2">Login</button>
+                            </form>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="${pageContext.request.contextPath}/fc/registerpage">Ikke
+                                registeret endnu?</a>
+                        </div>
+                    </div>
 
+                    --
+                </c:otherwise>
+                </c:choose>
                 <p>* Hvis du f.eks. har valgt en carport med målene 240x360 cm kan redskabsrummet maksimalt måle 210x330
                     cm.</p>
-            </div>
-        </div>
-        </form>
         <div class="col-sm-3 col-lg-1"></div>
 
     </jsp:body>
