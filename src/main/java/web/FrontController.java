@@ -1,18 +1,22 @@
 package web;
 
 //<editor-fold desc="Imports">
+
 import business.exceptions.UserException;
 import business.persistence.Database;
 import business.services.OrderFacade;
+
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.sql.SQLException;
 import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import business.services.UserFacade;
 import web.commands.Command;
 import web.commands.CommandUnknown;
+
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -64,7 +68,6 @@ public class FrontController extends HttpServlet {
         application.setAttribute("shedLength", predefinedShedLength);
 
         UserFacade userFacade = new UserFacade(database);
-
         HashMap<Integer, String> roles;
         try {
             roles = userFacade.getAllRoles();
@@ -72,6 +75,14 @@ public class FrontController extends HttpServlet {
             throw new ServletException(ex.getMessage());
         }
         application.setAttribute("roles", roles);
+
+        HashMap<Integer, String> status;
+        try {
+            status = orderFacade.getAllStatus();
+        } catch (UserException ex) {
+            throw new ServletException(ex.getMessage());
+        }
+        application.setAttribute("status", status);
 
         HashMap<Integer, String> cities;
         try {
@@ -92,17 +103,20 @@ public class FrontController extends HttpServlet {
         HashMap<Integer, String> clads = new HashMap<>();
         for (Integer value : cladding.values()) {
             for (Integer integer : cladding.keySet()) {
-                clads.put(integer,orderFacade.getMaterialNameById(value));
-            }}
-        application.setAttribute("claddinglist",clads);
+                clads.put(integer, orderFacade.getMaterialNameById(value));
+            }
+        }
+        application.setAttribute("claddinglist", clads);
 
         HashMap<Integer, String> roofs = new HashMap<>();
         for (Integer value : roofing.values()) {
             for (Integer integer : cladding.keySet()) {
-            roofs.put(integer,orderFacade.getMaterialNameById(value));
-        }}
+                roofs.put(integer, orderFacade.getMaterialNameById(value));
+            }
+        }
         application.setAttribute("roofinglist", roofs);
     }
+
     protected void processRequest(
             HttpServletRequest request,
             HttpServletResponse response)

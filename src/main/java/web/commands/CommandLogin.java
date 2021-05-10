@@ -13,6 +13,7 @@ import java.sql.SQLException;
 public class CommandLogin extends CommandUnprotectedPage {
     private UserFacade userFacade;
     String pageToShow;
+
     public CommandLogin(String pageToShow) {
         super(pageToShow);
         userFacade = new UserFacade(database);
@@ -34,11 +35,13 @@ public class CommandLogin extends CommandUnprotectedPage {
             session.setAttribute("email", email);
             session.setAttribute("role", role);
             session.setAttribute("city", city);
-            if (session.getAttribute("front")!=null){
+
+            if (session.getAttribute("front") != null) {
                 pageToShow = "index";
             } else {
                 pageToShow = role;
             }
+
             if (pageToShow.equals("salesperson")) {
                 pageToShow = "admin";
             }

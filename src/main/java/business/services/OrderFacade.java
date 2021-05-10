@@ -7,6 +7,7 @@ import business.persistence.Database;
 import business.persistence.OrderMapper;
 
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -23,7 +24,15 @@ public class OrderFacade {
     }
 
     public Order getOrderById(int orderNo) throws UserException {
-       return orderMapper.getOrder(orderNo);
+       return orderMapper.getOrderById(orderNo);
+    }
+
+    public List<Order> getAllOrders() throws UserException {
+        return orderMapper.getAllOrders();
+    }
+
+    public List<Order> getAllOrdersById(int userId) throws UserException {
+        return orderMapper.getAllOrdersById(userId);
     }
 
     public Map<String, List<Integer>> getPredefined() throws SQLException {
@@ -42,6 +51,10 @@ public class OrderFacade {
 
     public String getMaterialNameById(int id){
         return orderMapper.getMaterialNameById(id);
+    }
+
+    public HashMap<Integer, String> getAllStatus() throws UserException {
+        return orderMapper.getAllStatus();
     }
 
 }

@@ -29,6 +29,20 @@ public class Order {
         this.shedLength = shedLength;
     }
 
+    public Order(int orderId, int statusId, double price, Timestamp timeCreated, Timestamp timeUpdated, int carportLength, int carportWidth, int claddingId, int roofingId, int shedWidth, int shedLength) {
+        this.orderId = orderId;
+        this.statusId = statusId;
+        this.price = price;
+        this.timeCreated = timeCreated;
+        this.timeUpdated = timeUpdated;
+        this.carportLength = carportLength;
+        this.carportWidth = carportWidth;
+        this.claddingId = claddingId;
+        this.roofingId = roofingId;
+        this.shedWidth = shedWidth;
+        this.shedLength = shedLength;
+    }
+
     public Order(int orderId, int userId, int statusId, double price, Timestamp timeCreated, Timestamp timeUpdated, int carportLength, int carportWidth, int claddingId, int roofingId, int shedWidth, int shedLength) {
         this.orderId = orderId;
         this.userId = userId;

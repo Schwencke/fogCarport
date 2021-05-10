@@ -33,30 +33,31 @@
                     <th>Status</th>
                     </thead>
                     <c:forEach var="orderlist" items="${sessionScope.orderlist}">
-                        <c:if test="${orderlist.statusId != 3}">
+                        <c:if test="${orderlist.statusId != 5}">
                             <tr>
                                 <td>${orderlist.orderId}</td>
                                 <td><input type="hidden" name="user_id" value="${orderlist.userId}">${orderlist.userId}
                                 </td>
-                                <td>${orderlist.priceTotal}</td>
-                                <td>${orderlist.created}</td>
-                                <td>${applicationScope.statuslist.get(orderlist.statusId-1).name}</td>
-                                <c:if test="${orderlist.statusId == 1}">
-                                    <td>
-                                        <button type="submit" name="delete" title="Tryk her for at slette ordren"
-                                                value="${orderlist.orderId}">Slet ordre
-                                        </button>
-                                    </td>
-                                </c:if>
-                                <c:if test="${orderlist.statusId == 2}">
-                                    <td>
-                                        <button type="submit" name="delete"
-                                                title="Du kan ikke slette en gennemført ordre" disabled
-                                                value="${orderlist.orderId}">Slet
-                                            ordre
-                                        </button>
-                                    </td>
-                                </c:if>
+                                <td>${orderlist.timeCreated}</td>
+                                <td>${orderlist.timeUpdated}</td>
+                                <td>${orderlist.price}</td>
+                                <td>${applicationScope.status.get(orderlist.statusId)}</td>
+<%--                                <c:if test="${orderlist.statusId == 1}">--%>
+<%--                                    <td>--%>
+<%--                                        <button type="submit" name="delete" title="Tryk her for at slette ordren"--%>
+<%--                                                value="${orderlist.orderId}">Slet ordre--%>
+<%--                                        </button>--%>
+<%--                                    </td>--%>
+<%--                                </c:if>--%>
+<%--                                <c:if test="${orderlist.statusId == 2}">--%>
+<%--                                    <td>--%>
+<%--                                        <button type="submit" name="delete"--%>
+<%--                                                title="Du kan ikke slette en gennemført ordre" disabled--%>
+<%--                                                value="${orderlist.orderId}">Slet--%>
+<%--                                            ordre--%>
+<%--                                        </button>--%>
+<%--                                    </td>--%>
+<%--                                </c:if>--%>
                             </tr>
                         </c:if>
                     </c:forEach>
