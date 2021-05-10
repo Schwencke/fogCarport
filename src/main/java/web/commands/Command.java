@@ -18,15 +18,16 @@ public abstract class Command {
 
     private static void initCommands(Database database) {
         commands = new HashMap<>();
-        commands.put("index", new CommandUnprotectedPage("index"));
-        commands.put("login", new CommandUnprotectedPage("login"));
-        commands.put("commandlogin", new CommandLogin(""));
-        commands.put("commandlogout", new CommandLogout(""));
-        commands.put("signup", new CommandUnprotectedPage("signup"));
-        commands.put("commandsignup", new CommandSignup(""));
-        commands.put("customer", new CommandOrderList("customer", "customer"));
         commands.put("admin", new CommandOrderList("admin", "salesperson"));
         commands.put("carportrequest", new CommandCarportRequest("index", "customer"));
+        commands.put("commandlogin", new CommandLogin(""));
+        commands.put("commandlogout", new CommandLogout(""));
+        commands.put("commandsignup", new CommandSignup(""));
+        commands.put("customer", new CommandOrderList("customer", "customer"));
+        commands.put("index", new CommandUnprotectedPage("index"));
+        commands.put("login", new CommandUnprotectedPage("login"));
+        commands.put("customerorder", new CommandOrder("order", "customer"));
+        commands.put("signup", new CommandUnprotectedPage("signup"));
     }
 
     public static Command fromPath(

@@ -23,8 +23,8 @@ public class OrderFacade {
        orderMapper.createOrder(order);
     }
 
-    public Order getOrderById(int orderNo) throws UserException {
-       return orderMapper.getOrderById(orderNo);
+    public Order getOrderById(int orderId) throws UserException {
+       return orderMapper.getOrderById(orderId);
     }
 
     public List<Order> getAllOrders() throws UserException {

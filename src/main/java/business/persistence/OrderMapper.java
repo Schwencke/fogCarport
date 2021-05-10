@@ -43,15 +43,15 @@ public class OrderMapper {
     //</editor-fold>
 
     //<editor-fold desc="getOrderById">
-    public Order getOrderById(int orderNo) {
+    public Order getOrderById(int orderId) {
         Order order = new Order();
         try (Connection connection = database.connect()) {
-            String sql = "SELECT * FROM `order`";
+            String sql = "SELECT * FROM `order` WHERE `order_id` = ?";
 
             try (PreparedStatement ps = connection.prepareStatement(sql)) {
+                ps.setInt(1, orderId);
                 ResultSet rs = ps.executeQuery();
                 while (rs.next()) {
-                    int orderId = rs.getInt("order_id");
                     int userId = rs.getInt("user_id");
                     int statusId = rs.getInt("status_id");
                     double price = rs.getDouble("price");
