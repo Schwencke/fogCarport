@@ -91,8 +91,8 @@ CREATE TABLE `order` (
   `time_updated` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `carport_length` int NOT NULL,
   `carport_width` int NOT NULL,
-  `cladding_id` int NOT NULL,
-  `roofing_id` int NOT NULL,
+  `cladding_id` int DEFAULT NULL,
+  `roofing_id` int DEFAULT NULL,
   `shed_width` int DEFAULT NULL,
   `shed_length` int DEFAULT NULL,
   PRIMARY KEY (`order_id`),
@@ -104,7 +104,7 @@ CREATE TABLE `order` (
   CONSTRAINT `fk_order_roofing1` FOREIGN KEY (`roofing_id`) REFERENCES `roofing` (`roof_id`),
   CONSTRAINT `fk_order_status1` FOREIGN KEY (`status_id`) REFERENCES `status` (`status_id`),
   CONSTRAINT `fk_order_user1` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -113,6 +113,7 @@ CREATE TABLE `order` (
 
 LOCK TABLES `order` WRITE;
 /*!40000 ALTER TABLE `order` DISABLE KEYS */;
+INSERT INTO `order` VALUES (1,2,1,0,'2021-05-10 09:20:37','2021-05-10 09:20:37',240,240,1,1,0,0),(2,2,1,0,'2021-05-10 10:26:59','2021-05-10 10:26:59',240,240,1,1,0,0),(3,2,1,0,'2021-05-10 10:28:25','2021-05-10 10:28:25',300,300,1,1,0,0),(4,2,1,0,'2021-05-10 10:33:36','2021-05-10 10:33:36',240,240,1,1,0,0),(5,2,1,0,'2021-05-10 10:37:46','2021-05-10 10:37:46',240,240,1,1,0,0),(6,2,1,0,'2021-05-10 10:38:27','2021-05-10 10:38:27',240,240,1,1,0,0),(7,2,1,0,'2021-05-10 10:39:44','2021-05-10 10:39:44',240,240,1,1,0,0),(8,2,1,0,'2021-05-10 10:41:20','2021-05-10 10:41:20',240,240,1,1,0,0),(9,2,1,0,'2021-05-10 10:43:09','2021-05-10 10:43:09',240,240,1,1,0,0),(10,2,1,0,'2021-05-10 10:45:12','2021-05-10 10:45:12',240,240,1,1,0,0),(11,2,1,0,'2021-05-10 10:47:32','2021-05-10 10:47:32',240,240,1,1,0,0),(12,2,1,0,'2021-05-10 10:50:45','2021-05-10 10:50:45',240,240,1,1,0,0),(13,2,1,0,'2021-05-10 10:52:35','2021-05-10 10:52:35',240,240,1,1,0,0),(14,2,1,0,'2021-05-10 10:56:11','2021-05-10 10:56:11',240,240,1,1,0,0);
 /*!40000 ALTER TABLE `order` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -309,7 +310,7 @@ CREATE TABLE `user` (
   KEY `fk_user_postal_code1_idx` (`postal_code`),
   CONSTRAINT `fk_user_postal_code1` FOREIGN KEY (`postal_code`) REFERENCES `postal_code` (`postal_code`),
   CONSTRAINT `fk_user_role1` FOREIGN KEY (`role_id`) REFERENCES `role` (`role_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -318,7 +319,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES (1,2,'Ansat','Adminstratorgade 1',3700,'12345678','a@a.dk','a'),(2,1,'Kunde','Kundegade 1',3720,'10203040','q@q.dk','q');
+INSERT INTO `user` VALUES (1,2,'Ansat','Adminstratorgade 1',3700,'12345678','a@a.dk','a'),(2,1,'Kunde','Kundegade 1',3720,'10203040','q@q.dk','q'),(6,1,'5','5',3720,'5','5','');
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -331,4 +332,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-05-07 12:55:18
+-- Dump completed on 2021-05-10 13:56:52
