@@ -1,10 +1,12 @@
 window.onload = function (){
-    console.log("førkald")
+
     if ((localStorage.getItem("carportwidth"))!==null){
-        console.log("ikald")
+
         document.getElementById("carportwidth").value = localStorage.getItem("carportwidth");
         document.getElementById("carportlength").value = localStorage.getItem("carportlength");
-    } else console.log("ikkegennemført")
+        document.getElementById("shedWidth").value = localStorage.getItem("shedwidth");
+        document.getElementById("shedLength").value = localStorage.getItem("shedlength");
+    }
 }
 
 
@@ -12,11 +14,10 @@ window.onload = function (){
 function storedata(){
     if(typeof (Storage) !== "undefined"){
     localStorage.setItem("carportwidth",document.getElementById("carportwidth").value);
-    localStorage.setItem("carportlength",document.getElementById("carportlength").value)
-    console.log("all gut")
-}else{
-        console.log("not gut")
-    }
+    localStorage.setItem("carportlength",document.getElementById("carportlength").value);
+    localStorage.setItem("shedwidth",document.getElementById("shedWidth").value);
+    localStorage.setItem("shedlength",document.getElementById("shedLength").value)
+}
 }
 
 function cleardata(){
