@@ -4,25 +4,29 @@ import business.entities.Order;
 import business.entities.User;
 import business.exceptions.UserException;
 import business.services.OrderFacade;
+import business.services.Utility;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.util.List;
 
 public class CommandCarportRequest extends CommandProtectedPage {
-    Order order;
     protected OrderFacade orderFacade;
+    Order order;
+    List<Order> orderList;
 
     public CommandCarportRequest(String pageToShow, String role) {
         super(pageToShow, role);
         this.orderFacade = new OrderFacade(database);
     }
 
-
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws UserException {
         HttpSession session = request.getSession();
+
         User user = (User) session.getAttribute("user");
+
         int carportWidth = Integer.parseInt(request.getParameter("carportwidth"));
         int carportLength = Integer.parseInt(request.getParameter("carportlength"));
         int claddingId = Integer.parseInt(request.getParameter("cladding"));
@@ -30,6 +34,9 @@ public class CommandCarportRequest extends CommandProtectedPage {
         int shedWidth = Integer.parseInt(request.getParameter("shedwidth"));
         int shedLength = Integer.parseInt(request.getParameter("shedlength"));
         int userId = user.getUserId();
+
+        pageToShow = "index";
+
         if (carportWidth > 0) {
             if (carportLength > 0) {
                 if ((shedWidth == 0 && shedLength == 0) || (shedWidth > 0 && shedLength > 0)) {
@@ -46,9 +53,19 @@ public class CommandCarportRequest extends CommandProtectedPage {
                         order.setShedLength(shedLength);
                     }
 
+                    // Create order
                     orderFacade.createOrder(order);
 
+                    // Update orderlist
+                    orderList = orderFacade.getAllOrdersById(user.getUserId());
+                    session.setAttribute("orderlist", orderList);
+
+                    // Output to user
                     request.setAttribute("msg", "Forespørgslen er sendt");
+
+                    // Page to show
+                    String role = Utility.getNameById(request, "roles", user.getRoleId());
+                    pageToShow = role;
                 } else {
                     request.setAttribute("error", "vælg begge mål til skur");
                 }
@@ -57,7 +74,6 @@ public class CommandCarportRequest extends CommandProtectedPage {
             }
         } else {
             request.setAttribute("error", "Mangler bredde");
-
         }
         return pageToShow;
     }

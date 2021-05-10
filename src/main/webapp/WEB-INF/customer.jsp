@@ -66,7 +66,12 @@
                 Byg din første carport <a class="text-dark" href="${pageContext.request.contextPath}">her</a>.
             </c:otherwise>
         </c:choose>
+        <c:if test="${requestScope.msg != null }">
+            <p style="color:green">
+                <script>cleardata()</script>
+                    ${requestScope.msg}
+            </p>
+        </c:if>
     </jsp:body>
-
 </t:genericpage>
 

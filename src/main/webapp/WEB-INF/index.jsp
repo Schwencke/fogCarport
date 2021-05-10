@@ -14,51 +14,50 @@
     <jsp:body>
         <form method="post" action="${pageContext.request.contextPath}/fc/carportrequest">
         <div class="row justify-content-center">
-        <label for="carportwidth">Carport bredde</label>
-        <select id="carportwidth" name="carportwidth" type="text">
-            <option value="0">Vælg bredde</option>
-            <c:forEach var="carportWidth" items="${applicationScope.carportWidth}">
-                <option value="${carportWidth}">${carportWidth}</option>
-            </c:forEach>
-        </select>
-        <label for="carportlength">Carport længde</label>
-        <select id="carportlength" name="carportlength" type="text">
-            <option value="0">Vælg længde</option>
-            <c:forEach var="carportLength" items="${applicationScope.carportLength}">
-                <option value="${carportLength}">${carportLength}</option>
-            </c:forEach>
-        </select><br>
+            <label for="carportwidth">Carport bredde</label>
+            <select id="carportwidth" name="carportwidth" type="text">
+                <option value="0">Vælg bredde</option>
+                <c:forEach var="carportWidth" items="${applicationScope.carportWidth}">
+                    <option value="${carportWidth}">${carportWidth}</option>
+                </c:forEach>
+            </select>
+            <label for="carportlength">Carport længde</label>
+            <select id="carportlength" name="carportlength" type="text">
+                <option value="0">Vælg længde</option>
+                <c:forEach var="carportLength" items="${applicationScope.carportLength}">
+                    <option value="${carportLength}">${carportLength}</option>
+                </c:forEach>
+            </select><br>
 
-        <label for="roof">Tag</label>
-        <select id="roof" name="roofing" type="text">
-            <c:forEach var="roofing" items="${applicationScope.roofinglist}">
-                <option value="${roofing.key}">${roofing.value}</option>
-            </c:forEach>
-        </select><br>
-        <label for="cladding">Beklædning</label>
-        <select id="cladding" name="cladding" type="text">
-            <c:forEach var="cladding" items="${applicationScope.claddinglist}">
-                <option value="${cladding.key}">${cladding.value}</option>
-            </c:forEach>
-        </select><br>
+            <label for="roof">Tag</label>
+            <select id="roof" name="roofing" type="text">
+                <c:forEach var="roofing" items="${applicationScope.roofinglist}">
+                    <option value="${roofing.key}">${roofing.value}</option>
+                </c:forEach>
+            </select><br>
+            <label for="cladding">Beklædning</label>
+            <select id="cladding" name="cladding" type="text">
+                <c:forEach var="cladding" items="${applicationScope.claddinglist}">
+                    <option value="${cladding.key}">${cladding.value}</option>
+                </c:forEach>
+            </select><br>
 
-        <label>Redskabsrum: NB! Der skal beregnes 15 cm tagudhæng på hver side af redskabsrummet*</label>
-        <label for="shedWidth">Redskabsrum bredde</label>
-        <select id="shedWidth" name="shedwidth" type="text">
-            <option value="0">Ønsker ikke redskabsrum</option>
-            <c:forEach var="shedWidth" items="${applicationScope.shedWidth}">
-                <option value="${shedWidth}">${shedWidth}</option>
-            </c:forEach>
-        </select><br>
-        <label for="shedLength">Redskabsrum længde</label>
-        <select id="shedLength" name="shedlength" type="text">
-            <option value="0">Ønsker ikke redskabsrum</option>
-            <c:forEach var="shedLength" items="${applicationScope.shedLength}">
-                <option value="${shedLength}">${shedLength}</option>
-            </c:forEach>
-        </select><br>
+            <label>Redskabsrum: NB! Der skal beregnes 15 cm tagudhæng på hver side af redskabsrummet*</label>
+            <label for="shedWidth">Redskabsrum bredde</label>
+            <select id="shedWidth" name="shedwidth" type="text">
+                <option value="0">Ønsker ikke redskabsrum</option>
+                <c:forEach var="shedWidth" items="${applicationScope.shedWidth}">
+                    <option value="${shedWidth}">${shedWidth}</option>
+                </c:forEach>
+            </select><br>
+            <label for="shedLength">Redskabsrum længde</label>
+            <select id="shedLength" name="shedlength" type="text">
+                <option value="0">Ønsker ikke redskabsrum</option>
+                <c:forEach var="shedLength" items="${applicationScope.shedLength}">
+                    <option value="${shedLength}">${shedLength}</option>
+                </c:forEach>
+            </select><br>
         </div>
-
 
         <c:choose>
             <c:when test="${sessionScope.user != null}">
@@ -101,15 +100,15 @@
         <p>* Hvis du f.eks. har valgt en carport med målene 240x360 cm kan redskabsrummet maksimalt måle 210x330
             cm.</p>
         <div class="col-sm-3 col-lg-1"></div>
+<%--        <c:if test="${requestScope.msg != null }">--%>
+<%--            <p style="color:green">--%>
+<%--                <script>cleardata()</script>--%>
+<%--                    ${requestScope.msg}--%>
+<%--            </p>--%>
+<%--        </c:if>--%>
         <c:if test="${requestScope.error != null }">
             <p style="color:red">
                     ${requestScope.error}
-            </p>
-        </c:if>
-        <c:if test="${requestScope.msg != null }">
-            <p style="color:green">
-                    <script>cleardata()</script>
-                    ${requestScope.msg}
             </p>
         </c:if>
     </jsp:body>
