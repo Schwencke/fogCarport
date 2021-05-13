@@ -251,12 +251,12 @@ public class OrderMapper {
     //</editor-fold>
 
     //<editor-fold desc="getMaterialNameById">
-    public String getMaterialNameById(int material_id) {
+    public String getMaterialNameById(int materialId) {
         String materialName = "";
         try (Connection connection = database.connect()) {
             String sql = "SELECT `name` FROM `material` WHERE `material_id`=?";
             try (PreparedStatement ps = connection.prepareStatement(sql)) {
-                ps.setInt(1, material_id);
+                ps.setInt(1, materialId);
 
                 ResultSet rs = ps.executeQuery();
                 while (rs.next()) {

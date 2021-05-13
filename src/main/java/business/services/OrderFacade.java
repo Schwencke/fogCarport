@@ -1,6 +1,5 @@
 package business.services;
 
-
 import business.entities.Order;
 import business.exceptions.UserException;
 import business.persistence.Database;
@@ -10,7 +9,6 @@ import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 
 public class OrderFacade {
     OrderMapper orderMapper;
