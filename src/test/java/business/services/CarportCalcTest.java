@@ -34,4 +34,52 @@ class CarportCalcTest {
         arrayList.add(360);
         assertEquals(arrayList, carportCalc.calcRoofing(600, 780));
     }
+
+    @Test
+    void sternUnderFrontAndBack() {
+        List<Integer> arrayList = new ArrayList<>();
+        arrayList.add(4);
+        arrayList.add(360);
+        assertEquals(arrayList, carportCalc.calcStern(2, 600));
+    }
+
+    @Test
+    void sternUnderSides() {
+        List<Integer> arrayList = new ArrayList<>();
+        arrayList.add(4);
+        arrayList.add(540);
+        assertEquals(arrayList, carportCalc.calcStern(2, 780));
+    }
+
+    @Test
+    void sternOverFront() {
+        List<Integer> arrayList = new ArrayList<>();
+        arrayList.add(2);
+        arrayList.add(360);
+        assertEquals(arrayList, carportCalc.calcStern(1, 600));
+    }
+
+    @Test
+    void sternOverSides() {
+        List<Integer> arrayList = new ArrayList<>();
+        arrayList.add(4);
+        arrayList.add(540);
+        assertEquals(arrayList, carportCalc.calcStern(2, 780));
+    }
+
+    @Test
+    void sternWaterSides() {
+        List<Integer> arrayList = new ArrayList<>();
+        arrayList.add(4);
+        arrayList.add(540);
+        assertEquals(arrayList, carportCalc.calcStern(2, 780));
+    }
+
+    @Test
+    void sternWaterFront() {
+        List<Integer> arrayList = new ArrayList<>();
+        arrayList.add(2);
+        arrayList.add(360);
+        assertEquals(arrayList, carportCalc.calcStern(2, 600));
+    }
 }

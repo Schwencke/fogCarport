@@ -43,10 +43,43 @@ public class CarportCalc {
 
         return minAmount + countWidth;
     }
-    //</editor-fold>
 
-    //<editor-fold desc="Cladding">
+    public List<Integer> calcStern(int minAmount, int size) {
+        int[] sternLengths = {360, 540}; //{210, 240, 270, 300, 330, 360, 390, 420, 450, 480, 510, 540, 570, 600};
 
+        List<Integer> sternList = new ArrayList<>();
+
+        int length = size;
+        int prevLength = 0;
+
+        for (int i = sternLengths.length - 1; i > 0; i--) {
+            if ((length) >= sternLengths[i]) {
+
+                if (sternLengths[i] != prevLength) {
+                    sternList.add(minAmount);
+                    sternList.add(sternLengths[i]);
+                    prevLength = sternLengths[i];
+                } else {
+                    int prevAmount = sternList.get(sternList.size() - 2);
+                    sternList.set(sternList.size() - 2, prevAmount + minAmount);
+                }
+                length -= sternLengths[i];
+
+                // Compare lengths to repeat current index
+                if (length > sternLengths[i]) {
+                    i++;
+                }
+            }
+        }
+
+        // Minimum length size
+        if (length > 0) {
+            sternList.add(minAmount);
+            sternList.add(sternLengths[0]);
+        }
+
+        return sternList;
+    }
     //</editor-fold>
 
     //<editor-fold desc="Roofing">
@@ -78,8 +111,4 @@ public class CarportCalc {
         return roofList;
     }
     //</editor-fold>
-
-    //<editor-fold desc="Attachment">
-
-    // </editor-fold>
 }
