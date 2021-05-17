@@ -34,7 +34,10 @@ public class CommandOrderList extends CommandProtectedPage {
         if (pageToShow.equals("salesperson")) {
             orderList = orderFacade.getAllOrders();
             pageToShow = "admin";
-        } else {
+        } if (pageToShow.equals("admin")){
+            orderList = orderFacade.getAllOrders();
+            pageToShow = "admin";
+        }else {
             orderList = orderFacade.getAllOrdersById(user.getUserId());
         }
 
