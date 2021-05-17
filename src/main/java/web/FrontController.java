@@ -3,6 +3,7 @@ package web;
 //<editor-fold desc="Imports">
 import business.exceptions.UserException;
 import business.persistence.Database;
+import business.services.MaterialFacade;
 import business.services.OrderFacade;
 
 import java.io.IOException;
@@ -88,6 +89,15 @@ public class FrontController extends HttpServlet {
             throw new ServletException(ex.getMessage());
         }
         application.setAttribute("cities", cities);
+
+        MaterialFacade materialFacade = new MaterialFacade(database);
+        HashMap<Integer, String> units;
+        try {
+            units = materialFacade.getAllUnits();
+        } catch (UserException ex) {
+            throw new ServletException(ex.getMessage());
+        }
+        application.setAttribute("units", units);
 
         HashMap<Integer, Integer> roofing = null;
         try {
