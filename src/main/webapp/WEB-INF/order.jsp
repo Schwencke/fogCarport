@@ -103,8 +103,9 @@
                                     data-target="#collapseUpdate" aria-expanded="false" aria-controls="collapseUpdate">
                                 Rediger ordre
                             </button>
-                            <form action="#" method="post">
-                            <input type="hidden" value="${sessionScope.order.orderId}">
+                            <form action="${pageContext.request.contextPath}/fc/updatestatus" method="post">
+                            <input type="hidden" name="orderid" value="${sessionScope.order.orderId}">
+                            <input type="hidden" name="statusid" value="5">
                             <button class="btn btn-outline-danger" type="submit">Slet ordre</button>
                             </form>
                             <div class="collapse" id="collapseUpdate">

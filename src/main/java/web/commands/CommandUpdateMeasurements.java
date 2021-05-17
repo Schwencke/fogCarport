@@ -35,8 +35,7 @@ public class CommandUpdateMeasurements extends CommandProtectedPage {
 
         orderFacade.updateShedMeasurementsById(orderId, shedLength, shedWidth);
 
-        statusId = Integer.parseInt(request.getParameter("statusid"));
-        orderFacade.updateStatusById(statusId, orderId);
+
         return pageToShow;
     }
 }
