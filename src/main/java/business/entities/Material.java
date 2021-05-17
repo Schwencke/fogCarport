@@ -14,8 +14,12 @@ public class Material {
     public Material() {
     }
 
-    public Material(int materialID, int quantity) {
+    public Material(int materialID, String name, String description, double price, int unitId, int quantity) {
         this.materialID = materialID;
+        this.name = name;
+        this.description = description;
+        this.price = price;
+        this.unitId = unitId;
         this.quantity = quantity;
     }
 
