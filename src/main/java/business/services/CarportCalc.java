@@ -27,14 +27,14 @@ public class CarportCalc {
         // Calculate
         int minAmount = 4;
 
-        int offsetW1 = 35;
-        int offsetW2 = 35;
-        int maxWidth = 530;
+        int offsetW1 = 350;
+        int offsetW2 = 350;
+        int maxWidth = 5300;
         int countWidth = ((carportWidth - offsetW1 - offsetW2) / (maxWidth + 1)) * 2;
 
-        int offsetL1 = 100;
-        int offsetL2 = 20;
-        int maxLength = 330;
+        int offsetL1 = 1000;
+        int offsetL2 = 200;
+        int maxLength = 3300;
         int countLength = ((carportLength - offsetL1 - offsetL2) / (maxLength + 1)) * 2;
 
         int postTotal = minAmount + countWidth + countLength;
@@ -64,15 +64,16 @@ public class CarportCalc {
         // Calculate
         List<Object> result = new ArrayList<>();
         int minAmount = 2;
-        int offsetW1 = 35;
-        int offsetW2 = 35;
-        int maxWidth = 530;
+        int offsetW1 = 350;
+        int offsetW2 = 350;
+        int maxWidth = 5300;
         int countWidth = (carportWidth - offsetW1 - offsetW2) / (maxWidth + 1);
 
         // Length sizes
         int length = carportLength;
         for (int i = availableLenghts.size() - 1; i > 0; i--) {
-            if ((length) >= availableLenghts.get(i)) {
+            int test = availableLenghts.get(i);
+            if ((length) >= test) {
                 result.add(materialList.get(i).getMaterialID());
                 result.add(minAmount + countWidth);
                 result.add(materialList.get(i).getPrice());
@@ -95,7 +96,7 @@ public class CarportCalc {
     public int calcRafter(int carportLength) {
         int minAmount = 2;
 
-        int maxWidth = 55;
+        int maxWidth = 550;
         int countWidth = carportLength / (maxWidth + 1);
 
         return minAmount + countWidth;

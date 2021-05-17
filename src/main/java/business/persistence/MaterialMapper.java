@@ -57,7 +57,7 @@ public class MaterialMapper {
         try (Connection connection = database.connect()) {
             String sql = "SELECT * FROM `material` WHERE `description` = ?";
             try (PreparedStatement ps = connection.prepareStatement(sql)) {
-                ps.setString(3, description);
+                ps.setString(1, description);
                 ResultSet rs = ps.executeQuery();
                 while (rs.next()) {
                     int materialId = rs.getInt("material_id");

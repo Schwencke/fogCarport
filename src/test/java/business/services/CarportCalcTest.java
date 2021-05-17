@@ -36,17 +36,21 @@ class CarportCalcTest {
         result.add(1601);
         result.add(6);
         result.add(112.5);
-        assertEquals(result, carportCalc.calcPost(600, 780));
+        assertEquals(result, carportCalc.calcPost(6000, 7800));
     }
 
     @Test
     void calcBeam() throws UserException {
-        //assertEquals(2, carportCalc.calcBeam(600, 780));
+        List<Object> result = new ArrayList<>();
+        result.add(1601);
+        result.add(6);
+        result.add(112.5);
+        assertEquals(result, carportCalc.calcBeam(6000, 7800));
     }
 
     @Test
     void calcRafter() {
-        assertEquals(15, carportCalc.calcRafter(780));
+        assertEquals(15, carportCalc.calcRafter(7800));
     }
 
     @Test
