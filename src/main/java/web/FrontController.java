@@ -140,7 +140,7 @@ public class FrontController extends HttpServlet {
             }
 
             request.getRequestDispatcher("/WEB-INF/" + view + ".jsp").forward(request, response);
-        } catch (UnsupportedEncodingException | UserException ex) {
+        } catch (UnsupportedEncodingException | UserException | SQLException ex) {
             request.setAttribute("problem", ex.getMessage());
             Logger.getLogger("web").log(Level.SEVERE, ex.getMessage(), ex);
             request.getRequestDispatcher("/error.jsp").forward(request, response);

@@ -22,6 +22,7 @@
         City: ${sessionScope.city}<br>
         PhoneNo: ${sessionScope.user.phoneNo}<br>
         -->
+        <c:if test="${sessionScope.role == 'customer'}">
         <c:choose>
             <c:when test="${sessionScope.orderlist != null}">
                 <table class="table table-striped">
@@ -46,6 +47,35 @@
                 Byg din første carport <a class="text-dark" href="${pageContext.request.contextPath}">her</a>.
             </c:otherwise>
         </c:choose>
+        </c:if>
+        <c:if test="${sessionScope.role == 'salesperson'}">
+
+                    <div class="row">
+                        <div class="col-6">
+                            <table class="table table-striped">
+                                <thead>
+                                <th>Bruger ID</th>
+                                <th>Navn</th>
+                                <th>Adresse</th>
+                                <th>By</th>
+                                <th>Telefon</th>
+                                <th>Email</th>
+                                </thead>
+                                <tr>
+                                    <td> ${sessionScope.orderuser.userId}</td>
+                                    <td> ${sessionScope.orderuser.name}</td>
+                                    <td> ${sessionScope.orderuser.address}</td>
+                                    <td> ${sessionScope.orderuser.postalCode}${applicationScope.cities.get(sessionScope.orderuser.postalCode)}</td>
+                                    <td>${sessionScope.orderuser.phoneNo}</td>
+                                    <td>${sessionScope.orderuser.email}</td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="col-6">
+
+                        </div>
+                    </div>
+        </c:if>
     </jsp:body>
 
 </t:genericpage>

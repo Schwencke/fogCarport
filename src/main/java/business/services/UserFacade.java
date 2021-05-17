@@ -5,6 +5,7 @@ import business.exceptions.UserException;
 import business.persistence.Database;
 import business.persistence.UserMapper;
 
+import javax.jws.soap.SOAPBinding;
 import java.sql.SQLException;
 import java.util.HashMap;
 
@@ -23,6 +24,10 @@ public class UserFacade {
         User user = new User(name, address, postalCode, phoneNo, email, password);
         userMapper.createUser(user);
         return user;
+    }
+
+    public User getUserById(int userId) throws UserException, SQLException{
+        return userMapper.getUserById(userId);
     }
 
     public HashMap<Integer, String> getAllRoles() throws UserException {
