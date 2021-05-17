@@ -1,7 +1,6 @@
 package web;
 
 //<editor-fold desc="Imports">
-
 import business.exceptions.UserException;
 import business.persistence.Database;
 import business.services.OrderFacade;
@@ -26,7 +25,6 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.HashMap;
 //</editor-fold>
 
-
 @WebServlet(name = "FrontController", urlPatterns = {"/fc/*"})
 public class FrontController extends HttpServlet {
     private final static String USER = "root";
@@ -34,7 +32,6 @@ public class FrontController extends HttpServlet {
     private final static String URL = "jdbc:mysql://localhost:3306/carport?serverTimezone=CET";
 
     public static Database database;
-
 
     public void init() throws ServletException {
 

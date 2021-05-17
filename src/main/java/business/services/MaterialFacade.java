@@ -12,7 +12,8 @@ public class MaterialFacade {
         materialMapper = new MaterialMapper(database);
     }
 
-    public void getPost(int materialId) throws UserException {
-        materialMapper.getPost(materialId);
+    public Material getPost(int materialId) throws UserException {
+        //return materialMapper.getPost(materialId);
+        return new Material(1, "p", "q", 1.0, 1, 100, 100, 100);
     }
 }

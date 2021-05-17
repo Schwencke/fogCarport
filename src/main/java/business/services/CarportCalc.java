@@ -1,15 +1,27 @@
 package business.services;
 
+import business.entities.Material;
+import business.exceptions.UserException;
+import business.persistence.Database;
+import business.persistence.MaterialMapper;
+
+
+import javax.xml.crypto.Data;
 import java.util.ArrayList;
 import java.util.List;
 
 import static java.lang.Math.ceil;
 
 public class CarportCalc {
+    Database database;
+    MaterialFacade materialFacade = new MaterialFacade(database);
 
     //<editor-fold desc="Wood">
     // Stolper
-    public int calcPost(int carportWidth, int carportLength) {
+    public List<Object> calcPost(int carportWidth, int carportLength) throws UserException {
+        int materialID = 1601;
+        Material material = materialFacade.getPost(materialID);
+
         int minAmount = 4;
 
         int offsetW1 = 35;
@@ -22,7 +34,14 @@ public class CarportCalc {
         int maxLength = 330;
         int countLength = ((carportLength - offsetL1 - offsetL2) / (maxLength + 1)) * 2;
 
-        return minAmount + countWidth + countLength;
+        int postTotal = minAmount + countWidth + countLength;
+
+        List<Object> postList = new ArrayList<>();
+        postList.add(materialID);
+        postList.add(postTotal);
+        postList.add(material.getPrice());
+
+        return postList;
     }
 
     // Remme

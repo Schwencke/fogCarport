@@ -12,6 +12,8 @@ public class MaterialMapper {
         this.database = database;
     }
 
+    //TODO: Get Units 3NF - Look at postalcode mapper
+
     //<editor-fold desc="getPost">
     public Material getPost(int materialId) throws UserException {
         Material material = new Material();

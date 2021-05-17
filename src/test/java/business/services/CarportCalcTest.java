@@ -1,5 +1,6 @@
 package business.services;
 
+import business.exceptions.UserException;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -12,8 +13,12 @@ class CarportCalcTest {
     CarportCalc carportCalc = new CarportCalc();
 
     @Test
-    void calcPost() {
-        assertEquals(6, carportCalc.calcPost(600, 780));
+    void calcPost() throws UserException {
+        List<Object> objectList = new ArrayList<>();
+        objectList.add(1601);
+        objectList.add(6);
+        objectList.add(10.51);
+        assertEquals(objectList, carportCalc.calcPost(600, 780));
     }
 
     @Test
