@@ -6,6 +6,7 @@ import business.exceptions.UserException;
 import business.persistence.Database;
 import business.persistence.MaterialMapper;
 
+import java.util.HashMap;
 import java.util.List;
 
 public class MaterialFacade {
@@ -13,6 +14,10 @@ public class MaterialFacade {
 
     public MaterialFacade(Database database) {
         materialMapper = new MaterialMapper(database);
+    }
+
+    public HashMap<Integer, String> getAllUnits() throws UserException {
+        return materialMapper.getAllUnits();
     }
 
     public Material getMaterialById(int materialId) throws UserException {
