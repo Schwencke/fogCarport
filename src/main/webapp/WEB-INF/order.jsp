@@ -103,8 +103,9 @@
                                 </button>
                                 <div class="collapse" id="collapseCalculate">
                                     <c:forEach var="rafter" items="${sessionScope.rafterList}">
-                                        <h1>${rafter.materialID}</h1>
+                                        <h1>${rafter.name}</h1>
                                         <h1>${rafter.quantity}</h1>
+                                        <h1>${rafter.quantity * rafter.price}</h1>
                                     </c:forEach>
                                 </div>
                             </form>

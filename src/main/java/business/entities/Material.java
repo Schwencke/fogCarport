@@ -39,14 +39,6 @@ public class Material {
         return materialID;
     }
 
-    public int getQuantity() {
-        return quantity;
-    }
-
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
-    }
-
     public void setMaterialID(int materialID) {
         this.materialID = materialID;
     }
