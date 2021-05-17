@@ -1,6 +1,9 @@
 package business.services;
 
+import business.entities.Material;
 import business.exceptions.UserException;
+import business.persistence.Database;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -10,34 +13,51 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class CarportCalcTest {
 
-    CarportCalc carportCalc = new CarportCalc();
+    private final static String USER = "root";
+    private final static String PASSWORD = "1234";
+    private final static String URL = "jdbc:mysql://localhost:3306/carport?serverTimezone=CET&useSSL=false";
+
+    private static Database database;
+    private static CarportCalc carportCalc;
+
+    @BeforeAll
+    public static void setUpClass() {
+        try {
+            database = new Database(USER, PASSWORD, URL);
+            carportCalc = new CarportCalc(database);
+        } catch (ClassNotFoundException e) {
+            fail("Database connection failed. Missing jdbc driver");
+        }
+    }
 
     @Test
     void calcPost() throws UserException {
-        List<Object> objectList = new ArrayList<>();
-        objectList.add(1601);
-        objectList.add(6);
-        objectList.add(10.51);
-        assertEquals(objectList, carportCalc.calcPost(600, 780));
+        List<Object> result = new ArrayList<>();
+        result.add(1601);
+        result.add(6);
+        result.add(112.5);
+        assertEquals(result, carportCalc.calcPost(6000, 7800));
     }
 
     @Test
-    void calcBeam() {
-        assertEquals(2, carportCalc.calcBeam(600));
+    void calcBeam() throws UserException {
+        List<Object> result = new ArrayList<>();
+        result.add(1);
+        assertEquals(result, carportCalc.calcBeam(6000, 7800));
     }
 
     @Test
-    void calcRafter() {
-        assertEquals(15, carportCalc.calcRafter(780));
+    void calcRafter() throws UserException {
+        List<Object> result = new ArrayList<>();
+        result.add(1);
+        assertEquals(result, carportCalc.calcRafter(6000, 7800));
     }
 
     @Test
     void calcRoofing() {
         List<Integer> arrayList = new ArrayList<>();
-        arrayList.add(6);
-        arrayList.add(600);
-        arrayList.add(360);
-        assertEquals(arrayList, carportCalc.calcRoofing(600, 780));
+        arrayList.add(1);
+        assertEquals(arrayList, carportCalc.calcRoofing(6000, 7800));
     }
 
     @Test
