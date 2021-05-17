@@ -32,32 +32,33 @@ class CarportCalcTest {
 
     @Test
     void calcPost() throws UserException {
-        List<Object> result = new ArrayList<>();
-        result.add(1601);
-        result.add(6);
-        result.add(112.5);
+        List<Material> result = new ArrayList<>();
+        System.out.println(result.add(new Material(1601, 6)));
         assertEquals(result, carportCalc.calcPost(6000, 7800));
     }
 
     @Test
     void calcBeam() throws UserException {
-        List<Object> result = new ArrayList<>();
-        result.add(1);
+        List<Material> result = new ArrayList<>();
+        System.out.println(result.add(new Material(1514, 2)));
+        System.out.println(result.add(new Material(1506, 2)));
         assertEquals(result, carportCalc.calcBeam(6000, 7800));
     }
 
     @Test
     void calcRafter() throws UserException {
-        List<Object> result = new ArrayList<>();
-        result.add(1);
+        List<Material> result = new ArrayList<>();
+        System.out.println(result.add(new Material(1534, 15)));
         assertEquals(result, carportCalc.calcRafter(6000, 7800));
     }
 
     @Test
-    void calcRoofing() {
-        List<Integer> arrayList = new ArrayList<>();
-        arrayList.add(1);
-        assertEquals(arrayList, carportCalc.calcRoofing(6000, 7800));
+    void calcRoofing() throws UserException {
+        List<Material> result = new ArrayList<>();
+        result.add(new Material(2006, 6));
+        result.add(new Material(2001, 6));
+
+        assertEquals(result, carportCalc.calcRoofing(6000, 7800));
     }
 
     @Test
