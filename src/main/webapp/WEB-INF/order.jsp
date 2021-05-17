@@ -65,16 +65,76 @@
                                     <td> ${sessionScope.orderuser.userId}</td>
                                     <td> ${sessionScope.orderuser.name}</td>
                                     <td> ${sessionScope.orderuser.address}</td>
-                                    <td> ${sessionScope.orderuser.postalCode}${applicationScope.cities.get(sessionScope.orderuser.postalCode)}</td>
+                                    <td> ${sessionScope.orderuser.postalCode} ${applicationScope.cities.get(sessionScope.orderuser.postalCode)}</td>
                                     <td>${sessionScope.orderuser.phoneNo}</td>
                                     <td>${sessionScope.orderuser.email}</td>
                                 </tr>
                             </table>
                         </div>
-                        <div class="col-6">
-
-                        </div>
                     </div>
+                        <div class="row">
+                        <div class="col-6">
+                            <form action="#" method="post">
+                            <table class="table table-striped">
+                                <thead>
+                                <th>Carport Bredde</th>
+                                <th>Carport Længde</th>
+                                <th>Tag</th>
+                                <th>Skur Bredde</th>
+                                <th>Skur Længde</th>
+                                <th>Beklædning</th>
+                                </thead>
+                                <tr>
+                                    <td> ${sessionScope.order.carportWidth}</td>
+                                    <td> ${sessionScope.order.carportLength}</td>
+                                    <td>${sessionScope.order.roofingId}</td>
+                                    <td> ${sessionScope.order.shedWidth}</td>
+                                    <td> ${sessionScope.order.shedLength}</td>
+                                    <td>${sessionScope.order.claddingId}</td>
+                                </tr>
+                            </table>
+                                <button class="btn btn-outline-success" type="submit">Beregn</button>
+                            </form>
+                            <button class="btn btn-outline-primary" type="button" data-toggle="collapse"
+                                    data-target="#collapseUpdate" aria-expanded="false" aria-controls="collapseUpdate">
+                                Rediger ordre
+                            </button>
+                            <form action="#" method="post">
+                            <input type="hidden" value="${sessionScope.order.orderId}">
+                            <button class="btn btn-outline-danger" type="submit">Slet ordre</button>
+                            </form>
+                            <div class="collapse" id="collapseUpdate">
+                                <div class="card card-body">
+                                    <form class="px-4 py-3" action="#"
+                                          method="post">
+                                        <table class="table table-striped">
+                                            <thead>
+                                            <th>Carport Længde</th>
+                                            <th>Carport Bredde</th>
+                                            </thead>
+                                            <tr>
+                                                <td><input name="carportLength" value="${sessionScope.order.carportLength}"></td>
+                                                <td><input name="carportWidth" value="${sessionScope.order.carportWidth}"></td>
+                                            </tr>
+                                        </table>
+                                        <table class="table table-striped">
+                                            <thead>
+                                            <th>Skur Længde</th>
+                                            <th>Skur Bredde</th>
+                                            </thead>
+                                            <tr>
+                                                <td><input name="shedLength" value="${sessionScope.order.shedLength}"></td>
+                                                <td><input name="shedWidth" value="${sessionScope.order.shedWidth}"></td>
+                                            </tr>
+                                        </table>
+                                        <button type="button">Opdater</button>
+                                    </form>
+                                    <div class="dropdown-divider"></div>
+                                </div>
+                            </div>
+                        </div>
+                        </div>
+
         </c:if>
     </jsp:body>
 
