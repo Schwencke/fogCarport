@@ -25,12 +25,12 @@ public class CommandUpdateMeasurements extends CommandProtectedPage {
 
         orderId = Integer.parseInt(request.getParameter("orderid"));
 
-        carportLength = Integer.parseInt(request.getParameter("carportlength"));
-        carportWidth = Integer.parseInt(request.getParameter("carportwidth"));
+        carportLength = Integer.parseInt(request.getParameter("carportLength"));
+        carportWidth = Integer.parseInt(request.getParameter("carportWidth"));
         orderFacade.updateCarportMeasurementsById(orderId,carportLength,carportWidth);
 
-        shedLength = Integer.parseInt(request.getParameter("shedlength"));
-        shedWidth = Integer.parseInt(request.getParameter("shedwidth"));
+        shedLength = Integer.parseInt(request.getParameter("shedLength"));
+        shedWidth = Integer.parseInt(request.getParameter("shedWidth"));
 
         orderFacade.updateShedMeasurementsById(orderId, shedLength, shedWidth);
 

@@ -8,8 +8,12 @@
     </jsp:attribute>
     <jsp:attribute name="footer">
     </jsp:attribute>
-
     <jsp:body>
+        <script>
+            if (localStorage != null){
+            cleardata();
+            }
+        </script>
         <!--
         You are now logged in as a CUSTOMER.<br>
         Role: ${sessionScope.role}<br>
@@ -113,13 +117,13 @@
                                             <th>Carport Bredde</th>
                                             </thead>
                                             <tr>
-                                                <td><select id="carportlength" name="carportlength" type="text">
+                                                <td><select id="carportlength" name="carportLength" type="text">
                                                     <option value="${sessionScope.order.carportLength}">${sessionScope.order.carportLength}</option>
                                                     <c:forEach var="carportLength" items="${applicationScope.carportLength}">
                                                         <option value="${carportLength}">${carportLength}</option>
                                                     </c:forEach>
                                                 </select></td>
-                                                <td><select id="carportwidth" name="carportwidth" type="text">
+                                                <td><select id="carportwidth" name="carportWidth" type="text">
                                                     <option value="${sessionScope.order.carportWidth}">${sessionScope.order.carportWidth}</option>
                                                     <c:forEach var="carportWidth" items="${applicationScope.carportWidth}">
                                                         <option value="${carportWidth}">${carportWidth}</option>
@@ -133,13 +137,13 @@
                                             <th>Skur Bredde</th>
                                             </thead>
                                             <tr>
-                                                <td><select id="shedLength" name="shedlength" type="text">
+                                                <td><select id="shedLength" name="shedLength" type="text">
                                                     <option value="${sessionScope.order.shedLength}">${sessionScope.order.shedLength}</option>
                                                     <c:forEach var="shedLength" items="${applicationScope.shedLength}">
                                                         <option value="${shedLength}">${shedLength}</option>
                                                     </c:forEach>
                                                 </select></td>
-                                                <td><select id="shedWidth" name="shedwidth" type="text">
+                                                <td><select id="shedWidth" name="shedWidth" type="text">
                                                     <option value="${sessionScope.order.shedWidth}">${sessionScope.order.shedWidth}</option>
                                                     <c:forEach var="shedWidth" items="${applicationScope.shedWidth}">
                                                         <option value="${shedWidth}">${shedWidth}</option>
