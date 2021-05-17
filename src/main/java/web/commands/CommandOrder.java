@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -22,8 +23,12 @@ public class CommandOrder extends CommandProtectedPage {
     protected UserFacade userFacade;
     protected MaterialFacade materialFacade;
     protected CarportCalc carportCalc;
-    protected List<Material> materialList;
+    protected List<Material> postList;
+    protected List<Material> rafterList;
+    protected List<Material> sternList;
+    protected List<Material> beamList;
     Order order;
+    Material material;
     int carportWidth;
     int carportLength;
     User orderUser;
@@ -44,13 +49,20 @@ public class CommandOrder extends CommandProtectedPage {
         int orderId = Integer.parseInt(request.getParameter("order"));
         order = orderFacade.getOrderById(orderId);
         orderUser = userFacade.getUserById(order.getUserId());
-        carportWidth = order.getCarportWidth();
-        carportLength = order.getCarportLength();
-        materialList.add(carportCalc.calcBeam(carportWidth, carportLength));
-        materialList.add(carportCalc.calcPost(carportWidth, carportLength));
-        materialList.add(carportCalc.calcRafter(carportWidth, carportLength));
+        carportWidth = (int) (order.getCarportWidth() / 0.1);
+        carportLength = (int) (order.getCarportLength() / 0.1);
 
-        session.setAttribute("materialeList", materialList);
+        postList = carportCalc.calcPost(carportWidth,carportLength);
+        rafterList = carportCalc.calcRafter(carportWidth,carportLength);
+        //sternList = carportCalc.calcStern(carportWidth,carportLength);
+        beamList = carportCalc.calcBeam(carportWidth,carportLength);
+
+
+
+
+        session.setAttribute("postList", postList);
+        session.setAttribute("rafterList", rafterList);
+        session.setAttribute("beamList", beamList);
         session.setAttribute("orderuser", orderUser);
         session.setAttribute("order", order);
 

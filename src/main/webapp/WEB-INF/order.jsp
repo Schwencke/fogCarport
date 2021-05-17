@@ -102,7 +102,10 @@
                                     Beregn
                                 </button>
                                 <div class="collapse" id="collapseCalculate">
-                                show data from a calculation
+                                    <c:forEach var="rafter" items="${sessionScope.rafterList}">
+                                        <h1>${rafter.materialID}</h1>
+                                        <h1>${rafter.quantity}</h1>
+                                    </c:forEach>
                                 </div>
                             </form>
                             <button class="btn btn-outline-primary" type="button" data-toggle="collapse"
