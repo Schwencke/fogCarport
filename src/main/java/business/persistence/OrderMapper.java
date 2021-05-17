@@ -34,16 +34,17 @@ public class OrderMapper {
                 ids.next();
                 int orderId = ids.getInt(1);
                 order.setOrderId(orderId);
-
+            } catch (SQLException ex) {
+                throw new UserException(ex.getMessage());
             }
-        } catch (SQLException throwables) {
-            throw new UserException("ordren kunne ikke gennemføres");
+        } catch (SQLException ex) {
+            throw new UserException("Connection to database could not be established");
         }
     }
     //</editor-fold>
 
     //<editor-fold desc="getOrderById">
-    public Order getOrderById(int orderId) {
+    public Order getOrderById(int orderId) throws UserException {
         Order order = new Order();
         try (Connection connection = database.connect()) {
             String sql = "SELECT * FROM `order` WHERE `order_id` = ?";
@@ -76,16 +77,18 @@ public class OrderMapper {
                     order.setShedWidth(shedWidth);
                     order.setShedLength(shedLength);
                 }
+            } catch (SQLException ex) {
+                throw new UserException(ex.getMessage());
             }
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
+        } catch (SQLException ex) {
+            throw new UserException("Connection to database could not be established");
         }
         return order;
     }
     //</editor-fold>
 
     //<editor-fold desc="updateCarportMeasurementsById">
-    public void updateCarportMeasurementsById(int orderId, int carportLength, int carportWidth) {
+    public void updateCarportMeasurementsById(int orderId, int carportLength, int carportWidth) throws UserException {
         try (Connection connection = database.connect()) {
             String sql = "UPDATE `order` SET `carport_length`=?, `carport_width`=? WHERE `order_id` = ?";
 
@@ -94,29 +97,33 @@ public class OrderMapper {
                 ps.setInt(2, carportWidth);
                 ps.setInt(3, orderId);
                 ps.executeUpdate();
+            } catch (SQLException ex) {
+                throw new UserException(ex.getMessage());
             }
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
+        } catch (SQLException ex) {
+            throw new UserException("Connection to database could not be established");
         }
     }
 
     //</editor-fold>
 
     //<editor-fold desc="updateShedMeasurementsById">
-    public void updateShedMeasurementsById(int orderId, int shedLength, int shedWidth) {
-            try (Connection connection = database.connect()) {
-                String sql = "UPDATE `order` SET `shed_length`=?, `shed_width`=? WHERE `order_id` = ?";
+    public void updateShedMeasurementsById(int orderId, int shedLength, int shedWidth) throws UserException {
+        try (Connection connection = database.connect()) {
+            String sql = "UPDATE `order` SET `shed_length`=?, `shed_width`=? WHERE `order_id` = ?";
 
-                try (PreparedStatement ps = connection.prepareStatement(sql)) {
-                    ps.setInt(1, shedLength);
-                    ps.setInt(2, shedWidth);
-                    ps.setInt(3, orderId);
-                    ps.executeUpdate();
-                }
-            } catch (SQLException throwables) {
-                throwables.printStackTrace();
+            try (PreparedStatement ps = connection.prepareStatement(sql)) {
+                ps.setInt(1, shedLength);
+                ps.setInt(2, shedWidth);
+                ps.setInt(3, orderId);
+                ps.executeUpdate();
+            } catch (SQLException ex) {
+                throw new UserException(ex.getMessage());
             }
+        } catch (SQLException ex) {
+            throw new UserException("Connection to database could not be established");
         }
+    }
     //</editor-fold>
 
     //<editor-fold desc="getAllOrders">
@@ -179,7 +186,7 @@ public class OrderMapper {
                 }
                 return orderList;
             } catch (SQLException ex) {
-                throw new UserException("Ordre ID findes ikke for user_id = " + userId);
+                throw new UserException(ex.getMessage());
             }
         } catch (SQLException ex) {
             throw new UserException("Connection to database could not be established");
@@ -188,7 +195,7 @@ public class OrderMapper {
     //</editor-fold>
 
     //<editor-fold desc="getPredefined measurements for carport and shed">
-    public Map<String, List<Integer>> getPredefined() throws SQLException {
+    public Map<String, List<Integer>> getPredefined() throws UserException {
 
         List<Integer> predefinedCarportWidth = new ArrayList<>();
         List<Integer> predefinedCarportLength = new ArrayList<>();
@@ -233,15 +240,21 @@ public class OrderMapper {
                     }
                     listMap.put("shedWidth", predefinedShedWidth);
                     listMap.put("shedLength", predefinedShedLength);
+                } catch (SQLException ex) {
+                    throw new UserException(ex.getMessage());
                 }
+            } catch (SQLException ex) {
+                throw new UserException(ex.getMessage());
             }
+        } catch (SQLException ex) {
+            throw new UserException("Connection to database could not be established");
         }
         return listMap;
 
     } //</editor-fold>
 
     //<editor-fold desc="getRoofing">
-    public Map<Integer, Integer> getRoofing() {
+    public Map<Integer, Integer> getRoofing() throws UserException {
         Map<Integer, Integer> roofMap = new HashMap<>();
 
         try (Connection connection = database.connect()) {
@@ -254,17 +267,18 @@ public class OrderMapper {
                     int materialId = rs.getInt("material_id");
                     roofMap.put(roofId, materialId);
                 }
-
+            } catch (SQLException ex) {
+                throw new UserException(ex.getMessage());
             }
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
+        } catch (SQLException ex) {
+            throw new UserException("Connection to database could not be established");
         }
         return roofMap;
     }
     //</editor-fold>
 
     //<editor-fold desc="getCladding">
-    public Map<Integer, Integer> getCladding() {
+    public Map<Integer, Integer> getCladding() throws UserException {
         Map<Integer, Integer> claddingMap = new HashMap<>();
 
         try (Connection connection = database.connect()) {
@@ -277,16 +291,18 @@ public class OrderMapper {
                     int materialId = rs.getInt("material_id");
                     claddingMap.put(claddingId, materialId);
                 }
+            } catch (SQLException ex) {
+                throw new UserException(ex.getMessage());
             }
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
+        } catch (SQLException ex) {
+            throw new UserException("Connection to database could not be established");
         }
         return claddingMap;
     }
     //</editor-fold>
 
     //<editor-fold desc="getMaterialNameById">
-    public String getMaterialNameById(int materialId) {
+    public String getMaterialNameById(int materialId) throws UserException {
         String materialName = "";
         try (Connection connection = database.connect()) {
             String sql = "SELECT `name` FROM `material` WHERE `material_id`=?";
@@ -297,9 +313,11 @@ public class OrderMapper {
                 while (rs.next()) {
                     materialName = rs.getString("name");
                 }
+            } catch (SQLException ex) {
+                throw new UserException(ex.getMessage());
             }
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
+        } catch (SQLException ex) {
+            throw new UserException("Connection to database could not be established");
         }
         return materialName;
     }
@@ -326,7 +344,6 @@ public class OrderMapper {
         }
         return status;
     }
-
     //</editor-fold>
 
     //<editor-fold desc="updateStatusById">
