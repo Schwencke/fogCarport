@@ -8,6 +8,7 @@ import static java.lang.Math.ceil;
 public class CarportCalc {
 
     //<editor-fold desc="Wood">
+    // Stolper
     public int calcPost(int carportWidth, int carportLength) {
         int minAmount = 4;
 
@@ -24,6 +25,7 @@ public class CarportCalc {
         return minAmount + countWidth + countLength;
     }
 
+    // Remme
     public int calcBeam(int carportWidth) {
         int minAmount = 2;
 
@@ -35,6 +37,7 @@ public class CarportCalc {
         return minAmount + countWidth;
     }
 
+    // Spær
     public int calcRafter(int carportLength) {
         int minAmount = 2;
 
@@ -44,6 +47,7 @@ public class CarportCalc {
         return minAmount + countWidth;
     }
 
+    // Stern
     public List<Integer> calcStern(int minAmount, int size) {
         int[] sternLengths = {360, 540}; //{210, 240, 270, 300, 330, 360, 390, 420, 450, 480, 510, 540, 570, 600};
 
@@ -83,6 +87,7 @@ public class CarportCalc {
     //</editor-fold>
 
     //<editor-fold desc="Roofing">
+    // Tag
     public List<Integer> calcRoofing(int carportWidth, int carportLength) {
         int[] plateLengths = {360, 600}; //{240, 300, 360, 420, 480, 600};
         int overlap = 20;
