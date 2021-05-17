@@ -2,6 +2,7 @@ package business.services;
 
 import business.entities.Material;
 import business.exceptions.UserException;
+import business.persistence.Database;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,12 +12,19 @@ import static java.lang.Math.ceil;
 public class CarportCalc {
     MaterialFacade materialFacade;
 
+    public CarportCalc(Database database) {
+        materialFacade = new MaterialFacade(database);
+    }
+
     //<editor-fold desc="Wood">
     // Stolper
     public List<Object> calcPost(int carportWidth, int carportLength) throws UserException {
-        int materialID = 1601;
-        Material material = materialFacade.getPost(materialID);
 
+        // Get material from database
+        int materialID = 1601;
+        Material material = materialFacade.getMaterialById(materialID);
+
+        // Calculate
         int minAmount = 4;
 
         int offsetW1 = 35;
@@ -31,24 +39,56 @@ public class CarportCalc {
 
         int postTotal = minAmount + countWidth + countLength;
 
-        List<Object> postList = new ArrayList<>();
-        postList.add(materialID);
-        postList.add(postTotal);
-        postList.add(material.getPrice());
+        // Create list
+        List<Object> result = new ArrayList<>();
+        result.add(materialID);
+        result.add(postTotal);
+        result.add(material.getPrice());
 
-        return postList;
+        return result;
     }
 
     // Remme
-    public int calcBeam(int carportWidth) {
-        int minAmount = 2;
+    public List<Object> calcBeam(int carportWidth, int carportLength) throws UserException {
 
+        // Get materials from database
+        String description = "Remme i sider, sadles ned i stolper";
+        List<Material> materialList = materialFacade.getMaterialByDescription(description);
+
+        // Create list with availableLengths
+        List<Integer> availableLenghts = new ArrayList<>();
+        for (Material material : materialList) {
+            availableLenghts.add(material.getLength());
+        }
+
+        // Calculate
+        List<Object> result = new ArrayList<>();
+        int minAmount = 2;
         int offsetW1 = 35;
         int offsetW2 = 35;
         int maxWidth = 530;
         int countWidth = (carportWidth - offsetW1 - offsetW2) / (maxWidth + 1);
 
-        return minAmount + countWidth;
+        // Length sizes
+        int length = carportLength;
+        for (int i = availableLenghts.size() - 1; i > 0; i--) {
+            if ((length) >= availableLenghts.get(i)) {
+                result.add(materialList.get(i).getMaterialID());
+                result.add(minAmount + countWidth);
+                result.add(materialList.get(i).getPrice());
+                length -= availableLenghts.get(i);
+            }
+        }
+
+        // Minimum length size
+        if (length > 0) {
+            result.add(materialList.get(0).getMaterialID());
+            result.add(minAmount + countWidth);
+            result.add(materialList.get(0).getPrice());
+        }
+
+        //return minAmount + countWidth;
+        return result;
     }
 
     // Spær

@@ -18,34 +18,30 @@ class CarportCalcTest {
     private final static String URL = "jdbc:mysql://localhost:3306/carport?serverTimezone=CET&useSSL=false";
 
     private static Database database;
-    private static MaterialFacade materialFacade;
+    private static CarportCalc carportCalc;
 
     @BeforeAll
     public static void setUpClass() {
         try {
             database = new Database(USER, PASSWORD, URL);
-            materialFacade = new MaterialFacade(database);
+            carportCalc = new CarportCalc(database);
         } catch (ClassNotFoundException e) {
             fail("Database connection failed. Missing jdbc driver");
         }
     }
 
-    CarportCalc carportCalc = new CarportCalc();
-
     @Test
     void calcPost() throws UserException {
-        int materialID = 1601;
-        Material material = materialFacade.getPost(materialID);
-        List<Object> postList = new ArrayList<>();
-        postList.add(materialID);
-        postList.add(6);
-        postList.add(material.getPrice());
-        System.out.println(postList);
+        List<Object> result = new ArrayList<>();
+        result.add(1601);
+        result.add(6);
+        result.add(112.5);
+        assertEquals(result, carportCalc.calcPost(600, 780));
     }
 
     @Test
-    void calcBeam() {
-        assertEquals(2, carportCalc.calcBeam(600));
+    void calcBeam() throws UserException {
+        //assertEquals(2, carportCalc.calcBeam(600, 780));
     }
 
     @Test

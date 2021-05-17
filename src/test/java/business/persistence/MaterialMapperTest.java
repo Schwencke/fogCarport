@@ -33,7 +33,7 @@ class MaterialMapperTest {
 
     @Test
     void getPost() throws UserException {
-        Material material = materialMapper.getPost(1601);
+        Material material = materialMapper.getMaterialById(1601);
         assertEquals("97x97 mm. trykimp. stolpe", material.getName());
     }
 }
