@@ -20,27 +20,28 @@ public class CarportCalc {
     // Stolper
     public List<Material> calcPost(int carportWidth, int carportLength) throws UserException {
 
-        // Set material
+        // Get material
         int materialID = 1601;
+        Material material = materialFacade.getMaterialById(1601);
 
         // Calculate
-        int minAmount = 4;
+        int quantityMin = 4;
 
         int offsetW1 = 350;
         int offsetW2 = 350;
         int maxWidth = 5300;
-        int countWidth = ((carportWidth - offsetW1 - offsetW2) / (maxWidth + 1)) * 2;
+        int quantityByWidth = ((carportWidth - offsetW1 - offsetW2) / (maxWidth + 1)) * 2;
 
         int offsetL1 = 1000;
         int offsetL2 = 200;
         int maxLength = 3300;
-        int countLength = ((carportLength - offsetL1 - offsetL2) / (maxLength + 1)) * 2;
+        int quantityByLength = ((carportLength - offsetL1 - offsetL2) / (maxLength + 1)) * 2;
 
-        int quantity = minAmount + countWidth + countLength;
+        int quantity = quantityMin + quantityByWidth + quantityByLength;
 
         // Create list
         List<Material> result = new ArrayList<>();
-        result.add(new Material(materialID, quantity));
+        result.add(new Material(materialID, material.getName(), material.getDescription(), material.getPrice(), material.getUnitId(), quantity));
 
         return result;
     }
@@ -59,28 +60,37 @@ public class CarportCalc {
         }
 
         // Calculate
-        int minAmount = 2;
-
+        int quantityMin = 2;
         int offsetW1 = 350;
         int offsetW2 = 350;
         int maxWidth = 5300;
-        int countWidth = (carportWidth - offsetW1 - offsetW2) / (maxWidth + 1);
+        int quantityByWidth = (carportWidth - offsetW1 - offsetW2) / (maxWidth + 1);
 
-        int quantity = minAmount + countWidth;
+        int quantity = quantityMin + quantityByWidth;
 
         // Add the right lengths
         List<Material> result = new ArrayList<>();
         int length = carportLength;
         for (int i = availableLengths.size() - 1; i > 0; i--) {
             if ((length) >= availableLengths.get(i)) {
-                result.add(new Material(materialList.get(i).getMaterialID(), quantity));
+                result.add(new Material(materialList.get(i).getMaterialID(),
+                        materialList.get(i).getName(),
+                        materialList.get(i).getDescription(),
+                        materialList.get(i).getPrice(),
+                        materialList.get(i).getUnitId(),
+                        quantity));
                 length -= availableLengths.get(i);
             }
         }
 
         // Minimum length
         if (length > 0) {
-            result.add(new Material(materialList.get(0).getMaterialID(), quantity));
+            result.add(new Material(materialList.get(0).getMaterialID(),
+                    materialList.get(0).getName(),
+                    materialList.get(0).getDescription(),
+                    materialList.get(0).getPrice(),
+                    materialList.get(0).getUnitId(),
+                    quantity));
         }
 
         return result;
@@ -100,55 +110,76 @@ public class CarportCalc {
         }
 
         // Calculate
-        int minAmount = 2;
-
+        int quantityMin = 2;
         int maxWidth = 550;
-        int countWidth = (carportLength - maxWidth) / (maxWidth + 1);
+        int quantityByWidth = (carportLength - maxWidth) / (maxWidth + 1);
 
-        int quantity = minAmount + countWidth;
+        int quantity = quantityMin + quantityByWidth;
 
         // Add the right lengths
         List<Material> result = new ArrayList<>();
         int length = carportWidth;
         for (int i = availableLengths.size() - 1; i > 0; i--) {
             if ((length) >= availableLengths.get(i)) {
-                result.add(new Material(materialList.get(i).getMaterialID(), quantity));
+                result.add(new Material(materialList.get(i).getMaterialID(),
+                        materialList.get(i).getName(),
+                        materialList.get(i).getDescription(),
+                        materialList.get(i).getPrice(),
+                        materialList.get(i).getUnitId(),
+                        quantity));
                 length -= availableLengths.get(i);
             }
         }
 
         // Minimum length
         if (length > 0) {
-            result.add(new Material(materialList.get(0).getMaterialID(), quantity));
+            result.add(new Material(materialList.get(0).getMaterialID(),
+                    materialList.get(0).getName(),
+                    materialList.get(0).getDescription(),
+                    materialList.get(0).getPrice(),
+                    materialList.get(0).getUnitId(),
+                    quantity));
         }
 
         return result;
     }
 
     // Stern
-    public List<Integer> calcStern(int minAmount, int size) {
-        int[] sternLengths = {3600, 5400}; //{210, 240, 270, 300, 330, 360, 390, 420, 450, 480, 510, 540, 570, 600};
+    public List<Material> calcStern(int quantity, int length, String description) throws UserException {
 
-        List<Integer> sternList = new ArrayList<>();
+        // Get materials from database
+        List<Material> materialList = materialFacade.getMaterialByDescription(description);
 
-        int length = size;
+        // Create list with available lengths
+        List<Integer> availableLengths = new ArrayList<>();
+        for (Material material : materialList) {
+            availableLengths.add(material.getLength());
+        }
+
+        // Calculate
+        List<Material> result = new ArrayList<>();
+
         int prevLength = 0;
 
-        for (int i = sternLengths.length - 1; i > 0; i--) {
-            if ((length) >= sternLengths[i]) {
+        for (int i = availableLengths.size() - 1; i > 0; i--) {
+            if ((length) >= availableLengths.get(i)) {
 
-                if (sternLengths[i] != prevLength) {
-                    sternList.add(minAmount);
-                    sternList.add(sternLengths[i]);
-                    prevLength = sternLengths[i];
+                if (availableLengths.get(i) != prevLength) {
+                    result.add(new Material(materialList.get(i).getMaterialID(),
+                            materialList.get(i).getName(),
+                            materialList.get(i).getDescription(),
+                            materialList.get(i).getPrice(),
+                            materialList.get(i).getUnitId(),
+                            quantity));
+                    prevLength = availableLengths.get(i);
                 } else {
-                    int prevAmount = sternList.get(sternList.size() - 2);
-                    sternList.set(sternList.size() - 2, prevAmount + minAmount);
+                    int prevAmount = result.get(result.size() - 1).getQuantity();
+                    result.get(result.size() - 1).setQuantity(prevAmount + quantity);
                 }
-                length -= sternLengths[i];
+                length -= availableLengths.get(i);
 
                 // Compare lengths to repeat current index
-                if (length > sternLengths[i]) {
+                if (length > availableLengths.get(i)) {
                     i++;
                 }
             }
@@ -156,11 +187,51 @@ public class CarportCalc {
 
         // Minimum length size
         if (length > 0) {
-            sternList.add(minAmount);
-            sternList.add(sternLengths[0]);
+            result.add(new Material(materialList.get(0).getMaterialID(),
+                    materialList.get(0).getName(),
+                    materialList.get(0).getDescription(),
+                    materialList.get(0).getPrice(),
+                    materialList.get(0).getUnitId(),
+                    quantity));
         }
 
-        return sternList;
+        return result;
+    }
+
+    public List<Material> calcSternUnderFrontAndBack(int carportWidth) throws UserException {
+        String description = "Understernbrædder til for- & bagende";
+        int surfaceNo = 2;
+        return calcStern(surfaceNo, carportWidth, description);
+    }
+
+    public List<Material> calcSternUnderSides(int carportLength) throws UserException {
+        String description = "Understernbrædder til siderne";
+        int surfaceNo = 1;
+        return calcStern(surfaceNo, carportLength, description);
+    }
+
+    public List<Material> calcSternOverFront(int carportWidth) throws UserException {
+        String description = "Oversternbrædder til forende";
+        int surfaceNo = 1;
+        return calcStern(surfaceNo, carportWidth, description);
+    }
+
+    public List<Material> calcSternOverSides(int carportLength) throws UserException {
+        String description = "Oversternbrædder til siderne";
+        int surfaceNo = 1;
+        return calcStern(surfaceNo, carportLength, description);
+    }
+
+    public List<Material> calcSternWaterFront(int carportWidth) throws UserException {
+        String description = "Oversternbrædder til siderne";
+        int surfaceNo = 1;
+        return calcStern(surfaceNo, carportWidth, description);
+    }
+
+    public List<Material> calcSternWaterSides(int carportLength) throws UserException {
+        String description = "Oversternbrædder til siderne";
+        int surfaceNo = 1;
+        return calcStern(surfaceNo, carportLength, description);
     }
     //</editor-fold>
 
@@ -193,7 +264,12 @@ public class CarportCalc {
                 int itemWidth = materialList.get(i).getWidth() - overlapWidth;
                 quantity = (int) ceil((double) carportWidth / (double) itemWidth);
 
-                result.add(new Material(materialList.get(i).getMaterialID(), quantity));
+                result.add(new Material(materialList.get(i).getMaterialID(),
+                        materialList.get(i).getName(),
+                        materialList.get(i).getDescription(),
+                        materialList.get(i).getPrice(),
+                        materialList.get(i).getUnitId(),
+                        quantity));
                 length -= availableLengths.get(i) - overlapLength;
             }
         }
@@ -205,7 +281,12 @@ public class CarportCalc {
             int itemWidth = materialList.get(0).getWidth() - overlapWidth;
             quantity = (int) ceil((double) carportWidth / (double) itemWidth);
 
-            result.add(new Material(materialList.get(0).getMaterialID(), quantity));
+            result.add(new Material(materialList.get(0).getMaterialID(),
+                    materialList.get(0).getName(),
+                    materialList.get(0).getDescription(),
+                    materialList.get(0).getPrice(),
+                    materialList.get(0).getUnitId(),
+                    quantity));
         }
 
         return result;
