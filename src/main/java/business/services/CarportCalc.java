@@ -18,11 +18,10 @@ public class CarportCalc {
 
     //<editor-fold desc="Wood">
     // Stolper
-    public List<Object> calcPost(int carportWidth, int carportLength) throws UserException {
+    public List<Material> calcPost(int carportWidth, int carportLength) throws UserException {
 
-        // Get material from database
+        // Set material
         int materialID = 1601;
-        Material material = materialFacade.getMaterialById(materialID);
 
         // Calculate
         int minAmount = 4;
@@ -40,25 +39,23 @@ public class CarportCalc {
         int quantity = minAmount + countWidth + countLength;
 
         // Create list
-        List<Object> result = new ArrayList<>();
-        result.add(materialID);
-        result.add(quantity);
-        result.add(material.getPrice());
+        List<Material> result = new ArrayList<>();
+        result.add(new Material(materialID, quantity));
 
         return result;
     }
 
     // Remme
-    public List<Object> calcBeam(int carportWidth, int carportLength) throws UserException {
+    public List<Material> calcBeam(int carportWidth, int carportLength) throws UserException {
 
         // Get materials from database
         String description = "Remme i sider, sadles ned i stolper";
         List<Material> materialList = materialFacade.getMaterialByDescription(description);
 
-        // Create list with availableLengths
-        List<Integer> availableLenghts = new ArrayList<>();
+        // Create list with available lengths
+        List<Integer> availableLengths = new ArrayList<>();
         for (Material material : materialList) {
-            availableLenghts.add(material.getLength());
+            availableLengths.add(material.getLength());
         }
 
         // Calculate
@@ -72,38 +69,34 @@ public class CarportCalc {
         int quantity = minAmount + countWidth;
 
         // Add the right lengths
-        List<Object> result = new ArrayList<>();
+        List<Material> result = new ArrayList<>();
         int length = carportLength;
-        for (int i = availableLenghts.size() - 1; i > 0; i--) {
-            if ((length) >= availableLenghts.get(i)) {
-                result.add(materialList.get(i).getMaterialID());
-                result.add(quantity);
-                result.add(materialList.get(i).getPrice());
-                length -= availableLenghts.get(i);
+        for (int i = availableLengths.size() - 1; i > 0; i--) {
+            if ((length) >= availableLengths.get(i)) {
+                result.add(new Material(materialList.get(i).getMaterialID(), quantity));
+                length -= availableLengths.get(i);
             }
         }
 
         // Minimum length
         if (length > 0) {
-            result.add(materialList.get(0).getMaterialID());
-            result.add(quantity);
-            result.add(materialList.get(0).getPrice());
+            result.add(new Material(materialList.get(0).getMaterialID(), quantity));
         }
 
         return result;
     }
 
     // Spær
-    public List<Object> calcRafter(int carportWidth, int carportLength) throws UserException {
+    public List<Material> calcRafter(int carportWidth, int carportLength) throws UserException {
 
         // Get materials from database
         String description = "Spær, monteres på rem";
         List<Material> materialList = materialFacade.getMaterialByDescription(description);
 
-        // Create list with availableLengths
-        List<Integer> availableLenghts = new ArrayList<>();
+        // Create list with available lengths
+        List<Integer> availableLengths = new ArrayList<>();
         for (Material material : materialList) {
-            availableLenghts.add(material.getLength());
+            availableLengths.add(material.getLength());
         }
 
         // Calculate
@@ -115,22 +108,18 @@ public class CarportCalc {
         int quantity = minAmount + countWidth;
 
         // Add the right lengths
-        List<Object> result = new ArrayList<>();
+        List<Material> result = new ArrayList<>();
         int length = carportWidth;
-        for (int i = availableLenghts.size() - 1; i > 0; i--) {
-            if ((length) >= availableLenghts.get(i)) {
-                result.add(materialList.get(i).getMaterialID());
-                result.add(quantity);
-                result.add(materialList.get(i).getPrice());
-                length -= availableLenghts.get(i);
+        for (int i = availableLengths.size() - 1; i > 0; i--) {
+            if ((length) >= availableLengths.get(i)) {
+                result.add(new Material(materialList.get(i).getMaterialID(), quantity));
+                length -= availableLengths.get(i);
             }
         }
 
         // Minimum length
         if (length > 0) {
-            result.add(materialList.get(0).getMaterialID());
-            result.add(quantity);
-            result.add(materialList.get(0).getPrice());
+            result.add(new Material(materialList.get(0).getMaterialID(), quantity));
         }
 
         return result;
@@ -177,32 +166,49 @@ public class CarportCalc {
 
     //<editor-fold desc="Roofing">
     // Tag
-    public List<Integer> calcRoofing(int carportWidth, int carportLength) {
-        int[] plateLengths = {3600, 6000}; //{240, 300, 360, 420, 480, 600};
-        int overlap = 20;
+    public List<Material> calcRoofing(int carportWidth, int carportLength) throws UserException {
 
-        List<Integer> roofList = new ArrayList<>();
+        // Get materials from database
+        String description = "Tagplader monteres på spær";
+        List<Material> materialList = materialFacade.getMaterialByDescription(description);
 
-        // Width count
-        int plateWidth = 1090 - 70; // The plate is by default 109 cm wide - Every added plate have an overlap of 7 cm
-        int countWidth = (int) ceil((double) carportWidth / (double) plateWidth);
-        roofList.add(countWidth);
+        // Create list with available lengths
+        List<Integer> availableLengths = new ArrayList<>();
+        for (Material material : materialList) {
+            availableLengths.add(material.getLength());
+        }
 
-        // Length sizes
+        // Calculate
+        int overlapWidth = 70;
+        int overlapLength = 200;
+        int quantity = 0;
+
+        // Add the right lengths
+        List<Material> result = new ArrayList<>();
         int length = carportLength;
-        for (int i = plateLengths.length - 1; i > 0; i--) {
-            if ((length) >= plateLengths[i]) {
-                roofList.add(plateLengths[i]);
-                length -= plateLengths[i] - overlap;
+        for (int i = availableLengths.size() - 1; i > 0; i--) {
+            if ((length) >= availableLengths.get(i)) {
+
+                // Width count
+                int itemWidth = materialList.get(i).getWidth() - overlapWidth;
+                quantity = (int) ceil((double) carportWidth / (double) itemWidth);
+
+                result.add(new Material(materialList.get(i).getMaterialID(), quantity));
+                length -= availableLengths.get(i) - overlapLength;
             }
         }
 
-        // Minimum length size
+        // Minimum length
         if (length > 0) {
-            roofList.add(plateLengths[0]);
+
+            // Width count
+            int itemWidth = materialList.get(0).getWidth() - overlapWidth;
+            quantity = (int) ceil((double) carportWidth / (double) itemWidth);
+
+            result.add(new Material(materialList.get(0).getMaterialID(), quantity));
         }
 
-        return roofList;
+        return result;
     }
     //</editor-fold>
 }

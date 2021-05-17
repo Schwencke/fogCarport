@@ -9,8 +9,14 @@ public class Material {
     private int width;
     private int length;
     private int height;
+    private int quantity;
 
     public Material() {
+    }
+
+    public Material(int materialID, int quantity) {
+        this.materialID = materialID;
+        this.quantity = quantity;
     }
 
     public Material(int materialID, String name, String description, double price, int unitId, int width, int length, int height) {
@@ -89,4 +95,12 @@ public class Material {
         this.height = height;
     }
     //</editor-fold>
+
+    @Override
+    public String toString() {
+        return "Material{" +
+                "materialID=" + materialID +
+                ", quantity=" + quantity +
+                '}';
+    }
 }
