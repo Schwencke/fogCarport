@@ -97,7 +97,13 @@
                                     <td>${sessionScope.order.claddingId}</td>
                                 </tr>
                             </table>
-                                <button class="btn btn-outline-success" type="submit">Beregn</button>
+                                <button class="btn btn-outline-success" type="button" data-toggle="collapse"
+                                        data-target="#collapseCalculate" aria-expanded="false" aria-controls="collapseCalculate">
+                                    Beregn
+                                </button>
+                                <div class="collapse" id="collapseCalculate">
+                                show data from a calculation
+                                </div>
                             </form>
                             <button class="btn btn-outline-primary" type="button" data-toggle="collapse"
                                     data-target="#collapseUpdate" aria-expanded="false" aria-controls="collapseUpdate">
