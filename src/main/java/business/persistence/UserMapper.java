@@ -77,8 +77,10 @@ public class UserMapper {
                 }
                 return user;
             } catch (SQLException ex) {
-                throw new UserException("Connection to database could not be established");
+                throw new UserException(ex.getMessage());
             }
+        } catch (SQLException ex) {
+            throw new UserException("Connection to database could not be established");
         }
     }
 
@@ -108,10 +110,11 @@ public class UserMapper {
                 }
                 return user;
             } catch (SQLException ex) {
-                throw new UserException("Connection to database could not be established");
+                throw new UserException(ex.getMessage());
             }
+        } catch (SQLException ex) {
+            throw new UserException("Connection to database could not be established");
         }
-
     }
 
     public HashMap<Integer, String> getAllRoles() throws UserException {

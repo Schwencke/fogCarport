@@ -33,21 +33,19 @@ public class OrderFacade {
         return orderMapper.getAllOrdersById(userId);
     }
 
-    public Map<String, List<Integer>> getPredefined() throws SQLException {
+    public Map<String, List<Integer>> getPredefined() throws UserException {
         return orderMapper.getPredefined();
     }
 
-    public Map<Integer, Integer> getRoofing(){
+    public Map<Integer, Integer> getRoofing() throws UserException {
         return orderMapper.getRoofing();
-
     }
 
-    public Map<Integer, Integer> getCladding(){
+    public Map<Integer, Integer> getCladding() throws UserException {
         return orderMapper.getCladding();
-
     }
 
-    public String getMaterialNameById(int id){
+    public String getMaterialNameById(int id) throws UserException {
         return orderMapper.getMaterialNameById(id);
     }
 
@@ -55,11 +53,11 @@ public class OrderFacade {
         return orderMapper.getAllStatus();
     }
 
-    public void updateCarportMeasurementsById(int orderId, int carportLength, int carportWidth){
+    public void updateCarportMeasurementsById(int orderId, int carportLength, int carportWidth) throws UserException {
         orderMapper.updateCarportMeasurementsById(orderId, carportLength, carportWidth);
     }
 
-    public void updateShedMeasurementsById(int orderId, int shedLength, int shedWidth) {
+    public void updateShedMeasurementsById(int orderId, int shedLength, int shedWidth) throws UserException {
         orderMapper.updateShedMeasurementsById(orderId, shedLength, shedWidth);
     }
 }

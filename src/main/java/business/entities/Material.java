@@ -10,6 +10,9 @@ public class Material {
     private int length;
     private int height;
 
+    public Material() {
+    }
+
     public Material(int materialID, String name, String description, double price, int unitId, int width, int length, int height) {
         this.materialID = materialID;
         this.name = name;

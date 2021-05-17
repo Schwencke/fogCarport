@@ -54,7 +54,7 @@ public class FrontController extends HttpServlet {
         Map<String, List<Integer>> predefined = new HashMap<>();
         try {
             predefined = orderFacade.getPredefined();
-        } catch (SQLException throwables) {
+        } catch (UserException throwables) {
             throwables.printStackTrace();
         }
         List<Integer> predefinedCarportWidth = new ArrayList<>(predefined.get("carportWidth"));
@@ -92,18 +92,30 @@ public class FrontController extends HttpServlet {
         }
         application.setAttribute("cities", cities);
 
-        HashMap<Integer, Integer> roofing;
-        roofing = (HashMap<Integer, Integer>) orderFacade.getRoofing();
+        HashMap<Integer, Integer> roofing = null;
+        try {
+            roofing = (HashMap<Integer, Integer>) orderFacade.getRoofing();
+        } catch (UserException e) {
+            e.printStackTrace();
+        }
         application.setAttribute("roofing", roofing);
 
-        HashMap<Integer, Integer> cladding;
-        cladding = (HashMap<Integer, Integer>) orderFacade.getCladding();
+        HashMap<Integer, Integer> cladding = null;
+        try {
+            cladding = (HashMap<Integer, Integer>) orderFacade.getCladding();
+        } catch (UserException e) {
+            e.printStackTrace();
+        }
         application.setAttribute("cladding", cladding);
 
         HashMap<Integer, String> clads = new HashMap<>();
         for (Integer value : cladding.values()) {
             for (Integer integer : cladding.keySet()) {
-                clads.put(integer, orderFacade.getMaterialNameById(value));
+                try {
+                    clads.put(integer, orderFacade.getMaterialNameById(value));
+                } catch (UserException ex) {
+                    throw new ServletException(ex.getMessage());
+                }
             }
         }
         application.setAttribute("claddinglist", clads);
@@ -111,7 +123,11 @@ public class FrontController extends HttpServlet {
         HashMap<Integer, String> roofs = new HashMap<>();
         for (Integer value : roofing.values()) {
             for (Integer integer : cladding.keySet()) {
-                roofs.put(integer, orderFacade.getMaterialNameById(value));
+                try {
+                    roofs.put(integer, orderFacade.getMaterialNameById(value));
+                } catch (UserException ex) {
+                    throw new ServletException(ex.getMessage());
+                }
             }
         }
         application.setAttribute("roofinglist", roofs);
