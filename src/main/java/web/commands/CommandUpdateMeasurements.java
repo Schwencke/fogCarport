@@ -1,0 +1,39 @@
+package web.commands;
+
+
+import business.exceptions.UserException;
+import business.services.OrderFacade;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+
+public class CommandUpdateMeasurements extends CommandProtectedPage {
+    protected OrderFacade orderFacade;
+    int carportWidth;
+    int carportLength;
+    int shedLength;
+    int shedWidth;
+    int orderId;
+
+    public CommandUpdateMeasurements(String pageToShow, String role) {
+        super(pageToShow, role);
+        this.orderFacade = new OrderFacade(database);
+    }
+
+    @Override
+    public String execute(HttpServletRequest request, HttpServletResponse response) throws UserException {
+
+        orderId = Integer.parseInt(request.getParameter("orderid"));
+
+        carportLength = Integer.parseInt(request.getParameter("carportlength"));
+        carportWidth = Integer.parseInt(request.getParameter("carportwidth"));
+        orderFacade.updateCarportMeasurementsById(orderId,carportLength,carportWidth);
+
+        shedLength = Integer.parseInt(request.getParameter("shedlength"));
+        shedWidth = Integer.parseInt(request.getParameter("shedwidth"));
+
+        orderFacade.updateShedMeasurementsById(orderId, shedLength, shedWidth);
+
+        return pageToShow;
+    }
+}

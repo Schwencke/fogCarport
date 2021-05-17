@@ -84,6 +84,41 @@ public class OrderMapper {
     }
     //</editor-fold>
 
+    //<editor-fold desc="updateCarportMeasurementsById">
+    public void updateCarportMeasurementsById(int orderId, int carportLength, int carportWidth) {
+        try (Connection connection = database.connect()) {
+            String sql = "UPDATE `order` SET `carport_length`=?, `carport_width`=? WHERE `order_id` = ?";
+
+            try (PreparedStatement ps = connection.prepareStatement(sql)) {
+                ps.setInt(1, carportLength);
+                ps.setInt(2, carportWidth);
+                ps.setInt(3, orderId);
+                ps.executeUpdate();
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+    }
+
+    //</editor-fold>
+
+    //<editor-fold desc="updateShedMeasurementsById">
+    public void updateShedMeasurementsById(int orderId, int shedLength, int shedWidth) {
+            try (Connection connection = database.connect()) {
+                String sql = "UPDATE `order` SET `shed_length`=?, `shed_width`=? WHERE `order_id` = ?";
+
+                try (PreparedStatement ps = connection.prepareStatement(sql)) {
+                    ps.setInt(1, shedLength);
+                    ps.setInt(2, shedWidth);
+                    ps.setInt(3, orderId);
+                    ps.executeUpdate();
+                }
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
+        }
+    //</editor-fold>
+
     //<editor-fold desc="getAllOrders">
     public List<Order> getAllOrders() throws UserException {
         List<Order> orderList = new ArrayList<>();
@@ -291,5 +326,6 @@ public class OrderMapper {
         }
         return status;
     }
+
     //</editor-fold>
 }

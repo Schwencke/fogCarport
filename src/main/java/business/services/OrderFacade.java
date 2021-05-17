@@ -55,4 +55,11 @@ public class OrderFacade {
         return orderMapper.getAllStatus();
     }
 
+    public void updateCarportMeasurementsById(int orderId, int carportLength, int carportWidth){
+        orderMapper.updateCarportMeasurementsById(orderId, carportLength, carportWidth);
+    }
+
+    public void updateShedMeasurementsById(int orderId, int shedLength, int shedWidth) {
+        orderMapper.updateShedMeasurementsById(orderId, shedLength, shedWidth);
+    }
 }

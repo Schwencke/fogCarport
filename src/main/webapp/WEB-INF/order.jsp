@@ -105,7 +105,7 @@
                             </form>
                             <div class="collapse" id="collapseUpdate">
                                 <div class="card card-body">
-                                    <form class="px-4 py-3" action="#"
+                                    <form class="px-4 py-3" action="${pageContext.request.contextPath}/fc/updatemeasurements"
                                           method="post">
                                         <table class="table table-striped">
                                             <thead>
@@ -113,8 +113,18 @@
                                             <th>Carport Bredde</th>
                                             </thead>
                                             <tr>
-                                                <td><input name="carportLength" value="${sessionScope.order.carportLength}"></td>
-                                                <td><input name="carportWidth" value="${sessionScope.order.carportWidth}"></td>
+                                                <td><select id="carportlength" name="carportlength" type="text">
+                                                    <option value="${sessionScope.order.carportLength}">${sessionScope.order.carportLength}</option>
+                                                    <c:forEach var="carportLength" items="${applicationScope.carportLength}">
+                                                        <option value="${carportLength}">${carportLength}</option>
+                                                    </c:forEach>
+                                                </select></td>
+                                                <td><select id="carportwidth" name="carportwidth" type="text">
+                                                    <option value="${sessionScope.order.carportWidth}">${sessionScope.order.carportWidth}</option>
+                                                    <c:forEach var="carportWidth" items="${applicationScope.carportWidth}">
+                                                        <option value="${carportWidth}">${carportWidth}</option>
+                                                    </c:forEach>
+                                                </select></td>
                                             </tr>
                                         </table>
                                         <table class="table table-striped">
@@ -123,11 +133,22 @@
                                             <th>Skur Bredde</th>
                                             </thead>
                                             <tr>
-                                                <td><input name="shedLength" value="${sessionScope.order.shedLength}"></td>
-                                                <td><input name="shedWidth" value="${sessionScope.order.shedWidth}"></td>
+                                                <td><select id="shedLength" name="shedlength" type="text">
+                                                    <option value="${sessionScope.order.shedLength}">${sessionScope.order.shedLength}</option>
+                                                    <c:forEach var="shedLength" items="${applicationScope.shedLength}">
+                                                        <option value="${shedLength}">${shedLength}</option>
+                                                    </c:forEach>
+                                                </select></td>
+                                                <td><select id="shedWidth" name="shedwidth" type="text">
+                                                    <option value="${sessionScope.order.shedWidth}">${sessionScope.order.shedWidth}</option>
+                                                    <c:forEach var="shedWidth" items="${applicationScope.shedWidth}">
+                                                        <option value="${shedWidth}">${shedWidth}</option>
+                                                    </c:forEach>
+                                                </select></td>
                                             </tr>
                                         </table>
-                                        <button type="button">Opdater</button>
+                                        <input type="hidden" name="orderid" value="${sessionScope.order.orderId}">
+                                        <button type="submit">Opdater</button>
                                     </form>
                                     <div class="dropdown-divider"></div>
                                 </div>
