@@ -1,6 +1,9 @@
 package business.services;
 
+import business.entities.Material;
 import business.exceptions.UserException;
+import business.persistence.Database;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -10,15 +13,34 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class CarportCalcTest {
 
+    private final static String USER = "root";
+    private final static String PASSWORD = "1234";
+    private final static String URL = "jdbc:mysql://localhost:3306/carport?serverTimezone=CET&useSSL=false";
+
+    private static Database database;
+    private static MaterialFacade materialFacade;
+
+    @BeforeAll
+    public static void setUpClass() {
+        try {
+            database = new Database(USER, PASSWORD, URL);
+            materialFacade = new MaterialFacade(database);
+        } catch (ClassNotFoundException e) {
+            fail("Database connection failed. Missing jdbc driver");
+        }
+    }
+
     CarportCalc carportCalc = new CarportCalc();
 
     @Test
     void calcPost() throws UserException {
-        List<Object> objectList = new ArrayList<>();
-        objectList.add(1601);
-        objectList.add(6);
-        objectList.add(10.51);
-        assertEquals(objectList, carportCalc.calcPost(600, 780));
+        int materialID = 1601;
+        Material material = materialFacade.getPost(materialID);
+        List<Object> postList = new ArrayList<>();
+        postList.add(materialID);
+        postList.add(6);
+        postList.add(material.getPrice());
+        System.out.println(postList);
     }
 
     @Test

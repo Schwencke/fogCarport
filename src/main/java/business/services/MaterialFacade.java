@@ -13,7 +13,6 @@ public class MaterialFacade {
     }
 
     public Material getPost(int materialId) throws UserException {
-        //return materialMapper.getPost(materialId);
-        return new Material(1, "p", "q", 1.0, 1, 100, 100, 100);
+        return materialMapper.getPost(1601);
     }
 }

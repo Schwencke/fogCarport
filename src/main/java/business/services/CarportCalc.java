@@ -2,19 +2,14 @@ package business.services;
 
 import business.entities.Material;
 import business.exceptions.UserException;
-import business.persistence.Database;
-import business.persistence.MaterialMapper;
 
-
-import javax.xml.crypto.Data;
 import java.util.ArrayList;
 import java.util.List;
 
 import static java.lang.Math.ceil;
 
 public class CarportCalc {
-    Database database;
-    MaterialFacade materialFacade = new MaterialFacade(database);
+    MaterialFacade materialFacade;
 
     //<editor-fold desc="Wood">
     // Stolper
