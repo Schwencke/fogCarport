@@ -62,4 +62,8 @@ public class OrderFacade {
     public void updateShedMeasurementsById(int orderId, int shedLength, int shedWidth) {
         orderMapper.updateShedMeasurementsById(orderId, shedLength, shedWidth);
     }
+
+    public void updateStatusById(int statusId, int orderId){
+        orderMapper.updateStatusById(statusId, orderId);
+    }
 }

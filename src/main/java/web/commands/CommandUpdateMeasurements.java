@@ -14,6 +14,7 @@ public class CommandUpdateMeasurements extends CommandProtectedPage {
     int shedLength;
     int shedWidth;
     int orderId;
+    int statusId;
 
     public CommandUpdateMeasurements(String pageToShow, String role) {
         super(pageToShow, role);
@@ -34,6 +35,8 @@ public class CommandUpdateMeasurements extends CommandProtectedPage {
 
         orderFacade.updateShedMeasurementsById(orderId, shedLength, shedWidth);
 
+        statusId = Integer.parseInt(request.getParameter("statusid"));
+        orderFacade.updateStatusById(statusId, orderId);
         return pageToShow;
     }
 }
