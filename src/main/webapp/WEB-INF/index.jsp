@@ -85,12 +85,12 @@
                                 <input type="password" class="form-control" id="password" name="password" required
                                        placeholder="Indtast password">
                             </div>
-                            <button type="submit" onclick="storedata()" <c:set var="front" scope="session" value="1"/>
-                                    class="btn btn-primary mt-2">Login
+<%--                            <c:set var="stayonindex" scope="session" value="false"/>--%>
+                            <button type="submit" onclick="storedata()" class="btn btn-primary mt-2">Login
                             </button>
                         </form>
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="${pageContext.request.contextPath}/fc/registerpage">Ikke
+                        <a class="dropdown-item" href="${pageContext.request.contextPath}/fc/signup">Ikke
                             registeret endnu?</a>
                     </div>
                 </div>
@@ -98,7 +98,7 @@
             </c:otherwise>
         </c:choose>
         <br>
-        <label> *Hvis du f.eks. har valgt en carport med målene 240x360 cm kan redskabsrummet maksimalt måle 210x330
+        <label>*Hvis du f.eks. har valgt en carport med målene 240x360 cm kan redskabsrummet maksimalt måle 210x330
             cm.</label>
         <div class="col-sm-3 col-lg-1"></div>
         <%--        <c:if test="${requestScope.msg != null }">--%>
