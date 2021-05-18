@@ -61,7 +61,7 @@ public class CommandCarportRequest extends CommandProtectedPage {
                     session.setAttribute("orderlist", orderList);
 
                     // Output to user
-                    request.setAttribute("msg", "Forespørgslen er sendt.");
+                    request.setAttribute("msg", "Forespørgslen blev sendt.");
 
                     // Page to show
                     String role = Utility.getNameById(request, "roles", user.getRoleId());
