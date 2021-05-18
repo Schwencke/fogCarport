@@ -27,21 +27,26 @@ public class CommandSignup extends CommandUnprotectedPage {
         String password1 = request.getParameter("password1");
         String password2 = request.getParameter("password2");
 
-        if (password1.equals(password2)) {
-            User user = userFacade.createUser(name, address, postalCode, phoneNo, email, password1);
+        if (Utility.validateEmailAddress(email)) {
+            if (password1.equals(password2)) {
+                User user = userFacade.createUser(name, address, postalCode, phoneNo, email, password1);
 
-            String role = Utility.getNameById(request, "roles", user.getRoleId());
-            String city = Utility.getNameById(request, "cities", user.getPostalCode());
+                String role = Utility.getNameById(request, "roles", user.getRoleId());
+                String city = Utility.getNameById(request, "cities", user.getPostalCode());
 
-            HttpSession session = request.getSession();
-            session.setAttribute("email", email);
-            session.setAttribute("user", user);
-            session.setAttribute("role", role);
-            session.setAttribute("city", city);
+                HttpSession session = request.getSession();
+                session.setAttribute("email", email);
+                session.setAttribute("user", user);
+                session.setAttribute("role", role);
+                session.setAttribute("city", city);
 
-            return "customer";
+                return "customer";
+            } else {
+                request.setAttribute("error", "The two passwords did not match.");
+                return "signup";
+            }
         } else {
-            request.setAttribute("error", "the two passwords did not match");
+            request.setAttribute("error", "Invalid email address.");
             return "signup";
         }
     }
