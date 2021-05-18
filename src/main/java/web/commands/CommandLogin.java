@@ -23,7 +23,7 @@ public class CommandLogin extends CommandUnprotectedPage {
     public String execute(HttpServletRequest request, HttpServletResponse response) {
         String email = request.getParameter("email");
         String password = request.getParameter("password");
-//TODO: FIX NU DET PIS MED AT MAN KAN LOGGE IND SELVOM MAN ER EN IDIOT
+
         try {
             User user = userFacade.login(email, password);
 
