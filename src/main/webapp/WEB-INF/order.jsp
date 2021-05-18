@@ -109,7 +109,8 @@
                                         <th>Længde</th>
                                         <th>Antal</th>
                                         <th>Enhed</th>
-                                        <th>Total pris</th>
+                                        <th>a'pris</th>
+                                        <th>Total</th>
                                         </thead>
                                     <c:forEach var="rafter" items="${sessionScope.rafterList}">
                                         <tr>
@@ -117,7 +118,8 @@
                                             <td>${rafter.name}</td>
                                             <td>${rafter.length}</td>
                                             <td>${rafter.quantity}</td>
-                                            <td>${rafter.unitId}</td>
+                                            <td>${applicationScope.units.get(rafter.unitId)}</td>
+                                            <td>${rafter.price}</td>
                                             <td>${rafter.quantity * rafter.price}</td>
                                         </tr>
                                     </c:forEach>
