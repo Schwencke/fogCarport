@@ -5,6 +5,7 @@ import business.exceptions.UserException;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class MaterialMapper {
@@ -14,7 +15,26 @@ public class MaterialMapper {
         this.database = database;
     }
 
-    //TODO: Get Units 3NF - Look at postalcode mapper
+    public HashMap<Integer, String> getAllUnits() throws UserException {
+        HashMap<Integer, String> units = new HashMap<>();
+        try (Connection connection = database.connect()) {
+            String sql = "SELECT * FROM `unit`";
+
+            try (PreparedStatement ps = connection.prepareStatement(sql)) {
+                ResultSet resultSet = ps.executeQuery();
+                while (resultSet.next()) {
+                    int unitId = resultSet.getInt("unit_id");
+                    String name = resultSet.getString("name");
+                    units.put(unitId, name);
+                }
+            } catch (SQLException ex) {
+                throw new UserException(ex.getMessage());
+            }
+        } catch (SQLException ex) {
+            throw new UserException("Connection to database could not be established");
+        }
+        return units;
+    }
 
     //<editor-fold desc="getPost">
     public Material getMaterialById(int materialId) throws UserException {

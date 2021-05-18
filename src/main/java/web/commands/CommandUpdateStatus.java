@@ -1,10 +1,9 @@
 package web.commands;
 
+
 import business.entities.Order;
-import business.entities.User;
 import business.exceptions.UserException;
 import business.services.OrderFacade;
-import business.services.Utility;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -13,12 +12,14 @@ import java.util.List;
 
 import static business.services.Utility.updateSessionScopeOrderList;
 
-public class CommandOrderList extends CommandProtectedPage {
 
+public class CommandUpdateStatus extends CommandProtectedPage {
     protected OrderFacade orderFacade;
     List<Order> orderList;
+    int orderId;
+    int statusId;
 
-    public CommandOrderList(String pageToShow, String role) {
+    public CommandUpdateStatus(String pageToShow, String role) {
         super(pageToShow, role);
         this.orderFacade = new OrderFacade(database);
     }
@@ -28,21 +29,12 @@ public class CommandOrderList extends CommandProtectedPage {
 
         HttpSession session = request.getSession();
 
-        User user = (User) session.getAttribute("user");
+        orderId = Integer.parseInt(request.getParameter("orderid"));
+        statusId = Integer.parseInt(request.getParameter("statusid"));
+        orderFacade.updateStatusById(statusId, orderId);
 
-        String role = Utility.getNameById(request, "roles", user.getRoleId());
-        pageToShow = role;
-
-        if (pageToShow.equals("salesperson")) {
-            pageToShow = "admin";
-        }
-
-        if (pageToShow.equals("admin")) {
-            orderList = orderFacade.getAllOrders();
-            pageToShow = "admin";
-        } else {
-            orderList = orderFacade.getAllOrdersById(user.getUserId());
-        }
+        session.removeAttribute("orderlist");
+        orderList = orderFacade.getAllOrders();
 
         updateSessionScopeOrderList(request, orderList);
 

@@ -345,4 +345,20 @@ public class OrderMapper {
         return status;
     }
     //</editor-fold>
+
+    //<editor-fold desc="updateStatusById">
+    public void updateStatusById(int statusId, int orderId) {
+        try (Connection connection = database.connect()) {
+            String sql = "UPDATE `order` SET `status_id`=? WHERE `order_id` = ?";
+
+            try (PreparedStatement ps = connection.prepareStatement(sql)) {
+                ps.setInt(1, statusId);
+                ps.setInt(2, orderId);
+                ps.executeUpdate();
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+    }
+    //</editor-fold>
 }
