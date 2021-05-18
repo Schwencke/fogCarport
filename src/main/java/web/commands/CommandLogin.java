@@ -25,7 +25,7 @@ public class CommandLogin extends CommandUnprotectedPage {
         String password = request.getParameter("password");
 
         if (Utility.validateEmailAddress(email) == false) {
-            request.setAttribute("error", "Invalid email address.");
+            request.setAttribute("error", "Ugyldig email.");
             return "login";
         }
 
@@ -41,16 +41,12 @@ public class CommandLogin extends CommandUnprotectedPage {
             session.setAttribute("role", role);
             session.setAttribute("city", city);
 
-            System.out.println(session.getAttribute("stayonindex"));
             if (session.getAttribute("role") != null) {
-                if (session.getAttribute("stayonindex") == "true") {
-                    pageToShow = "index";
-                } else {
-                    pageToShow = role;
-                }
+                pageToShow = role;
             } else {
                 session.invalidate();
                 request.setAttribute("error", "Forkert brugernavn/password.");
+                return "login";
             }
 
             if (pageToShow.equals("salesperson")) {
