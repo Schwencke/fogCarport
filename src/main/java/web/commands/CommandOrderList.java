@@ -5,10 +5,13 @@ import business.entities.User;
 import business.exceptions.UserException;
 import business.services.OrderFacade;
 import business.services.Utility;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.List;
+
+import static business.services.Utility.updateSessionScopeOrderList;
 
 public class CommandOrderList extends CommandProtectedPage {
 
@@ -31,16 +34,17 @@ public class CommandOrderList extends CommandProtectedPage {
         pageToShow = role;
 
         if (pageToShow.equals("salesperson")) {
+            pageToShow = "admin";
+        }
+
+        if (pageToShow.equals("admin")) {
             orderList = orderFacade.getAllOrders();
             pageToShow = "admin";
-        } if (pageToShow.equals("admin")){
-            orderList = orderFacade.getAllOrders();
-            pageToShow = "admin";
-        }else {
+        } else {
             orderList = orderFacade.getAllOrdersById(user.getUserId());
         }
 
-        session.setAttribute("orderlist", orderList);
+        updateSessionScopeOrderList(request, orderList);
 
         return pageToShow;
     }

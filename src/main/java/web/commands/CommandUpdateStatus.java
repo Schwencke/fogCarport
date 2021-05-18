@@ -10,6 +10,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.List;
 
+import static business.services.Utility.updateSessionScopeOrderList;
+
 
 public class CommandUpdateStatus extends CommandProtectedPage {
     protected OrderFacade orderFacade;
@@ -24,12 +26,18 @@ public class CommandUpdateStatus extends CommandProtectedPage {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws UserException {
+
         HttpSession session = request.getSession();
+
         orderId = Integer.parseInt(request.getParameter("orderid"));
         statusId = Integer.parseInt(request.getParameter("statusid"));
         orderFacade.updateStatusById(statusId, orderId);
+
+        session.removeAttribute("orderlist");
         orderList = orderFacade.getAllOrders();
-        session.setAttribute("orderlist", orderList);
+
+        updateSessionScopeOrderList(request, orderList);
+
         return pageToShow;
     }
 }
