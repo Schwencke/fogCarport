@@ -12,7 +12,7 @@ function storedata() {
         localStorage.setItem("carportwidth", document.getElementById("carportwidth").value);
         localStorage.setItem("carportlength", document.getElementById("carportlength").value);
         localStorage.setItem("shedwidth", document.getElementById("shedWidth").value);
-        localStorage.setItem("shedlength", document.getElementById("shedLength").value)
+        localStorage.setItem("shedlength", document.getElementById("shedLength").value);
     }
 }
 

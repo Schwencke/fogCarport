@@ -53,7 +53,6 @@
             </c:choose>
         </c:if>
         <c:if test="${sessionScope.role == 'salesperson'}">
-
             <div class="row">
                 <div class="col-6">
                     <table class="table table-striped">
@@ -226,9 +225,7 @@
                     </div>
                 </div>
             </div>
-
         </c:if>
     </jsp:body>
-
 </t:genericpage>
 

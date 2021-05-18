@@ -50,6 +50,7 @@
         </c:if>
 
         <c:set var="thisPage" value="${pageContext.request.servletPath}"/>
+        <c:set var="isLoginPage" value="${fn:endsWith(thisPage,'login.jsp')}"/>
         <c:set var="isNotLoginPage" value="${!fn:endsWith(thisPage,'login.jsp')}"/>
         <c:set var="isNotRegisterPage" value="${!fn:endsWith(thisPage,'signup.jsp')}"/>
 
@@ -91,6 +92,10 @@
                 </c:if>
             </c:if>
             </div>
+        </c:if>
+        <c:if test="${isLoginPage}">
+            <a type="button" class="btn btn-sm  btn-outline-secondary"
+               href="${pageContext.request.contextPath}/fc/signup">Opret bruger</a>
         </c:if>
     </div>
 

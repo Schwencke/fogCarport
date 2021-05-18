@@ -12,7 +12,7 @@ import java.sql.SQLException;
 
 public class CommandLogin extends CommandUnprotectedPage {
     private UserFacade userFacade;
-    String pageToShow;
+    private String pageToShow;
 
     public CommandLogin(String pageToShow) {
         super(pageToShow);
@@ -25,7 +25,7 @@ public class CommandLogin extends CommandUnprotectedPage {
         String password = request.getParameter("password");
 
         if (Utility.validateEmailAddress(email) == false) {
-            request.setAttribute("error", "Invalid email address.");
+            request.setAttribute("error", "Ugyldig email.");
             return "login";
         }
 
@@ -41,10 +41,18 @@ public class CommandLogin extends CommandUnprotectedPage {
             session.setAttribute("role", role);
             session.setAttribute("city", city);
 
-            if (session.getAttribute("front") != null) {
-                pageToShow = "index";
-            } else {
+            if (session.getAttribute("role") != null) {
                 pageToShow = role;
+
+                if (pageToShow.equals("salesperson")) {
+                    pageToShow = "admin";
+                } else {
+                    pageToShow = "index";
+                }
+            } else {
+                session.invalidate();
+                request.setAttribute("error", "Forkert brugernavn/password.");
+                return "login";
             }
 
             if (pageToShow.equals("salesperson")) {
@@ -53,7 +61,7 @@ public class CommandLogin extends CommandUnprotectedPage {
 
             return REDIRECT_INDICATOR + pageToShow;
         } catch (UserException | SQLException ex) {
-            request.setAttribute("error", "Wrong username or password!");
+            request.setAttribute("error", "Forkert brugernavn/password.");
             return "login";
         }
     }

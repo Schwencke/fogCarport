@@ -4,7 +4,7 @@
 
 <t:genericpage>
     <jsp:attribute name="header">
-         Login page
+         Log ind
     </jsp:attribute>
 
     <jsp:attribute name="footer">
@@ -16,13 +16,13 @@
                 <div class="row mb-3">
                     <label class="col-sm-1 col-form-label" for="email">Email</label>
                     <div class="col-sm-4">
-                        <input id="email" class="form-control" type="text" name="email" placeholder="someone@nowhere.com">
+                        <input id="email" class="form-control" type="text" name="email" placeholder="Indtast email">
                     </div>
                 </div>
                 <div class="row mb-3">
                     <label class="col-sm-1 col-form-label" for="password">Password</label>
                     <div class="col-sm-4">
-                        <input id="password" class="form-control" type="password" name="password" placeholder="sesam">
+                        <input id="password" class="form-control" type="password" name="password" placeholder="Indtast password">
                     </div>
                 </div>
                 <c:if test="${requestScope.error != null }">
@@ -34,7 +34,7 @@
                 <c:if test="${not empty param.msg}">
                     <p style="font-size: large">${param.msg}</p>
                 </c:if>
-                <button class="btn btn-primary" type="submit" value="Login">Sign in</button>
+                <button class="btn btn-primary" type="submit" value="Login">Log ind</button>
             </form>
         </div>
     </jsp:body>
