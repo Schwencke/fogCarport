@@ -29,6 +29,12 @@
                     <th>Ordre nr.</th>
                     <th>Oprettet</th>
                     <th>Opdateret</th>
+                    <th>Carport Bredde</th>
+                    <th>Carport Længde</th>
+                    <th>Tag</th>
+                    <th>Skur Bredde</th>
+                    <th>Skur Længde</th>
+                    <th>Beklædning</th>
                     <th>Pris</th>
                     <th>Status</th>
                     <th></th>
@@ -40,6 +46,12 @@
                                     <td>${orderlist.orderId}</td>
                                     <td>${orderlist.timeCreated}</td>
                                     <td>${orderlist.timeUpdated}</td>
+                                    <td>${orderlist.carportWidth}</td>
+                                    <td>${orderlist.carportLength}</td>
+                                    <td>${applicationScope.roofinglist.get(orderlist.roofingId)}</td>
+                                    <td>${orderlist.shedWidth}</td>
+                                    <td>${orderlist.shedLength}</td>
+                                    <td>${applicationScope.claddinglist.get(orderlist.claddingId)}</td>
                                     <td>${orderlist.price}</td>
                                     <td>${applicationScope.status.get(orderlist.statusId)}</td>
                                     <td>

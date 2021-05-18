@@ -8,7 +8,7 @@ public class Order {
    int statusId;
    double price;
    Timestamp timeCreated;
-   Timestamp  timeUpdated;
+   Timestamp timeUpdated;
    int carportLength;
    int carportWidth;
    int claddingId;
