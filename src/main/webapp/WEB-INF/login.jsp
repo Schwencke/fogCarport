@@ -4,7 +4,7 @@
 
 <t:genericpage>
     <jsp:attribute name="header">
-         Login page
+         Log ind
     </jsp:attribute>
 
     <jsp:attribute name="footer">

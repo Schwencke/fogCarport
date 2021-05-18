@@ -43,6 +43,12 @@ public class CommandLogin extends CommandUnprotectedPage {
 
             if (session.getAttribute("role") != null) {
                 pageToShow = role;
+
+                if (pageToShow.equals("salesperson")) {
+                    pageToShow = "admin";
+                } else {
+                    pageToShow = "index";
+                }
             } else {
                 session.invalidate();
                 request.setAttribute("error", "Forkert brugernavn/password.");

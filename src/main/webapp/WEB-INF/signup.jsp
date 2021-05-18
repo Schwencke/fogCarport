@@ -4,7 +4,7 @@
 
 <t:genericpage>
     <jsp:attribute name="header">
-         Register as new User
+         Registrer ny bruger
     </jsp:attribute>
     <jsp:attribute name="footer">
     </jsp:attribute>
@@ -62,7 +62,7 @@
                     </div>
                 </div>
 
-                <input class="btn btn-primary" type="submit" value="Log ind">
+                <input class="btn btn-primary" type="submit" value="Opret bruger">
             </form>
 
             <c:if test="${requestScope.error != null }">
