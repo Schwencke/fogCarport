@@ -63,8 +63,7 @@
                 <!--Dynamisk login/signup-->
                 <div class="dropdown-menu-left">
                 <button class="btn btn-sm btn-outline-secondary" type="button" id="dropdownLogin"
-                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Login
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Log ind
                 </button>
                 <div class="dropdown-menu" aria-labelledby="dropdownLogin">
                     <form class="px-4 py-3" action="${pageContext.request.contextPath}/fc/commandlogin"
@@ -80,7 +79,7 @@
                                    required
                                    placeholder="Indtast password">
                         </div>
-                        <button type="submit" class="btn btn-primary mt-2">Login</button>
+                        <button type="submit" class="btn btn-primary mt-2">Log ind</button>
                     </form>
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item" href="${pageContext.request.contextPath}/fc/signup">Ikke

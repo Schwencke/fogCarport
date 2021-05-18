@@ -45,7 +45,7 @@ public abstract class Command {
             initCommands(database);
         }
 
-        return commands.getOrDefault(action, new CommandUnknown());   // unknowncommand is default
+        return commands.getOrDefault(action, new CommandUnknown());   // This command is default
     }
 
     public abstract String execute(
