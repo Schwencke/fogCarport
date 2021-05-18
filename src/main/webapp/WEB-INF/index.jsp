@@ -3,7 +3,6 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <t:genericpage>
-
     <jsp:attribute name="header">
          Forsiden
     </jsp:attribute>
@@ -40,7 +39,7 @@
 
                     <label class="fw-bold"><br>Redskabsrum:</label>
                     <label>NB! Der skal beregnes 15 cm tagudhæng på hver side af redskabsrummet*</label>
-                    <label for="shedWidth" class="fw-bold">Redskabsrum bredde</label>
+                    <label for="shedWidth" class="fw-bold mt-3">Redskabsrum bredde</label>
                     <select id="shedWidth" name="shedwidth" type="text">
                         <option value="0">Ønsker ikke redskabsrum</option>
                         <c:forEach var="shedWidth" items="${applicationScope.shedWidth}">
@@ -64,9 +63,8 @@
                 <br>
                 <c:choose>
                     <c:when test="${sessionScope.user != null}">
-                        <button class="btn-outline-success mt-5" type="submit">Send forspørgsel</button>
+                        <button class="btn-outline-success mt-2" type="submit" onclick="storedata()">Send forspørgsel</button>
                     </c:when>
-
                     <c:otherwise>
                         <button class="btn btn-outline-primary" type="button" data-toggle="collapse"
                                 data-target="#collapseLogin" aria-expanded="false" aria-controls="collapseLogin">
@@ -89,7 +87,7 @@
                                                placeholder="Indtast password">
                                     </div>
                                         <%--                            <c:set var="stayonindex" scope="session" value="false"/>--%>
-                                    <button type="submit" onclick="storedata()" class="btn btn-primary mt-2">Login
+                                    <button class="btn btn-primary mt-2" type="submit" onclick="storedata()">Login
                                     </button>
                                 </form>
                                 <div class="dropdown-divider"></div>
@@ -97,12 +95,10 @@
                                     registeret endnu?</a>
                             </div>
                         </div>
-
                     </c:otherwise>
                 </c:choose>
-
                 <br>
-                <label>*Hvis du f.eks. har valgt en carport med målene 240x360 cm kan redskabsrummet maksimalt måle
+                <label class="mt-3">*Hvis du f.eks. har valgt en carport med målene 240x360 cm kan redskabsrummet maksimalt måle
                     210x330
                     cm.</label>
                 <div class="col-sm-3 col-lg-1"></div>

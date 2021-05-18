@@ -27,14 +27,15 @@
                 <table class="table table-striped">
                     <thead>
                     <th>Ordre nr.</th>
-                    <th>Oprettet</th>
-                    <th>Opdateret</th>
+                        <%--                    <th>Oprettet</th>--%>
+                    <th>Senest opdateret</th>
                     <th>Carport Bredde</th>
                     <th>Carport Længde</th>
                     <th>Tag</th>
-                    <th>Skur Bredde</th>
-                    <th>Skur Længde</th>
-                    <th>Beklædning</th>
+                    <th>Skur</th>
+                        <%--                    <th>Skur Bredde</th>--%>
+                        <%--                    <th>Skur Længde</th>--%>
+                        <%--                    <th>Beklædning</th>--%>
                     <th>Pris</th>
                     <th>Status</th>
                     <th></th>
@@ -44,15 +45,27 @@
                             <form action="${pageContext.request.contextPath}/fc/customerorder" method="post">
                                 <tr>
                                     <td>${orderlist.orderId}</td>
-                                    <td>${orderlist.timeCreated}</td>
+                                        <%--                                    <td>${orderlist.timeCreated}</td>--%>
                                     <td>${orderlist.timeUpdated}</td>
                                     <td>${orderlist.carportWidth}</td>
                                     <td>${orderlist.carportLength}</td>
                                     <td>${applicationScope.roofinglist.get(orderlist.roofingId)}</td>
-                                    <td>${orderlist.shedWidth}</td>
-                                    <td>${orderlist.shedLength}</td>
-                                    <td>${applicationScope.claddinglist.get(orderlist.claddingId)}</td>
-                                    <td>${orderlist.price}</td>
+                                    <td>
+                                        <c:choose>
+                                            <c:when test="${orderlist.shedWidth > 0}">Ja
+                                            </c:when>
+                                            <c:otherwise>Nej</c:otherwise>
+                                        </c:choose>
+                                    </td>
+                                        <%--                                    <td>${orderlist.shedWidth}</td>--%>
+                                        <%--                                    <td>${orderlist.shedLength}</td>--%>
+                                        <%--                                    <td>${applicationScope.claddinglist.get(orderlist.claddingId)}</td>--%>
+                                    <td>
+                                        <c:choose>
+                                            <c:when test="${orderlist.price == 0}">-</c:when>
+                                            <c:otherwise>${orderlist.price},-</c:otherwise>
+                                        </c:choose>
+                                    </td>
                                     <td>${applicationScope.status.get(orderlist.statusId)}</td>
                                     <td>
                                         <input type="hidden" value="${orderlist.orderId}" name="order">
@@ -89,7 +102,7 @@
                 Byg din første carport <a class="text-dark" href="${pageContext.request.contextPath}">her</a>.
             </c:otherwise>
         </c:choose>
-        <c:if test="${requestScope.msg != null }">
+        <c:if test="${requestScope.msg != null}">
             <p style="color:green">
                 <script>cleardata()</script>
                     ${requestScope.msg}
