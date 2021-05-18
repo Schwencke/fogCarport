@@ -73,8 +73,6 @@ public class CommandOrder extends CommandProtectedPage {
         sternList = Utility.concatenateLists(sternUnderFrontAndBackList,sternUnderSidesList,sternOverFrontList,sternOverSidesList,sternWaterFrontList,sternWaterSidesList);
 
         session.setAttribute("sternList",sternList);
-
-
         session.setAttribute("postList", postList);
         session.setAttribute("rafterList", rafterList);
         session.setAttribute("beamList", beamList);

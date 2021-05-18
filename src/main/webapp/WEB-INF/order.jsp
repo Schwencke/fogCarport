@@ -100,7 +100,7 @@
                         <button class="btn btn-outline-success" type="button" data-toggle="collapse"
                                 data-target="#collapseCalculate" aria-expanded="false"
                                 aria-controls="collapseCalculate">
-                            Beregn
+                            Materialeliste
                         </button>
                         <div class="collapse" id="collapseCalculate">
                             <table>
