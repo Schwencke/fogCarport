@@ -24,6 +24,11 @@ public class CommandLogin extends CommandUnprotectedPage {
         String email = request.getParameter("email");
         String password = request.getParameter("password");
 
+        if (Utility.validateEmailAddress(email) == false) {
+            request.setAttribute("error", "Invalid email address.");
+            return "login";
+        }
+
         try {
             User user = userFacade.login(email, password);
 
