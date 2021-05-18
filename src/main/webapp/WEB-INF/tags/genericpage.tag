@@ -45,7 +45,6 @@
     </nav>
 
     <div>
-
         <c:if test="${sessionScope.user != null }">
             ${sessionScope.user.email}&nbsp;&nbsp;&nbsp;&nbsp;
         </c:if>
@@ -54,18 +53,44 @@
         <c:set var="isNotLoginPage" value="${!fn:endsWith(thisPage,'login.jsp')}"/>
         <c:set var="isNotRegisterPage" value="${!fn:endsWith(thisPage,'signup.jsp')}"/>
 
-        <c:if test="${isNotLoginPage && isNotRegisterPage}">
+        <c:if test="${isNotLoginPage}">
             <c:if test="${sessionScope.user != null }">
                 <a type="button" class="btn btn-sm  btn-outline-secondary"
                    href="${pageContext.request.contextPath}/fc/commandlogout">Log ud</a>
             </c:if>
 
-            <c:if test="${sessionScope.user == null }">
-                <a type="button" class="btn btn-sm  btn-outline-secondary"
-                   href="${pageContext.request.contextPath}/fc/login">Log ind</a>
-                <a type="button" class="btn btn-sm  btn-outline-secondary"
-                   href="${pageContext.request.contextPath}/fc/signup">Opret bruger</a>
+            <c:if test="${sessionScope.user == null}">
+                <!--Dynamisk login/signup-->
+                <div class="dropdown-menu-left">
+                <button class="btn btn-sm btn-outline-secondary" type="button" id="dropdownLogin"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Log ind
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownLogin">
+                    <form class="px-4 py-3" action="${pageContext.request.contextPath}/fc/commandlogin"
+                          method="post">
+                        <div class="form-group">
+                            <label for="email">Email address</label>
+                            <input type="email" class="form-control" id="email" name="email" required
+                                   placeholder="Indtast email">
+                        </div>
+                        <div class="form-group">
+                            <label for="password">Password</label>
+                            <input type="password" class="form-control" id="password" name="password"
+                                   required
+                                   placeholder="Indtast password">
+                        </div>
+                        <button type="submit" class="btn btn-primary mt-2">Log ind</button>
+                    </form>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="${pageContext.request.contextPath}/fc/signup">Ikke
+                        registeret endnu?</a>
+                </div>
+                <c:if test="${isNotRegisterPage}">
+                    <a type="button" class="btn btn-sm  btn-outline-secondary"
+                       href="${pageContext.request.contextPath}/fc/signup">Opret bruger</a>
+                </c:if>
             </c:if>
+            </div>
         </c:if>
     </div>
 

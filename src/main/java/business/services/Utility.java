@@ -9,9 +9,18 @@ import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.stream.Stream;
 
 public class Utility {
+
+    public static boolean validateEmailAddress(String email) {
+        String regex = "^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$";
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(email);
+        return matcher.matches();
+    }
 
     public static String getNameById(HttpServletRequest request, String name, int id) {
         ServletContext application = request.getServletContext();
@@ -30,9 +39,9 @@ public class Utility {
         }
     }
 
-    public static List<Material> concatenateLists(List<Material> sternUnderFrontAndBackList, List<Material> sternUnderSidesList, List<Material> sternOverFrontList, List<Material> sternOverSidesList, List<Material> sternWaterFrontList, List<Material> sternWaterSidesList){
+    public static List<Material> concatenateLists(List<Material> sternUnderFrontAndBackList, List<Material> sternUnderSidesList, List<Material> sternOverFrontList, List<Material> sternOverSidesList, List<Material> sternWaterFrontList, List<Material> sternWaterSidesList) {
         List<Material> result = new ArrayList<>();
-        Stream.of(sternUnderFrontAndBackList,sternUnderSidesList,sternOverFrontList,sternOverSidesList,sternWaterFrontList, sternWaterSidesList).forEach(result::addAll);
+        Stream.of(sternUnderFrontAndBackList, sternUnderSidesList, sternOverFrontList, sternOverSidesList, sternWaterFrontList, sternWaterSidesList).forEach(result::addAll);
         return result;
     }
 }

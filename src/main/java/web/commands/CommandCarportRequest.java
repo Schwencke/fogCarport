@@ -61,19 +61,19 @@ public class CommandCarportRequest extends CommandProtectedPage {
                     session.setAttribute("orderlist", orderList);
 
                     // Output to user
-                    request.setAttribute("msg", "Forespørgslen er sendt");
+                    request.setAttribute("msg", "Forespørgslen er sendt.");
 
                     // Page to show
                     String role = Utility.getNameById(request, "roles", user.getRoleId());
                     pageToShow = role;
                 } else {
-                    request.setAttribute("error", "vælg begge mål til skur");
+                    request.setAttribute("error", "Skur mål mangler.");
                 }
             } else {
-                request.setAttribute("error", "Mangler længde");
+                request.setAttribute("error", "Længde mangler.");
             }
         } else {
-            request.setAttribute("error", "Mangler bredde");
+            request.setAttribute("error", "Bredde mangler.");
         }
         return pageToShow;
     }
