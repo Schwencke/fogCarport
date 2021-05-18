@@ -41,7 +41,7 @@ public class CarportCalc {
 
         // Create list
         List<Material> result = new ArrayList<>();
-        result.add(new Material(materialID, material.getName(), material.getDescription(), material.getPrice(), material.getUnitId(), quantity));
+        result.add(new Material(materialID, material.getName(), material.getDescription(), material.getPrice(), material.getUnitId(),material.getWidth(), material.getLength(), material.getHeight(), quantity));
 
         return result;
     }
@@ -78,6 +78,9 @@ public class CarportCalc {
                         materialList.get(i).getDescription(),
                         materialList.get(i).getPrice(),
                         materialList.get(i).getUnitId(),
+                        materialList.get(i).getWidth(),
+                        materialList.get(i).getLength(),
+                        materialList.get(i).getHeight(),
                         quantity));
                 length -= availableLengths.get(i);
             }
@@ -90,6 +93,9 @@ public class CarportCalc {
                     materialList.get(0).getDescription(),
                     materialList.get(0).getPrice(),
                     materialList.get(0).getUnitId(),
+                    materialList.get(0).getWidth(),
+                    materialList.get(0).getLength(),
+                    materialList.get(0).getHeight(),
                     quantity));
         }
 
@@ -126,6 +132,9 @@ public class CarportCalc {
                         materialList.get(i).getDescription(),
                         materialList.get(i).getPrice(),
                         materialList.get(i).getUnitId(),
+                        materialList.get(i).getWidth(),
+                        materialList.get(i).getLength(),
+                        materialList.get(i).getHeight(),
                         quantity));
                 length -= availableLengths.get(i);
             }
@@ -138,6 +147,9 @@ public class CarportCalc {
                     materialList.get(0).getDescription(),
                     materialList.get(0).getPrice(),
                     materialList.get(0).getUnitId(),
+                    materialList.get(0).getWidth(),
+                    materialList.get(0).getLength(),
+                    materialList.get(0).getHeight(),
                     quantity));
         }
 
@@ -170,6 +182,9 @@ public class CarportCalc {
                             materialList.get(i).getDescription(),
                             materialList.get(i).getPrice(),
                             materialList.get(i).getUnitId(),
+                            materialList.get(i).getWidth(),
+                            materialList.get(i).getLength(),
+                            materialList.get(i).getHeight(),
                             quantity));
                     prevLength = availableLengths.get(i);
                 } else {
@@ -192,6 +207,9 @@ public class CarportCalc {
                     materialList.get(0).getDescription(),
                     materialList.get(0).getPrice(),
                     materialList.get(0).getUnitId(),
+                    materialList.get(0).getWidth(),
+                    materialList.get(0).getLength(),
+                    materialList.get(0).getHeight(),
                     quantity));
         }
 
@@ -269,6 +287,9 @@ public class CarportCalc {
                         materialList.get(i).getDescription(),
                         materialList.get(i).getPrice(),
                         materialList.get(i).getUnitId(),
+                        materialList.get(i).getWidth(),
+                        materialList.get(i).getLength(),
+                        materialList.get(i).getHeight(),
                         quantity));
                 length -= availableLengths.get(i) - overlapLength;
             }
@@ -286,6 +307,9 @@ public class CarportCalc {
                     materialList.get(0).getDescription(),
                     materialList.get(0).getPrice(),
                     materialList.get(0).getUnitId(),
+                    materialList.get(0).getWidth(),
+                    materialList.get(0).getLength(),
+                    materialList.get(0).getHeight(),
                     quantity));
         }
 

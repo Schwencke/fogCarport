@@ -102,11 +102,26 @@
                                     Beregn
                                 </button>
                                 <div class="collapse" id="collapseCalculate">
+                                    <table>
+                                        <thead>
+                                        <th>Materiale ID</th>
+                                        <th>Beskrivelse</th>
+                                        <th>Længde</th>
+                                        <th>Antal</th>
+                                        <th>Enhed</th>
+                                        <th>Total pris</th>
+                                        </thead>
                                     <c:forEach var="rafter" items="${sessionScope.rafterList}">
-                                        <h1>${rafter.name}</h1>
-                                        <h1>${rafter.quantity}</h1>
-                                        <h1>${rafter.quantity * rafter.price}</h1>
+                                        <tr>
+                                            <td>${rafter.materialID}</td>
+                                            <td>${rafter.name}</td>
+                                            <td>${rafter.length}</td>
+                                            <td>${rafter.quantity}</td>
+                                            <td>${rafter.unitId}</td>
+                                            <td>${rafter.quantity * rafter.price}</td>
+                                        </tr>
                                     </c:forEach>
+                                    </table>
                                 </div>
                             </form>
                             <button class="btn btn-outline-primary" type="button" data-toggle="collapse"
