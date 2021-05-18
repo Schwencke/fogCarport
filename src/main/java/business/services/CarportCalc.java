@@ -224,7 +224,7 @@ public class CarportCalc {
 
     public List<Material> calcSternUnderSides(int carportLength) throws UserException {
         String description = "Understernbrædder til siderne";
-        int surfaceNo = 1;
+        int surfaceNo = 2;
         return calcStern(surfaceNo, carportLength, description);
     }
 
@@ -236,7 +236,7 @@ public class CarportCalc {
 
     public List<Material> calcSternOverSides(int carportLength) throws UserException {
         String description = "Oversternbrædder til siderne";
-        int surfaceNo = 1;
+        int surfaceNo = 2;
         return calcStern(surfaceNo, carportLength, description);
     }
 
@@ -248,7 +248,7 @@ public class CarportCalc {
 
     public List<Material> calcSternWaterSides(int carportLength) throws UserException {
         String description = "Oversternbrædder til siderne";
-        int surfaceNo = 1;
+        int surfaceNo = 2;
         return calcStern(surfaceNo, carportLength, description);
     }
     //</editor-fold>

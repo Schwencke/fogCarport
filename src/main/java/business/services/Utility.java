@@ -1,14 +1,17 @@
 package business.services;
 
+import business.entities.Material;
 import business.entities.Order;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.stream.Stream;
 
 public class Utility {
 
@@ -34,5 +37,11 @@ public class Utility {
                 }
             }
         }
+    }
+
+    public static List<Material> concatenateLists(List<Material> sternUnderFrontAndBackList, List<Material> sternUnderSidesList, List<Material> sternOverFrontList, List<Material> sternOverSidesList, List<Material> sternWaterFrontList, List<Material> sternWaterSidesList) {
+        List<Material> result = new ArrayList<>();
+        Stream.of(sternUnderFrontAndBackList, sternUnderSidesList, sternOverFrontList, sternOverSidesList, sternWaterFrontList, sternWaterSidesList).forEach(result::addAll);
+        return result;
     }
 }
