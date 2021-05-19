@@ -19,14 +19,14 @@
                     <select id="carportwidth" name="carportwidth" type="text">
                         <option value="0">Vælg bredde</option>
                         <c:forEach var="carportWidth" items="${applicationScope.carportWidth}">
-                            <option value="${carportWidth}">${carportWidth}</option>
+                            <option value="${carportWidth}">${carportWidth} cm</option>
                         </c:forEach>
                     </select>
                     <label for="carportlength" class="fw-bold">Carport længde</label>
                     <select id="carportlength" name="carportlength" type="text">
                         <option value="0">Vælg længde</option>
                         <c:forEach var="carportLength" items="${applicationScope.carportLength}">
-                            <option value="${carportLength}">${carportLength}</option>
+                            <option value="${carportLength}">${carportLength} cm</option>
                         </c:forEach>
                     </select><br>
 
@@ -43,14 +43,14 @@
                     <select id="shedWidth" name="shedwidth" type="text">
                         <option value="0">Ønsker ikke redskabsrum</option>
                         <c:forEach var="shedWidth" items="${applicationScope.shedWidth}">
-                            <option value="${shedWidth}">${shedWidth}</option>
+                            <option value="${shedWidth}">${shedWidth} cm</option>
                         </c:forEach>
                     </select><br>
                     <label for="shedLength" class="fw-bold">Redskabsrum længde</label>
                     <select id="shedLength" name="shedlength" type="text">
                         <option value="0">Ønsker ikke redskabsrum</option>
                         <c:forEach var="shedLength" items="${applicationScope.shedLength}">
-                            <option value="${shedLength}">${shedLength}</option>
+                            <option value="${shedLength}">${shedLength} cm</option>
                         </c:forEach>
                     </select><br>
                     <label for="cladding" class="fw-bold">Beklædning</label>
@@ -63,7 +63,7 @@
                 <br>
                 <c:choose>
                     <c:when test="${sessionScope.user != null}">
-                        <button class="btn-outline-success mt-2" type="submit" onclick="storedata()">Send forspørgsel</button>
+                        <button class="btn btn-outline-success mt-2" type="submit" onclick="storedata()">Send forspørgsel</button>
                     </c:when>
                     <c:otherwise>
                         <button class="btn btn-outline-primary" type="button" data-toggle="collapse"

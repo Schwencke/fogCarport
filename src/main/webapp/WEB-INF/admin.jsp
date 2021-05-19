@@ -34,7 +34,7 @@
                     <th></th>
                     </thead>
                     <c:forEach var="orderlist" items="${sessionScope.orderlist}">
-                        <c:if test="${orderlist.statusId != 5}">
+                        <c:if test="${orderlist.statusId != 99}">
                             <form action="${pageContext.request.contextPath}/fc/adminorder" method="post">
                                 <tr>
                                     <td>${orderlist.orderId}</td>

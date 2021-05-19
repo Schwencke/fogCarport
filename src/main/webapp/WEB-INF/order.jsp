@@ -18,6 +18,7 @@
         You are now logged in as a CUSTOMER.<br>
         Role: ${sessionScope.role}<br>
         Role ID: ${sessionScope.user.roleId}<br>
+        User ID: ${sessionScope.user.userId}<br>
         User: ${sessionScope.user}<br>
         Name: ${sessionScope.user.name}<br>
         Email: ${sessionScope.email}<br>
@@ -29,22 +30,157 @@
         <c:if test="${sessionScope.role == 'customer'}">
             <c:choose>
                 <c:when test="${sessionScope.orderlist != null}">
-                    <table class="table table-striped">
-                        <thead>
-                        <th>Ordre nr.</th>
-                        <th>Oprettet</th>
-                        <th>Opdateret</th>
-                        <th>Pris</th>
-                        <th>Status</th>
-                        </thead>
-                        <tr>
-                            <td>${order.orderId}</td>
-                            <td>${order.timeCreated}</td>
-                            <td>${order.timeUpdated}</td>
-                            <td>${order.price}</td>
-                            <td>${applicationScope.status.get(order.statusId)}</td>
-                        </tr>
-                    </table>
+                    <div class="container">
+                        <div class="row">
+                            <div class="col">
+                                <table class="table table-striped table-sm">
+                                    <thead>
+                                    <th style="width: 40%">Kontaktoplysninger</th>
+                                    <th></th>
+                                    </thead>
+                                    <tr>
+                                        <td>Navn:</td>
+                                        <td>${sessionScope.user.name}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Adresse:</td>
+                                        <td>${sessionScope.user.address}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Postnummer</td>
+                                        <td>${sessionScope.user.postalCode}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>By</td>
+                                        <td>${applicationScope.cities.get(sessionScope.user.postalCode)}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Telefon nr.:</td>
+                                        <td>${sessionScope.user.phoneNo}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Email:</td>
+                                        <td>${sessionScope.user.email}</td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div class="col">
+                                <table class="table table-striped table-sm">
+                                    <thead>
+                                    <th style="width: 40%">Specifikationer</th>
+                                    <th></th>
+                                    </thead>
+                                    <tr>
+                                        <td>Ref. nr.:</td>
+                                        <td>${sessionScope.order.orderId}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Oprettet:</td>
+                                        <td>${sessionScope.order.timeCreated}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Ændret:</td>
+                                        <td>${sessionScope.order.timeUpdated}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Status:</td>
+                                        <td>${applicationScope.status.get(order.statusId)}</td>
+                                    </tr>
+                                </table>
+                                <table class="table table-striped table-sm">
+                                    <thead>
+                                    <th style="width: 40%">Carport</th>
+                                    <th></th>
+                                    </thead>
+                                    <tr>
+                                        <td>Bredde:</td>
+                                        <td>${sessionScope.order.carportWidth} cm</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Længde:</td>
+                                        <td>${sessionScope.order.carportLength} cm</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Tag:</td>
+                                        <td>${applicationScope.roofinglist.get(order.roofingId)}</td>
+                                    </tr>
+                                </table>
+                                <c:if test="${order.shedWidth > 0}">
+                                    <table class="table table-striped table-sm">
+                                        <thead>
+                                        <th style="width: 40%">Skur</th>
+                                        <td></td>
+                                        </thead>
+                                        <tr>
+                                            <td>Bredde:</td>
+                                            <td>${sessionScope.order.shedWidth} cm</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Længde:</td>
+                                            <td>${sessionScope.sessionScope.order.shedLength} cm</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Beklædning:</td>
+                                            <td>${applicationScope.claddinglist.get(order.claddingId)}</td>
+                                        </tr>
+                                    </table>
+                                </c:if>
+                                <table class="table table-striped table-sm">
+                                    <thead>
+                                    <th style="width: 40%"></th>
+                                    <td></td>
+                                    </thead>
+                                    <tr>
+                                        <td>Pris (Dkk):</td>
+                                        <td>
+                                            <c:choose>
+                                                <c:when test="${sessionScope.order.price == 0}">Afventer tilbud</c:when>
+                                                <c:otherwise>${sessionScope.order.price},-</c:otherwise>
+                                            </c:choose>
+                                        </td>
+                                    </tr>
+                                </table>
+                                <div align="right">
+                                    <c:if test="${sessionScope.order.statusId == 1}">
+                                        <button style="width: 20%" class="btn btn-success btn-sm" disabled>Acceptér
+                                        </button>
+                                        <button style="width: 20%" class="btn btn-outline-danger btn-sm" disabled>
+                                            Annullér
+                                        </button>
+                                    </c:if>
+                                    <c:if test="${sessionScope.order.statusId == 1}">
+                                        <form action="${pageContext.request.contextPath}/fc/customerupdatestatus"
+                                              method="post">
+                                            <input type="hidden" name="orderid"
+                                                   value="${sessionScope.order.orderId}">
+                                            <input type="hidden" name="statusid" value="3">
+                                            <button style="width: 20%" class="btn btn-success btn-sm" type="submit">
+                                                Acceptér
+                                            </button>
+                                        </form>
+                                        <form action="${pageContext.request.contextPath}/fc/customerupdatestatus">
+                                            <input type="hidden" name="orderid"
+                                                   value="${sessionScope.order.orderId}">
+                                            <input type="hidden" name="statusid" value="99">
+                                            <button style="width: 20%" class="btn btn-outline-danger btn-sm"
+                                                    type="submit">Annullér
+                                            </button>
+                                        </form>
+                                    </c:if>
+                                    <c:if test="${sessionScope.order.statusId == 1}">
+                                        <form action="${pageContext.request.contextPath}/fc/checkout"
+                                              method="post">
+                                            <input type="hidden" name="orderid"
+                                                   value="${sessionScope.order.orderId}">
+                                            <button style="width: 100%" class="btn btn-success btn-sm btn-block">
+                                                Betal
+                                            </button>
+                                        </form>
+                                    </c:if>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </c:when>
                 <c:otherwise>
                     Der blev ikke fundet nogen tidligere eller igangværende ordre.
@@ -170,7 +306,7 @@
                     </button>
                     <form action="${pageContext.request.contextPath}/fc/updatestatus" method="post">
                         <input type="hidden" name="orderid" value="${sessionScope.order.orderId}">
-                        <input type="hidden" name="statusid" value="5">
+                        <input type="hidden" name="statusid" value="99">
                         <button class="btn btn-outline-danger" type="submit">Slet ordre</button>
                     </form>
                     <div class="collapse" id="collapseUpdate">

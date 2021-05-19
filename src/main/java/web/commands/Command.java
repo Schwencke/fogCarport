@@ -27,11 +27,12 @@ public abstract class Command {
         commands.put("commandsignup", new CommandSignup(""));
         commands.put("customer", new CommandOrderList("customer", "customer"));
         commands.put("customerorder", new CommandOrder("order", "customer"));
+        commands.put("customerupdatestatus", new CommandUpdateStatus("customer", "customer"));
         commands.put("index", new CommandUnprotectedPage("index"));
         commands.put("login", new CommandUnprotectedPage("login"));
         commands.put("signup", new CommandUnprotectedPage("signup"));
         commands.put("updatemeasurements", new CommandUpdateMeasurements("order", "salesperson"));
-        commands.put("updatestatus", new CommandUpdateStatus("admin", "salesperson"));
+        commands.put("updatestatus", new CommandUpdateStatus("admin", "salesperson")); //TODO: Navn bør ændres til adminupdatestatus
     }
 
     public static Command fromPath(
