@@ -25,7 +25,7 @@ public class SVG
             "y=\"%d\"   " +
             " preserveAspectRatio=\"xMinYMin\">";
 
-    private final String rectTemplate = "<rect x=\"%d\" y=\"%d\" height=\"%f\" width=\"%f\" style=\"stroke:#000000; fill: #ffffff\" />";
+    private final String rectTemplate = "<rect x=\"%f\" y=\"%f\" height=\"%f\" width=\"%f\" style=\"stroke:#000000; fill: #ffffff\" />";
     private final String lineTemplate = "<line x1=\"%d\" y1=\"%d\" x2=\"%d\" y2=\"%d\" style=\"stroke:#000000; stroke-dasharray: 5 5;\" />";
 
     public SVG(int x, int y, String viewBox, int width, int height)
@@ -38,22 +38,23 @@ public class SVG
         svg.append(String.format(headerTemplate, height, width, viewBox, x, y ));
     }
 
-    public void addRect(int x, int y, double height, double width)
+    public void addRect(double x, double y, double height, double width)
     {
         svg.append(String.format(rectTemplate, x, y, height, width));
     }
     //lægter
     public void addRafters(HttpServletRequest request){
         HttpSession session = request.getSession();
+        Order order = (Order) session.getAttribute("order");
         List<Material> rafterlist = (List<Material>) session.getAttribute("rafterList");
-        int start = 100; // starting distance from viewbox
-        int distance = 100; //starting distance from viewbox increments to get space between rafters
+        double start = 100.0; // starting distance from viewbox
+        double distance = 100.0; //starting distance from viewbox increments to get space between rafters
         for (Material material : rafterlist) {
             double height = (double)material.getHeight() / 10;
             double length = (double) material.getLength() / 10;
             for (int i = 0; i < material.getQuantity(); i++) {
                svg.append(String.format(rectTemplate, distance, start, length, height));
-                distance += 60;
+                distance += ((order.getCarportLength() -height ) / (material.getQuantity()-1.0));
             }
         }
     }
@@ -62,16 +63,16 @@ public class SVG
         HttpSession session = request.getSession();
         Order order = (Order) session.getAttribute("order");
         List<Material> beamsList = (List<Material>) session.getAttribute("beamList");
-        int overhangSides = 35;
-        int start = 100 +overhangSides; // starting distance from viewbox
-        int distance = 100; //starting distance from viewbox increments to get space between beams
+        double overhangSides = 35.0;
+        double start = 100.0 +overhangSides; // starting distance from viewbox
+        double distance = 100.0; //starting distance from viewbox increments to get space between beams
         for (Material material : beamsList) {
             double height = (double)material.getHeight() / 10;
             double width = (double) material.getWidth() / 10;
             double length = (double) material.getLength() / 10;
             for (int i = 0; i < material.getQuantity(); i++) {
                 svg.append(String.format(rectTemplate, distance, start, height, length));
-                //distance += 60;
+                start = order.getCarportWidth() + overhangSides;
             }
         }
     }
@@ -80,30 +81,40 @@ public class SVG
         HttpSession session = request.getSession();
         Order order = (Order) session.getAttribute("order");
         List<Material> postList = (List<Material>) session.getAttribute("postList");
-        int overhangSides = 35;
-        int overhangFront = 110;
-        int overhangBack = 25;
-        int start = 100 + overhangSides; // starting distance from viewbox
-        int distance = 100 + overhangFront; //starting distance from viewbox increments to get space between posts
-        int mincount = 2;
-        int count = 0;
+        double overhangSides = 35;
+        double overhangFront = 110;
+        double overhangBack = 25;
+        double start = 100 + overhangSides; // starting distance from viewbox
+        double second = order.getCarportWidth() + overhangSides;
+        double finish = order.getCarportLength() - overhangBack;
+        double distance = 100 + overhangFront; //starting distance from viewbox increments to get space between posts
+        int quant;
         for (Material material : postList) {
             double height = (double)material.getHeight() / 10;
             double width = (double) material.getWidth() / 10;
-            for (int i = 0; i < material.getQuantity(); i++) {
-                if (distance < order.getCarportLength()) {
-                    svg.append(String.format(rectTemplate, (int) (distance - width / 2), start, height, width));
-                    distance += 300;
-                    count++;
-                    if (distance > order.getCarportLength() && count <2){
-                        distance = order.getCarportLength() + overhangFront - overhangBack;
-                        svg.append(String.format(rectTemplate, (int) (distance - width / 2), start, height, width));
-                    }
-                }
-            }
+            quant = material.getQuantity();
+            for (int i = 1; i < quant+1; i++) {
+                if (i <= quant/2){
+                    if (i < quant/2){
+                    svg.append(String.format(rectTemplate, (distance - width / 2), start - 2, height, width));
+                    distance += 300;}
+                 else{
+                    distance = (finish + 100) - height;
+                    svg.append(String.format(rectTemplate, (distance - width / 2), start-2, height, width));
+                    distance = 100 + overhangFront;
+                }}
 
+                if (i > quant/2){
+                    if (i == quant) {
+                        distance = (finish + 100) - height;
+                        svg.append(String.format(rectTemplate, (distance - width / 2), second-2, height, width));
+
+                    }else{
+                        svg.append(String.format(rectTemplate, (distance - width / 2), second-2, height, width));
+                        distance += 300;}
+                    }
         }
-    }
+    }}
 
     public void addLine(int x1, int y1, int x2, int y2 )
     {

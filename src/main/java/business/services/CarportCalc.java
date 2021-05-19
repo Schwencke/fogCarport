@@ -116,11 +116,11 @@ public class CarportCalc {
         }
 
         // Calculate
-        //int quantityMin = 2;
+        int quantityMin = 2;
         int maxWidth = 550;
-        int quantityByWidth = carportLength / (maxWidth) + 1;
-        //quantityMin +
-       // int quantity = quantityByWidth;
+        int quantityByWidth = (carportLength - maxWidth) / (maxWidth + 1);
+
+        int quantity = quantityMin + quantityByWidth;
 
         // Add the right lengths
         List<Material> result = new ArrayList<>();
@@ -135,7 +135,7 @@ public class CarportCalc {
                         materialList.get(i).getWidth(),
                         materialList.get(i).getLength(),
                         materialList.get(i).getHeight(),
-                        quantityByWidth));
+                        quantity));
                 length -= availableLengths.get(i);
             }
         }
@@ -150,7 +150,7 @@ public class CarportCalc {
                     materialList.get(0).getWidth(),
                     materialList.get(0).getLength(),
                     materialList.get(0).getHeight(),
-                    quantityByWidth));
+                    quantity));
         }
 
         return result;
