@@ -148,26 +148,21 @@
                                             Annullér
                                         </button>
                                     </c:if>
-                                    <c:if test="${sessionScope.order.statusId == 1}">
+                                    <c:if test="${sessionScope.order.statusId == 2}">
                                         <form action="${pageContext.request.contextPath}/fc/customerupdatestatus"
                                               method="post">
                                             <input type="hidden" name="orderid"
                                                    value="${sessionScope.order.orderId}">
-                                            <input type="hidden" name="statusid" value="3">
-                                            <button style="width: 20%" class="btn btn-success btn-sm" type="submit">
-                                                Acceptér
+                                            <button style="width: 20%" class="btn btn-success btn-sm" type="submit"
+                                                    name="statusid" value="3">Acceptér
                                             </button>
-                                        </form>
-                                        <form action="${pageContext.request.contextPath}/fc/customerupdatestatus">
-                                            <input type="hidden" name="orderid"
-                                                   value="${sessionScope.order.orderId}">
-                                            <input type="hidden" name="statusid" value="99">
                                             <button style="width: 20%" class="btn btn-outline-danger btn-sm"
-                                                    type="submit">Annullér
+                                                    type="submit"
+                                                    name="statusid" value="99">Annuller
                                             </button>
                                         </form>
                                     </c:if>
-                                    <c:if test="${sessionScope.order.statusId == 1}">
+                                    <c:if test="${sessionScope.order.statusId == 4}">
                                         <form action="${pageContext.request.contextPath}/fc/checkout"
                                               method="post">
                                             <input type="hidden" name="orderid"

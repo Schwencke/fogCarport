@@ -52,11 +52,11 @@
                                         </c:choose>
                                     </td>
                                     <td>${applicationScope.status.get(orderlist.statusId)}</td>
-                                    <td>
+                                    <td align="right">
                                         <input type="hidden" value="${orderlist.orderId}" name="order">
                                         <button type="submit" class="btn btn-outline-primary btn-sm"
                                                 title="Tryk her for at se den valgte ordre"
-                                                value="${orderlist.orderId}">Se ordre
+                                                value="${orderlist.orderId}">Se bestilling
                                         </button>
                                     </td>
                                 </tr>
