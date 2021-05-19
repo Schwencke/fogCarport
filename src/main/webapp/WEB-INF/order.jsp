@@ -299,14 +299,14 @@
                             data-target="#collapseUpdate" aria-expanded="false" aria-controls="collapseUpdate">
                         Rediger ordre
                     </button>
-                    <form action="${pageContext.request.contextPath}/fc/updatestatus" method="post">
+                    <form action="${pageContext.request.contextPath}/fc/adminupdatestatus" method="post">
                         <input type="hidden" name="orderid" value="${sessionScope.order.orderId}">
                         <input type="hidden" name="statusid" value="99">
                         <button class="btn btn-outline-danger" type="submit">Slet ordre</button>
                     </form>
                     <div class="collapse" id="collapseUpdate">
                         <div class="card card-body">
-                            <form class="px-4 py-3" action="${pageContext.request.contextPath}/fc/updatemeasurements"
+                            <form class="px-4 py-3" action="${pageContext.request.contextPath}/fc/adminupdatemeasurements"
                                   method="post">
                                 <table class="table table-striped">
                                     <thead>
@@ -356,7 +356,7 @@
                     </div>
                 </div>
             </div>
-            <a href="${pageContext.request.contextPath}/fc/drawsvg">klik her for tegning</a>
+            <a href="${pageContext.request.contextPath}/fc/adminsvgdraw">klik her for tegning</a>
             ${requestScope.svgdrawing}
         </c:if>
     </jsp:body>
