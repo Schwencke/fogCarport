@@ -225,6 +225,8 @@
                     </div>
                 </div>
             </div>
+            <a href="${pageContext.request.contextPath}/fc/drawsvg">klik her for tegning</a>
+            ${requestScope.svgdrawing}
         </c:if>
     </jsp:body>
 </t:genericpage>
