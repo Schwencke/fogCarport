@@ -36,6 +36,7 @@ public class CommandCarportRequest extends CommandProtectedPage {
         int userId = user.getUserId();
 
         pageToShow = "index";
+        order = null;
 
         if (carportWidth > 0) {
             if (carportLength > 0) {
@@ -70,10 +71,10 @@ public class CommandCarportRequest extends CommandProtectedPage {
                     request.setAttribute("error", "Skur mål mangler.");
                 }
             } else {
-                request.setAttribute("error", "Længde mangler.");
+                request.setAttribute("error", "Carport længde mangler.");
             }
         } else {
-            request.setAttribute("error", "Bredde mangler.");
+            request.setAttribute("error", "Carport bredde mangler.");
         }
         return pageToShow;
     }
