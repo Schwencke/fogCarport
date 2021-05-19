@@ -41,7 +41,7 @@ public class CarportCalc {
 
         // Create list
         List<Material> result = new ArrayList<>();
-        result.add(new Material(materialID, material.getName(), material.getDescription(), material.getPrice(), material.getUnitId(),material.getWidth(), material.getLength(), material.getHeight(), quantity));
+        result.add(new Material(materialID, material.getName(), material.getDescription(), material.getPrice(), material.getUnitId(), material.getWidth(), material.getLength(), material.getHeight(), quantity));
 
         return result;
     }
@@ -98,7 +98,6 @@ public class CarportCalc {
                     materialList.get(0).getHeight(),
                     quantity));
         }
-
         return result;
     }
 
@@ -116,11 +115,8 @@ public class CarportCalc {
         }
 
         // Calculate
-        int quantityMin = 2;
         int maxWidth = 550;
-        int quantityByWidth = (carportLength - maxWidth) / (maxWidth + 1);
-
-        int quantity = quantityMin + quantityByWidth;
+        int quantity = (int) ceil((double) carportLength / (double) maxWidth);
 
         // Add the right lengths
         List<Material> result = new ArrayList<>();
@@ -152,7 +148,6 @@ public class CarportCalc {
                     materialList.get(0).getHeight(),
                     quantity));
         }
-
         return result;
     }
 
@@ -212,7 +207,6 @@ public class CarportCalc {
                     materialList.get(0).getHeight(),
                     quantity));
         }
-
         return result;
     }
 
@@ -270,7 +264,7 @@ public class CarportCalc {
         // Calculate
         int overlapWidth = 70;
         int overlapLength = 200;
-        int quantity = 0;
+        int quantity;
 
         // Add the right lengths
         List<Material> result = new ArrayList<>();
@@ -312,7 +306,6 @@ public class CarportCalc {
                     materialList.get(0).getHeight(),
                     quantity));
         }
-
         return result;
     }
     //</editor-fold>

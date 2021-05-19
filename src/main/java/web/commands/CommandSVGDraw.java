@@ -9,16 +9,17 @@ import java.sql.SQLException;
 
 public class CommandSVGDraw extends CommandProtectedPage{
     SVG svg;
+
     public CommandSVGDraw(String pageToShow, String role) {
         super(pageToShow, role);
     }
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws UserException, SQLException {
-        svg = new SVG(0,0, "0 0 900 900", 100,100);
-        svg.addBeams(request);
+        svg = new SVG(100,100, "0 0 1000 800", 0, 0);
         svg.addRafters(request);
-        svg.addPosts(request);
+        svg.addBeams(request);
+        //svg.addPosts(request);
         request.setAttribute("svgdrawing", svg.toString());
         return pageToShow;
     }
