@@ -26,46 +26,39 @@
             <c:when test="${sessionScope.orderlist != null}">
                 <table class="table table-striped">
                     <thead>
-                    <th>Ordre nr.</th>
-                    <th>Oprettet</th>
-                    <th>Opdateret</th>
-                    <th>Pris</th>
+                    <th style="width: 7%">Ref. nr.</th>
+                    <th style="width: 20%">Seneste ændring</th>
+                    <th style="width: 12%">Carport bredde</th>
+                    <th style="width: 12%">Carport længde</th>
+                    <th style="width: 16%">Tag</th>
+                    <th style="width: 7%">Skur</th>
                     <th>Status</th>
-                    <th></th>
+                    <th style="width: 10%"></th>
                     </thead>
                     <c:forEach var="orderlist" items="${sessionScope.orderlist}">
-                        <c:if test="${orderlist.statusId != 5}">
+                        <c:if test="${orderlist.statusId != 99}">
                             <form action="${pageContext.request.contextPath}/fc/customerorder" method="post">
                                 <tr>
                                     <td>${orderlist.orderId}</td>
-                                    <td>${orderlist.timeCreated}</td>
                                     <td>${orderlist.timeUpdated}</td>
-                                    <td>${orderlist.price}</td>
-                                    <td>${applicationScope.status.get(orderlist.statusId)}</td>
+                                    <td>${orderlist.carportWidth} cm</td>
+                                    <td>${orderlist.carportLength} cm</td>
+                                    <td>${applicationScope.roofinglist.get(orderlist.roofingId)}</td>
                                     <td>
+                                        <c:choose>
+                                            <c:when test="${orderlist.shedWidth > 0}">Ja
+                                            </c:when>
+                                            <c:otherwise>Nej</c:otherwise>
+                                        </c:choose>
+                                    </td>
+                                    <td>${applicationScope.status.get(orderlist.statusId)}</td>
+                                    <td align="right">
                                         <input type="hidden" value="${orderlist.orderId}" name="order">
-                                        <button type="submit"
+                                        <button type="submit" class="btn btn-outline-primary btn-sm"
                                                 title="Tryk her for at se den valgte ordre"
-                                                value="${orderlist.orderId}">Se ordre
+                                                value="${orderlist.orderId}">Se bestilling
                                         </button>
                                     </td>
-                                        <%--                                <c:if test="${orderlist.statusId == 1}">--%>
-                                        <%--                                    <td>--%>
-                                        <%--                                        <button type="submit" name="delete" title="Tryk her for at slette ordren"--%>
-                                        <%--                                                value="${orderlist.orderId}">Slet ordre--%>
-                                        <%--                                        </button>--%>
-                                        <%--                                    </td>--%>
-                                        <%--                                </c:if>--%>
-                                        <%--                                <c:if test="${orderlist.statusId == 2}">--%>
-                                        <%--                                    <td>--%>
-                                        <%--                                        <button type="submit" name="delete"--%>
-                                        <%--                                                title="Du kan ikke slette en gennemført ordre" disabled--%>
-                                        <%--                                                value="${orderlist.orderId}">Slet--%>
-                                        <%--                                            ordre--%>
-                                        <%--                                        </button>--%>
-                                        <%--                                    </td>--%>
-                                        <%--                                </c:if>--%>
-
                                 </tr>
                             </form>
                         </c:if>
@@ -77,7 +70,7 @@
                 Byg din første carport <a class="text-dark" href="${pageContext.request.contextPath}">her</a>.
             </c:otherwise>
         </c:choose>
-        <c:if test="${requestScope.msg != null }">
+        <c:if test="${requestScope.msg != null}">
             <p style="color:green">
                 <script>cleardata()</script>
                     ${requestScope.msg}
@@ -85,4 +78,3 @@
         </c:if>
     </jsp:body>
 </t:genericpage>
-

@@ -25,11 +25,11 @@ DROP TABLE IF EXISTS `cladding`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `cladding` (
-  `cladding_id` int NOT NULL,
-  `material_id` int NOT NULL,
-  PRIMARY KEY (`cladding_id`),
-  KEY `fk_cladding_material1_idx` (`material_id`),
-  CONSTRAINT `fk_cladding_material1` FOREIGN KEY (`material_id`) REFERENCES `material` (`material_id`)
+                            `cladding_id` int NOT NULL,
+                            `material_id` int NOT NULL,
+                            PRIMARY KEY (`cladding_id`),
+                            KEY `fk_cladding_material1_idx` (`material_id`),
+                            CONSTRAINT `fk_cladding_material1` FOREIGN KEY (`material_id`) REFERENCES `material` (`material_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -51,17 +51,17 @@ DROP TABLE IF EXISTS `material`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `material` (
-  `material_id` int NOT NULL,
-  `name` varchar(45) NOT NULL,
-  `description` varchar(90) NOT NULL,
-  `price` double DEFAULT NULL,
-  `unit_id` int NOT NULL,
-  `width` int DEFAULT NULL,
-  `length` int DEFAULT NULL,
-  `height` int DEFAULT NULL,
-  PRIMARY KEY (`material_id`),
-  KEY `fk_material_unit_idx` (`unit_id`),
-  CONSTRAINT `fk_material_unit` FOREIGN KEY (`unit_id`) REFERENCES `unit` (`unit_id`)
+                            `material_id` int NOT NULL,
+                            `name` varchar(45) NOT NULL,
+                            `description` varchar(90) NOT NULL,
+                            `price` double DEFAULT NULL,
+                            `unit_id` int NOT NULL,
+                            `width` int DEFAULT NULL,
+                            `length` int DEFAULT NULL,
+                            `height` int DEFAULT NULL,
+                            PRIMARY KEY (`material_id`),
+                            KEY `fk_material_unit_idx` (`unit_id`),
+                            CONSTRAINT `fk_material_unit` FOREIGN KEY (`unit_id`) REFERENCES `unit` (`unit_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -83,28 +83,28 @@ DROP TABLE IF EXISTS `order`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `order` (
-  `order_id` int NOT NULL AUTO_INCREMENT,
-  `user_id` int NOT NULL,
-  `status_id` int NOT NULL DEFAULT '1',
-  `price` double NOT NULL DEFAULT '0',
-  `time_created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `time_updated` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `carport_length` int NOT NULL,
-  `carport_width` int NOT NULL,
-  `cladding_id` int DEFAULT NULL,
-  `roofing_id` int DEFAULT NULL,
-  `shed_width` int DEFAULT NULL,
-  `shed_length` int DEFAULT NULL,
-  PRIMARY KEY (`order_id`),
-  KEY `fk_order_cladding1_idx` (`cladding_id`),
-  KEY `fk_order_roofing1_idx` (`roofing_id`),
-  KEY `fk_order_status1_idx` (`status_id`),
-  KEY `fk_order_user1_idx` (`user_id`),
-  CONSTRAINT `fk_order_cladding1` FOREIGN KEY (`cladding_id`) REFERENCES `cladding` (`cladding_id`),
-  CONSTRAINT `fk_order_roofing1` FOREIGN KEY (`roofing_id`) REFERENCES `roofing` (`roof_id`),
-  CONSTRAINT `fk_order_status1` FOREIGN KEY (`status_id`) REFERENCES `status` (`status_id`),
-  CONSTRAINT `fk_order_user1` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+                         `order_id` int NOT NULL AUTO_INCREMENT,
+                         `user_id` int NOT NULL,
+                         `status_id` int NOT NULL DEFAULT '1',
+                         `price` double NOT NULL DEFAULT '0',
+                         `time_created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+                         `time_updated` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+                         `carport_length` int NOT NULL,
+                         `carport_width` int NOT NULL,
+                         `cladding_id` int DEFAULT NULL,
+                         `roofing_id` int DEFAULT NULL,
+                         `shed_width` int DEFAULT NULL,
+                         `shed_length` int DEFAULT NULL,
+                         PRIMARY KEY (`order_id`),
+                         KEY `fk_order_cladding1_idx` (`cladding_id`),
+                         KEY `fk_order_roofing1_idx` (`roofing_id`),
+                         KEY `fk_order_status1_idx` (`status_id`),
+                         KEY `fk_order_user1_idx` (`user_id`),
+                         CONSTRAINT `fk_order_cladding1` FOREIGN KEY (`cladding_id`) REFERENCES `cladding` (`cladding_id`),
+                         CONSTRAINT `fk_order_roofing1` FOREIGN KEY (`roofing_id`) REFERENCES `roofing` (`roof_id`),
+                         CONSTRAINT `fk_order_status1` FOREIGN KEY (`status_id`) REFERENCES `status` (`status_id`),
+                         CONSTRAINT `fk_order_user1` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -113,6 +113,7 @@ CREATE TABLE `order` (
 
 LOCK TABLES `order` WRITE;
 /*!40000 ALTER TABLE `order` DISABLE KEYS */;
+INSERT INTO `order` VALUES (1,2,99,0,'2021-05-19 13:49:06','2021-05-19 14:12:08',240,240,1,1,0,0),(2,2,3,0,'2021-05-19 14:12:15','2021-05-19 14:12:17',360,480,1,1,0,0);
 /*!40000 ALTER TABLE `order` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -124,9 +125,9 @@ DROP TABLE IF EXISTS `postal_code`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `postal_code` (
-  `postal_code` int NOT NULL,
-  `name` varchar(45) NOT NULL,
-  PRIMARY KEY (`postal_code`)
+                               `postal_code` int NOT NULL,
+                               `name` varchar(45) NOT NULL,
+                               PRIMARY KEY (`postal_code`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -148,10 +149,10 @@ DROP TABLE IF EXISTS `predefined_carport`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `predefined_carport` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `width` int DEFAULT NULL,
-  `length` int DEFAULT NULL,
-  PRIMARY KEY (`id`)
+                                      `id` int NOT NULL AUTO_INCREMENT,
+                                      `width` int DEFAULT NULL,
+                                      `length` int DEFAULT NULL,
+                                      PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -173,10 +174,10 @@ DROP TABLE IF EXISTS `predefined_shed`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `predefined_shed` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `width` int DEFAULT NULL,
-  `length` int DEFAULT NULL,
-  PRIMARY KEY (`id`)
+                                   `id` int NOT NULL AUTO_INCREMENT,
+                                   `width` int DEFAULT NULL,
+                                   `length` int DEFAULT NULL,
+                                   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=57 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -198,9 +199,9 @@ DROP TABLE IF EXISTS `role`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `role` (
-  `role_id` int NOT NULL,
-  `name` varchar(45) NOT NULL,
-  PRIMARY KEY (`role_id`)
+                        `role_id` int NOT NULL,
+                        `name` varchar(45) NOT NULL,
+                        PRIMARY KEY (`role_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -222,11 +223,11 @@ DROP TABLE IF EXISTS `roofing`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `roofing` (
-  `roof_id` int NOT NULL,
-  `material_id` int NOT NULL,
-  PRIMARY KEY (`roof_id`),
-  KEY `fk_roofing_material1_idx` (`material_id`),
-  CONSTRAINT `fk_roofing_material1` FOREIGN KEY (`material_id`) REFERENCES `material` (`material_id`)
+                           `roof_id` int NOT NULL,
+                           `material_id` int NOT NULL,
+                           PRIMARY KEY (`roof_id`),
+                           KEY `fk_roofing_material1_idx` (`material_id`),
+                           CONSTRAINT `fk_roofing_material1` FOREIGN KEY (`material_id`) REFERENCES `material` (`material_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -248,9 +249,9 @@ DROP TABLE IF EXISTS `status`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `status` (
-  `status_id` int NOT NULL,
-  `name` varchar(45) NOT NULL,
-  PRIMARY KEY (`status_id`)
+                          `status_id` int NOT NULL,
+                          `name` varchar(45) NOT NULL,
+                          PRIMARY KEY (`status_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -260,7 +261,7 @@ CREATE TABLE `status` (
 
 LOCK TABLES `status` WRITE;
 /*!40000 ALTER TABLE `status` DISABLE KEYS */;
-INSERT INTO `status` VALUES (1,'request'),(2,'offer'),(3,'order'),(4,'completed'),(5,'deleted');
+INSERT INTO `status` VALUES (1,'Forespørgsel afsendt'),(2,'Tilbud'),(3,'Bestilling klargøres'),(4,'Faktura'),(5,'Betalt'),(99,'Annulleret');
 /*!40000 ALTER TABLE `status` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -272,9 +273,9 @@ DROP TABLE IF EXISTS `unit`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `unit` (
-  `unit_id` int NOT NULL,
-  `name` varchar(45) NOT NULL,
-  PRIMARY KEY (`unit_id`)
+                        `unit_id` int NOT NULL,
+                        `name` varchar(45) NOT NULL,
+                        PRIMARY KEY (`unit_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -296,20 +297,20 @@ DROP TABLE IF EXISTS `user`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `user` (
-  `user_id` int NOT NULL AUTO_INCREMENT,
-  `role_id` int NOT NULL DEFAULT '1',
-  `name` varchar(90) NOT NULL,
-  `address` varchar(90) NOT NULL,
-  `postal_code` int NOT NULL,
-  `phone_no` varchar(20) NOT NULL,
-  `email` varchar(45) NOT NULL,
-  `password` varchar(45) NOT NULL,
-  PRIMARY KEY (`user_id`),
-  KEY `fk_user_role1_idx` (`role_id`),
-  KEY `fk_user_postal_code1_idx` (`postal_code`),
-  CONSTRAINT `fk_user_postal_code1` FOREIGN KEY (`postal_code`) REFERENCES `postal_code` (`postal_code`),
-  CONSTRAINT `fk_user_role1` FOREIGN KEY (`role_id`) REFERENCES `role` (`role_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+                        `user_id` int NOT NULL AUTO_INCREMENT,
+                        `role_id` int NOT NULL DEFAULT '1',
+                        `name` varchar(90) NOT NULL,
+                        `address` varchar(90) NOT NULL,
+                        `postal_code` int NOT NULL,
+                        `phone_no` varchar(20) NOT NULL,
+                        `email` varchar(45) NOT NULL,
+                        `password` varchar(45) NOT NULL,
+                        PRIMARY KEY (`user_id`),
+                        KEY `fk_user_role1_idx` (`role_id`),
+                        KEY `fk_user_postal_code1_idx` (`postal_code`),
+                        CONSTRAINT `fk_user_postal_code1` FOREIGN KEY (`postal_code`) REFERENCES `postal_code` (`postal_code`),
+                        CONSTRAINT `fk_user_role1` FOREIGN KEY (`role_id`) REFERENCES `role` (`role_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -331,4 +332,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-05-17 11:53:57
+-- Dump completed on 2021-05-19 16:20:35

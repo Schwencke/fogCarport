@@ -23,6 +23,7 @@ public class User
         this.password = password;
     }
 
+    //<editor-fold desc="Getters and setters">
     public int getUserId() {
         return userId;
     }
@@ -86,4 +87,5 @@ public class User
     public void setPassword(String password) {
         this.password = password;
     }
+    //</editor-fold>
 }

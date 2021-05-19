@@ -26,15 +26,6 @@ public class Material {
         this.quantity = quantity;
     }
 
-    public Material(int materialID, String name, String description, double price, int unitId, int quantity) {
-        this.materialID = materialID;
-        this.name = name;
-        this.description = description;
-        this.price = price;
-        this.unitId = unitId;
-        this.quantity = quantity;
-    }
-
     public Material(int materialID, String name, String description, double price, int unitId, int width, int length, int height) {
         this.materialID = materialID;
         this.name = name;
@@ -120,6 +111,7 @@ public class Material {
     }
     //</editor-fold>
 
+    // Used for testing purposes
     @Override
     public String toString() {
         return "Material{" +

@@ -3,7 +3,6 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <t:genericpage>
-
     <jsp:attribute name="header">
          Forsiden
     </jsp:attribute>
@@ -20,14 +19,14 @@
                     <select id="carportwidth" name="carportwidth" type="text">
                         <option value="0">Vælg bredde</option>
                         <c:forEach var="carportWidth" items="${applicationScope.carportWidth}">
-                            <option value="${carportWidth}">${carportWidth}</option>
+                            <option value="${carportWidth}">${carportWidth} cm</option>
                         </c:forEach>
                     </select>
                     <label for="carportlength" class="fw-bold">Carport længde</label>
                     <select id="carportlength" name="carportlength" type="text">
                         <option value="0">Vælg længde</option>
                         <c:forEach var="carportLength" items="${applicationScope.carportLength}">
-                            <option value="${carportLength}">${carportLength}</option>
+                            <option value="${carportLength}">${carportLength} cm</option>
                         </c:forEach>
                     </select><br>
 
@@ -40,18 +39,18 @@
 
                     <label class="fw-bold"><br>Redskabsrum:</label>
                     <label>NB! Der skal beregnes 15 cm tagudhæng på hver side af redskabsrummet*</label>
-                    <label for="shedWidth" class="fw-bold">Redskabsrum bredde</label>
+                    <label for="shedWidth" class="fw-bold mt-3">Redskabsrum bredde</label>
                     <select id="shedWidth" name="shedwidth" type="text">
                         <option value="0">Ønsker ikke redskabsrum</option>
                         <c:forEach var="shedWidth" items="${applicationScope.shedWidth}">
-                            <option value="${shedWidth}">${shedWidth}</option>
+                            <option value="${shedWidth}">${shedWidth} cm</option>
                         </c:forEach>
                     </select><br>
                     <label for="shedLength" class="fw-bold">Redskabsrum længde</label>
                     <select id="shedLength" name="shedlength" type="text">
                         <option value="0">Ønsker ikke redskabsrum</option>
                         <c:forEach var="shedLength" items="${applicationScope.shedLength}">
-                            <option value="${shedLength}">${shedLength}</option>
+                            <option value="${shedLength}">${shedLength} cm</option>
                         </c:forEach>
                     </select><br>
                     <label for="cladding" class="fw-bold">Beklædning</label>
@@ -64,9 +63,8 @@
                 <br>
                 <c:choose>
                     <c:when test="${sessionScope.user != null}">
-                        <button class="btn-outline-success mt-5" type="submit">Send forspørgsel</button>
+                        <button class="btn btn-outline-success mt-2" type="submit" onclick="storedata()">Send forspørgsel</button>
                     </c:when>
-
                     <c:otherwise>
                         <button class="btn btn-outline-primary" type="button" data-toggle="collapse"
                                 data-target="#collapseLogin" aria-expanded="false" aria-controls="collapseLogin">
@@ -89,7 +87,7 @@
                                                placeholder="Indtast password">
                                     </div>
                                         <%--                            <c:set var="stayonindex" scope="session" value="false"/>--%>
-                                    <button type="submit" onclick="storedata()" class="btn btn-primary mt-2">Login
+                                    <button class="btn btn-primary mt-2" type="submit" onclick="storedata()">Login
                                     </button>
                                 </form>
                                 <div class="dropdown-divider"></div>
@@ -97,12 +95,10 @@
                                     registeret endnu?</a>
                             </div>
                         </div>
-
                     </c:otherwise>
                 </c:choose>
-
                 <br>
-                <label>*Hvis du f.eks. har valgt en carport med målene 240x360 cm kan redskabsrummet maksimalt måle
+                <label class="mt-3">*Hvis du f.eks. har valgt en carport med målene 240x360 cm kan redskabsrummet maksimalt måle
                     210x330
                     cm.</label>
                 <div class="col-sm-3 col-lg-1"></div>

@@ -26,7 +26,6 @@ public class CommandCarportRequest extends CommandProtectedPage {
         HttpSession session = request.getSession();
 
         User user = (User) session.getAttribute("user");
-
         int carportWidth = Integer.parseInt(request.getParameter("carportwidth"));
         int carportLength = Integer.parseInt(request.getParameter("carportlength"));
         int claddingId = Integer.parseInt(request.getParameter("cladding"));
@@ -36,6 +35,7 @@ public class CommandCarportRequest extends CommandProtectedPage {
         int userId = user.getUserId();
 
         pageToShow = "index";
+        order = null;
 
         if (carportWidth > 0) {
             if (carportLength > 0) {
@@ -61,7 +61,7 @@ public class CommandCarportRequest extends CommandProtectedPage {
                     session.setAttribute("orderlist", orderList);
 
                     // Output to user
-                    request.setAttribute("msg", "Forespørgslen blev sendt.");
+                    request.setAttribute("msg", "Forespørgslen blev afsendt. Du vil blive kontaktet af en salgsmedarbejder hurtigst muligt.");
 
                     // Page to show
                     String role = Utility.getNameById(request, "roles", user.getRoleId());
@@ -70,10 +70,10 @@ public class CommandCarportRequest extends CommandProtectedPage {
                     request.setAttribute("error", "Skur mål mangler.");
                 }
             } else {
-                request.setAttribute("error", "Længde mangler.");
+                request.setAttribute("error", "Carport længde mangler.");
             }
         } else {
-            request.setAttribute("error", "Bredde mangler.");
+            request.setAttribute("error", "Carport bredde mangler.");
         }
         return pageToShow;
     }
