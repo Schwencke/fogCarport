@@ -17,9 +17,9 @@ public class CommandSVGDraw extends CommandProtectedPage{
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws UserException, SQLException {
         svg = new SVG(100,100, "0 0 1000 800", 0, 0);
-        svg.addRafters(request);
         svg.addBeams(request);
-        //svg.addPosts(request);
+        svg.addRafters(request);
+        svg.addPosts(request);
         request.setAttribute("svgdrawing", svg.toString());
         return pageToShow;
     }

@@ -25,19 +25,16 @@ public class CarportCalc {
         Material material = materialFacade.getMaterialById(1601);
 
         // Calculate
-        int quantityMin = 4;
-
         int offsetW1 = 350;
         int offsetW2 = 350;
-        int maxWidth = 5300;
-        int quantityByWidth = ((carportWidth - offsetW1 - offsetW2) / (maxWidth + 1)) * 2;
+        int maxWidth = 6000 - (offsetW1 + offsetW2);
+        int quantityByWidth = (int) ceil((double) (carportWidth - (offsetW1 + offsetW2)) / (double) maxWidth) + 1;
 
         int offsetL1 = 1000;
         int offsetL2 = 200;
         int maxLength = 3300;
-        int quantityByLength = ((carportLength - offsetL1 - offsetL2) / (maxLength + 1)) * 2;
-
-        int quantity = quantityMin + quantityByWidth + quantityByLength;
+        int quantityByLength = (int) ceil((double) (carportLength - (offsetL1 + offsetL2)) / (double) maxLength) + 1;
+        int quantity = quantityByWidth * quantityByLength;
 
         // Create list
         List<Material> result = new ArrayList<>();
@@ -60,13 +57,10 @@ public class CarportCalc {
         }
 
         // Calculate
-        int quantityMin = 2;
         int offsetW1 = 350;
         int offsetW2 = 350;
-        int maxWidth = 5300;
-        int quantityByWidth = (carportWidth - offsetW1 - offsetW2) / (maxWidth + 1);
-
-        int quantity = quantityMin + quantityByWidth;
+        int maxWidth = 6000 - (offsetW1 + offsetW2);
+        int quantity = (int) ceil((double) (carportWidth - (offsetW1 + offsetW2)) / (double) maxWidth) + 1;
 
         // Add the right lengths
         List<Material> result = new ArrayList<>();
