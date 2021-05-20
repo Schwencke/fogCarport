@@ -261,7 +261,7 @@ CREATE TABLE `status` (
 
 LOCK TABLES `status` WRITE;
 /*!40000 ALTER TABLE `status` DISABLE KEYS */;
-INSERT INTO `status` VALUES (1,'Forespørgsel'),(2,'Tilbud'),(3,'Bestilling klargøres'),(4,'Faktura'),(5,'Betalt'),(99,'Annulleret');
+INSERT INTO `status` VALUES (1,'Forespørgsel'),(2,'Tilbud'),(3,'Tilbud accepteret'),(4,'Faktura'),(5,'Betalt'),(99,'Annulleret');
 /*!40000 ALTER TABLE `status` ENABLE KEYS */;
 UNLOCK TABLES;
 
