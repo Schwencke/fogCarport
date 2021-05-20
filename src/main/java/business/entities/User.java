@@ -14,6 +14,14 @@ public class User
     public User() {
     }
 
+    public User( String name, String address, int postalCode, String phoneNo, String email) {
+        this.name = name;
+        this.address = address;
+        this.postalCode = postalCode;
+        this.phoneNo = phoneNo;
+        this.email = email;
+    }
+
     public User(String name, String address, int postalCode, String phoneNo, String email, String password) {
         this.name = name;
         this.address = address;

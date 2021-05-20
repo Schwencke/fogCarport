@@ -16,8 +16,6 @@ import static business.services.Utility.updateSessionScopeOrderList;
 public class CommandUpdateStatus extends CommandProtectedPage {
     protected OrderFacade orderFacade;
     List<Order> orderList;
-    int orderId;
-    int statusId;
 
     public CommandUpdateStatus(String pageToShow, String role) {
         super(pageToShow, role);
@@ -29,8 +27,8 @@ public class CommandUpdateStatus extends CommandProtectedPage {
 
         HttpSession session = request.getSession();
 
-        orderId = Integer.parseInt(request.getParameter("orderid"));
-        statusId = Integer.parseInt(request.getParameter("statusid"));
+        int orderId = Integer.parseInt(request.getParameter("orderid"));
+        int statusId = Integer.parseInt(request.getParameter("statusid"));
         orderFacade.updateStatusById(statusId, orderId);
 
         session.removeAttribute("orderlist");

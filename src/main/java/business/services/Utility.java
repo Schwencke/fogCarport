@@ -55,7 +55,7 @@ public class Utility {
         HttpSession session = request.getSession();
         if (orderList.size() > 0) {
             for (Order order : orderList) {
-                if (order.getStatusId() != 5) {
+                if (order.getStatusId() != 99) {
                     session.setAttribute("orderlist", orderList);
                 }
             }

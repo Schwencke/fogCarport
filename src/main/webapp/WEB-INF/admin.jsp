@@ -14,11 +14,11 @@
                 <table class="table table-striped">
                     <thead>
                     <th style="width: 8%">Ref. nr.</th>
-                    <th style="width: 18%">Oprettet</th>
-                    <th style="width: 18%">Seneste ændring</th>
-                    <th style="width: 10%">Kunde nr.</th>
-                    <th style="width: 12%">Navn</th>
+                    <th style="width: 8%">Kunde nr.</th>
                     <th style="width: 12%">Telefon nr.</th>
+                    <th style="width: 20%">Navn</th>
+                    <th style="width: 18%">Oprettelse</th>
+                    <th style="width: 18%">Seneste ændring</th>
                     <th>Status</th>
                     <th style="width: 10%"></th>
                     </thead>
@@ -27,11 +27,11 @@
                             <form action="${pageContext.request.contextPath}/fc/adminorder" method="post">
                                 <tr>
                                     <td>${orderlist.orderId}</td>
+                                    <td>${orderlist.userId}</td>
+                                    <td>${sessionScope.userlist.get(orderlist.userId).phoneNo}</td>
+                                    <td>${sessionScope.userlist.get(orderlist.userId).name}</td>
                                     <td>${orderlist.timeCreated}</td>
                                     <td>${orderlist.timeUpdated}</td>
-                                    <td>${orderlist.userId}</td>
-                                    <td>${sessionScope.user.name}</td>
-                                    <td>${sessionScope.user.phoneNo}</td>
                                     <td>${applicationScope.status.get(orderlist.statusId)}</td>
                                     <td align="right">
                                         <input type="hidden" value="${orderlist.userId}" name="user_id">
