@@ -303,7 +303,7 @@ CREATE TABLE `user` (
                         `address` varchar(90) NOT NULL,
                         `postal_code` int NOT NULL,
                         `phone_no` varchar(20) NOT NULL,
-                        `email` varchar(45) NOT NULL,
+                        `email` varchar(45) NOT NULL UNIQUE,
                         `password` varchar(45) NOT NULL,
                         PRIMARY KEY (`user_id`),
                         KEY `fk_user_role1_idx` (`role_id`),

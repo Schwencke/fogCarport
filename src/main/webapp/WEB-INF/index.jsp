@@ -91,7 +91,7 @@
                                     </button>
                                 </form>
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="${pageContext.request.contextPath}/fc/signup">Ikke
+                                <a class="dropdown-item" onclick="storedata()" href="${pageContext.request.contextPath}/fc/signup">Ikke
                                     registeret endnu?</a>
                             </div>
                         </div>
