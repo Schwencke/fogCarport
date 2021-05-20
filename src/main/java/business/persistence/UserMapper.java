@@ -85,7 +85,6 @@ public class UserMapper {
     }
 
     public User getUserById(int userId) throws UserException {
-
         try (Connection connection = database.connect()) {
             String sql = "SELECT * FROM `user` WHERE `user_id` = ?";
             User user = new User();
