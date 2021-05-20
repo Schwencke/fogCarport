@@ -13,26 +13,6 @@
             if (localStorage != null) {
                 cleardata();
             }
-
-            function lockCarport() {
-                if (document.getElementById("lockCarport").checked === true) {
-                    document.getElementById("carportLengthDropDown").disabled = true
-                    document.getElementById("carportWidthDropDown").disabled = true
-                } else {
-                    document.getElementById("carportLengthDropDown").disabled = false
-                    document.getElementById("carportWidthDropDown").disabled = false
-                }
-            }
-
-            function lockShed() {
-                if (document.getElementById("lockShed").checked === true) {
-                    document.getElementById("shedLengthDropDown").disabled = true
-                    document.getElementById("shedWidthDropDown").disabled = true
-                } else {
-                    document.getElementById("shedLengthDropDown").disabled = false
-                    document.getElementById("shedWidthDropDown").disabled = false
-                }
-            }
         </script>
 
         <c:if test="${sessionScope.role == 'customer'}">
@@ -253,17 +233,18 @@
                                 <td>${applicationScope.status.get(sessionScope.order.statusId)}</td>
                             </tr>
                         </table>
+                        <form action="${pageContext.request.contextPath}/fc/updatemeasurements" method="post">
                         <table class="table table-striped table-sm">
                             <thead>
                             <th style="width: 40%">Carport</th>
                             <th>
-                                <label for="lockCarport">Lås</label>
-                                <input onclick="lockCarport()" type="checkbox" id="lockCarport" name="lockCarport" checked>
+                                <label for="lockCarportCheck">Lås</label>
+                                <input onclick="lockCarport()" type="checkbox" id="lockCarportCheck" name="lockCarportCheck" checked>
                             </th>
                             </thead>
                             <tr>
                                 <td>Bredde:</td>
-                                <td><select id="carportWidthDropDown" name="carportWidth" disabled type="text">
+                                <td><select id="carportWidthDropDown" name="carportWidthDropDown" disabled type="text">
                                     <option value="${sessionScope.order.carportWidth}">${sessionScope.order.carportWidth}</option>
                                     <c:forEach var="carportWidth" items="${applicationScope.carportWidth}">
                                         <option value="${carportWidth}">${carportWidth}</option>
@@ -273,7 +254,7 @@
                             </tr>
                             <tr>
                                 <td>Længde:</td>
-                                <td><select id="carportLengthDropDown" name="carportLength" disabled type="text">
+                                <td><select id="carportLengthDropDown" name="carportLengthDropDown" disabled type="text">
                                     <option value="${sessionScope.order.carportLength}">${sessionScope.order.carportLength}</option>
                                     <c:forEach var="carportLength" items="${applicationScope.carportLength}">
                                         <option value="${carportLength}">${carportLength}</option>
@@ -291,13 +272,13 @@
                                 <thead>
                                 <th style="width: 40%">Skur</th>
                                 <th>
-                                    <label for="lockShed">Lås</label>
-                                    <input onclick="lockShed()" type="checkbox" id="lockShed" name="lockShed" checked>
+                                    <label for="lockShedCheck">Lås</label>
+                                    <input onclick="lockShed()" type="checkbox" id="lockShedCheck" name="lockShedCheck" checked>
                                 </th>
                                 </thead>
                                 <tr>
                                     <td>Bredde:</td>
-                                    <td><select id="shedWidthDropDown" name="shedWidth" disabled type="text">
+                                    <td><select id="shedWidthDropDown" name="shedWidthDropDown" disabled type="text">
                                         <option value="${sessionScope.order.shedWidth}">${sessionScope.order.shedWidth}</option>
                                         <c:forEach var="shedWidth" items="${applicationScope.shedWidth}">
                                             <option value="${shedWidth}">${shedWidth}</option>
@@ -306,7 +287,7 @@
                                 </tr>
                                 <tr>
                                     <td>Længde:</td>
-                                    <td><select id="shedLengthDropDown" name="shedLength" disabled type="text">
+                                    <td><select id="shedLengthDropDown" name="shedLengthDropDown" disabled type="text">
                                         <option value="${sessionScope.order.shedLength}">${sessionScope.order.shedLength}</option>
                                         <c:forEach var="shedLength" items="${applicationScope.shedLength}">
                                             <option value="${shedLength}">${shedLength}</option>
@@ -317,11 +298,12 @@
                                     <td>Beklædning:</td>
                                     <td>${applicationScope.claddinglist.get(sessionScope.order.claddingId)}</td>
                                 </tr>
+
                             </table>
                         </c:if>
-                        <form class="px-4 py-3" action="${pageContext.request.contextPath}/fc/updatemeasurements" method="post"></form>
-                        <input type="hidden" name="orderid" value="${sessionScope.order.orderId}">
-                        <button class="btn btn-outline-primary" type="submit">Opdater mål</button>
+                            <input type="hidden" name="orderid" value="${sessionScope.order.orderId}">
+                            <button class="btn btn-outline-primary" type="submit">Opdater mål</button>
+                        </form>
                     </div>
                 </div>
             </div>

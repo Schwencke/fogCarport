@@ -19,3 +19,23 @@ function storedata() {
 function cleardata() {
     localStorage.clear();
 }
+
+function lockCarport() {
+    if (document.getElementById("lockCarportCheck").checked === true) {
+        document.getElementById("carportLengthDropDown").disabled = true
+        document.getElementById("carportWidthDropDown").disabled = true
+    } else {
+        document.getElementById("carportLengthDropDown").disabled = false
+        document.getElementById("carportWidthDropDown").disabled = false
+    }
+}
+
+function lockShed() {
+    if (document.getElementById("lockShedCheck").checked === true) {
+        document.getElementById("shedLengthDropDown").disabled = true
+        document.getElementById("shedWidthDropDown").disabled = true
+    } else {
+        document.getElementById("shedLengthDropDown").disabled = false
+        document.getElementById("shedWidthDropDown").disabled = false
+    }
+}
