@@ -390,7 +390,7 @@
             <form action="${pageContext.request.contextPath}/fc/updatestatus" method="post">
                 <input type="hidden" name="orderid" value="${sessionScope.order.orderId}">
                 <input type="hidden" name="statusid" value="99">
-                <button class="btn btn-outline-danger" type="submit">Slet ordre</button>
+                <button style="float: right" class="btn btn-outline-danger" type="submit">Slet ordre</button>
             </form>
         </c:if>
     </jsp:body>
