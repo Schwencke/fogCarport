@@ -28,8 +28,7 @@ public class CommandOrder extends CommandProtectedPage {
     protected List<Material> sternWaterSidesList;
     protected List<Material> sternList;
     protected List<Material> beamList;
-    int carportWidth;
-    int carportLength;
+    protected List<Material> roofList;
     Order order;
     User orderUser;
 
@@ -49,8 +48,8 @@ public class CommandOrder extends CommandProtectedPage {
         int orderId = Integer.parseInt(request.getParameter("order"));
         order = orderFacade.getOrderById(orderId);
         orderUser = userFacade.getUserById(order.getUserId());
-        carportWidth = order.getCarportWidth() * 10;
-        carportLength = order.getCarportLength() * 10;
+        int carportWidth = order.getCarportWidth() * 10;
+        int carportLength = order.getCarportLength() * 10;
 
         postList = carportCalc.calcPost(carportWidth, carportLength);
         rafterList = carportCalc.calcRafter(carportWidth, carportLength);
@@ -61,6 +60,7 @@ public class CommandOrder extends CommandProtectedPage {
         sternWaterFrontList = carportCalc.calcSternWaterFront(carportWidth);
         sternWaterSidesList = carportCalc.calcSternWaterSides(carportLength);
         beamList = carportCalc.calcBeam(carportWidth, carportLength);
+        roofList = carportCalc.calcRoofing(carportWidth, carportLength);
 
         sternList = Utility.concatenateLists(sternUnderFrontAndBackList, sternUnderSidesList, sternOverFrontList, sternOverSidesList, sternWaterFrontList, sternWaterSidesList);
 
@@ -68,6 +68,7 @@ public class CommandOrder extends CommandProtectedPage {
         session.setAttribute("postList", postList);
         session.setAttribute("rafterlist", rafterList);
         session.setAttribute("beamlist", beamList);
+        session.setAttribute("rooflist", roofList);
         session.setAttribute("orderuser", orderUser);
         session.setAttribute("order", order);
 

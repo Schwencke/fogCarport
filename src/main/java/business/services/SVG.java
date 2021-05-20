@@ -57,6 +57,16 @@ public class SVG {
         svg.append("</defs>");
     }
 
+    public void drawRoof(HttpServletRequest request){
+        HttpSession session = request.getSession();
+        order = (Order) session.getAttribute("order");
+
+        double posX = 120;
+        double posY = 60;
+
+        svg.append(String.format(templateRectangle, posX, posY, (double) order.getCarportWidth(), (double) order.getCarportLength()));
+    }
+
     // Spær
     public void drawRafter(HttpServletRequest request) {
 

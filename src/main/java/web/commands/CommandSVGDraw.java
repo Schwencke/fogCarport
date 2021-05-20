@@ -20,6 +20,7 @@ public class CommandSVGDraw extends CommandProtectedPage {
         svg = new SVG(100, 100, "0 0 1000 800", 0, 0);
         svg.SVGDefs();
         svg.SVGNest(100, 100, "0 0 1200 1", 0, 0);
+        svg.drawRoof(request);
         svg.drawBeam(request);
         svg.drawRafter(request);
         svg.drawPost(request);
