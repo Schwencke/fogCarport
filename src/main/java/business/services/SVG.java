@@ -28,7 +28,7 @@ public class SVG {
 //    private final String rectTemplate = "<rect x=\"%f\" y=\"%f\" height=\"%f\" width=\"%f\" style=\"stroke:#000000; fill: #ffffff\" />";
 //    private final String lineTemplate = "<line x1=\"%d\" y1=\"%d\" x2=\"%d\" y2=\"%d\" style=\"stroke:#000000; stroke-dasharray: 5 5;\" />";
 
-    private final String rectTemplate = "<rect x=\"%d\" y=\"%d\" height=\"%d\" width=\"%d\" style=\"stroke:#000000; fill: #ffffff\" />";
+    private final String rectTemplate = "<rect x=\"%f\" y=\"%f\" height=\"%d\" width=\"%d\" style=\"stroke:#000000; fill: #ffffff\" />";
     private final String lineTemplate = "<line x1=\"%d\" y1=\"%d\" x2=\"%d\" y2=\"%d\" style=\"stroke:#000000; stroke-dasharray: 5 5;\" />"; //TODO: double to INT
 
     public SVG(int canvasWidth, int canvasHeight, String viewBox, int posX, int posY) {
@@ -47,11 +47,10 @@ public class SVG {
         Order order = (Order) session.getAttribute("order");
         List<Material> materials = (List<Material>) session.getAttribute("rafterlist");
 
-        int posX = 0;
-        int posY = 0;
+        double posX = 0;
+        double posY = 0;
         int dimH = materials.get(0).getHeight() / 10;
-        //int width = ((materials.get(0).getWidth() / 10) / materials.get(0).getQuantity() - 1);
-        int height = (order.getCarportLength() / (materials.get(0).getQuantity() - 1));
+        double height = ((double) order.getCarportLength() - (double) dimH) / (double) (materials.get(0).getQuantity() - 1);
 
         for (int i = 0; i < ((materials.get(0).getQuantity())); i++) {
             svg.append(String.format(rectTemplate, posX + (height * i), posY, order.getCarportWidth(), dimH));
@@ -65,11 +64,11 @@ public class SVG {
         order = (Order) session.getAttribute("order");
         List<Material> materials = (List<Material>) session.getAttribute("beamlist");
 
-        int posX = 0;
-        int posY = 0;
+        double posX = 0;
+        double posY = 0;
         int offsetY = 35;
         int dimH = materials.get(0).getHeight() / 10;
-        int width = (order.getCarportWidth() - (offsetY * 2)) / (materials.get(0).getQuantity() - 1);
+        double width = ((((double) order.getCarportWidth() - (double) (offsetY * 2)) / (materials.get(0).getQuantity() - 1)) - (double) dimH * 0.5);
 
         for (int i = 0; i < materials.get(0).getQuantity(); i++) {
             svg.append(String.format(rectTemplate, posX, posY + (width * i) + offsetY, dimH, order.getCarportLength()));
