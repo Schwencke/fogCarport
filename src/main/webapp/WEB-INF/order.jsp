@@ -13,20 +13,28 @@
             if (localStorage != null) {
                 cleardata();
             }
+
+            function lockCarport() {
+                if (document.getElementById("lockCarport").checked === true) {
+                    document.getElementById("carportLengthDropDown").disabled = true
+                    document.getElementById("carportWidthDropDown").disabled = true
+                } else {
+                    document.getElementById("carportLengthDropDown").disabled = false
+                    document.getElementById("carportWidthDropDown").disabled = false
+                }
+            }
+
+            function lockShed() {
+                if (document.getElementById("lockShed").checked === true) {
+                    document.getElementById("shedLengthDropDown").disabled = true
+                    document.getElementById("shedWidthDropDown").disabled = true
+                } else {
+                    document.getElementById("shedLengthDropDown").disabled = false
+                    document.getElementById("shedWidthDropDown").disabled = false
+                }
+            }
         </script>
-        <!--
-        You are now logged in as a CUSTOMER.<br>
-        Role: ${sessionScope.role}<br>
-        Role ID: ${sessionScope.user.roleId}<br>
-        User ID: ${sessionScope.user.userId}<br>
-        User: ${sessionScope.user}<br>
-        Name: ${sessionScope.user.name}<br>
-        Email: ${sessionScope.email}<br>
-        Address: ${sessionScope.user.address}<br>
-        PostalCode: ${sessionScope.user.postalCode}<br>
-        City: ${sessionScope.city}<br>
-        PhoneNo: ${sessionScope.user.phoneNo}<br>
-        -->
+
         <c:if test="${sessionScope.role == 'customer'}">
             <c:choose>
                 <c:when test="${sessionScope.orderlist != null}">
@@ -84,7 +92,7 @@
                                     </tr>
                                     <tr>
                                         <td>Status:</td>
-                                        <td>${applicationScope.status.get(order.statusId)}</td>
+                                        <td>${applicationScope.status.get(sessionScope.order.statusId)}</td>
                                     </tr>
                                 </table>
                                 <table class="table table-striped table-sm">
@@ -102,7 +110,7 @@
                                     </tr>
                                     <tr>
                                         <td>Tag:</td>
-                                        <td>${applicationScope.roofinglist.get(order.roofingId)}</td>
+                                        <td>${applicationScope.roofinglist.get(sessionScope.order.roofingId)}</td>
                                     </tr>
                                 </table>
                                 <c:if test="${order.shedWidth > 0}">
@@ -117,11 +125,11 @@
                                         </tr>
                                         <tr>
                                             <td>Længde:</td>
-                                            <td>${sessionScope.sessionScope.order.shedLength} cm</td>
+                                            <td>${sessionScope.order.shedLength} cm</td>
                                         </tr>
                                         <tr>
                                             <td>Beklædning:</td>
-                                            <td>${applicationScope.claddinglist.get(order.claddingId)}</td>
+                                            <td>${applicationScope.claddinglist.get(sessionScope.order.claddingId)}</td>
                                         </tr>
                                     </table>
                                 </c:if>
@@ -184,26 +192,137 @@
             </c:choose>
         </c:if>
         <c:if test="${sessionScope.role == 'salesperson'}">
-            <div class="row">
-                <div class="col-6">
-                    <table class="table table-striped">
-                        <thead>
-                        <th>Bruger ID</th>
-                        <th>Navn</th>
-                        <th>Adresse</th>
-                        <th>By</th>
-                        <th>Telefon</th>
-                        <th>Email</th>
-                        </thead>
-                        <tr>
-                            <td> ${sessionScope.orderuser.userId}</td>
-                            <td> ${sessionScope.orderuser.name}</td>
-                            <td> ${sessionScope.orderuser.address}</td>
-                            <td> ${sessionScope.orderuser.postalCode} ${applicationScope.cities.get(sessionScope.orderuser.postalCode)}</td>
-                            <td>${sessionScope.orderuser.phoneNo}</td>
-                            <td>${sessionScope.orderuser.email}</td>
-                        </tr>
-                    </table>
+            <div class="container">
+                <div class="row">
+                    <div class="col">
+                        <table class="table table-striped table-sm">
+                            <thead>
+                            <th style="width: 40%">Kontaktoplysninger</th>
+                            <th></th>
+                            </thead>
+                            <tr>
+                                <td>Bruger ID:</td>
+                                <td>${sessionScope.orderuser.userId}</td>
+                            </tr>
+                            <tr>
+                                <td>Navn:</td>
+                                <td>${sessionScope.orderuser.name}</td>
+                            </tr>
+                            <tr>
+                                <td>Adresse:</td>
+                                <td>${sessionScope.orderuser.address}</td>
+                            </tr>
+                            <tr>
+                                <td>Postnummer</td>
+                                <td>${sessionScope.orderuser.postalCode}</td>
+                            </tr>
+                            <tr>
+                                <td>By</td>
+                                <td>${applicationScope.cities.get(sessionScope.user.postalCode)}</td>
+                            </tr>
+                            <tr>
+                                <td>Telefon nr.:</td>
+                                <td>${sessionScope.orderuser.phoneNo}</td>
+                            </tr>
+                            <tr>
+                                <td>Email:</td>
+                                <td>${sessionScope.orderuser.email}</td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="col">
+                        <table class="table table-striped table-sm">
+                            <thead>
+                            <th style="width: 40%">Specifikationer</th>
+                            <th></th>
+                            </thead>
+                            <tr>
+                                <td>Ref. nr.:</td>
+                                <td>${sessionScope.order.orderId}</td>
+                            </tr>
+                            <tr>
+                                <td>Oprettet:</td>
+                                <td>${sessionScope.order.timeCreated}</td>
+                            </tr>
+                            <tr>
+                                <td>Ændret:</td>
+                                <td>${sessionScope.order.timeUpdated}</td>
+                            </tr>
+                            <tr>
+                                <td>Status:</td>
+                                <td>${applicationScope.status.get(sessionScope.order.statusId)}</td>
+                            </tr>
+                        </table>
+                        <table class="table table-striped table-sm">
+                            <thead>
+                            <th style="width: 40%">Carport</th>
+                            <th>
+                                <label for="lockCarport">Lås</label>
+                                <input onclick="lockCarport()" type="checkbox" id="lockCarport" name="lockCarport" checked>
+                            </th>
+                            </thead>
+                            <tr>
+                                <td>Bredde:</td>
+                                <td><select id="carportWidthDropDown" name="carportWidth" disabled type="text">
+                                    <option value="${sessionScope.order.carportWidth}">${sessionScope.order.carportWidth}</option>
+                                    <c:forEach var="carportWidth" items="${applicationScope.carportWidth}">
+                                        <option value="${carportWidth}">${carportWidth}</option>
+                                    </c:forEach>
+                                </select> cm
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Længde:</td>
+                                <td><select id="carportLengthDropDown" name="carportLength" disabled type="text">
+                                    <option value="${sessionScope.order.carportLength}">${sessionScope.order.carportLength}</option>
+                                    <c:forEach var="carportLength" items="${applicationScope.carportLength}">
+                                        <option value="${carportLength}">${carportLength}</option>
+                                    </c:forEach>
+                                </select> cm
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Tag:</td>
+                                <td>${applicationScope.roofinglist.get(sessionScope.order.roofingId)}</td>
+                            </tr>
+                        </table>
+                        <c:if test="${sessionScope.order.shedWidth > 0}">
+                            <table class="table table-striped table-sm">
+                                <thead>
+                                <th style="width: 40%">Skur</th>
+                                <th>
+                                    <label for="lockShed">Lås</label>
+                                    <input onclick="lockShed()" type="checkbox" id="lockShed" name="lockShed" checked>
+                                </th>
+                                </thead>
+                                <tr>
+                                    <td>Bredde:</td>
+                                    <td><select id="shedWidthDropDown" name="shedWidth" disabled type="text">
+                                        <option value="${sessionScope.order.shedWidth}">${sessionScope.order.shedWidth}</option>
+                                        <c:forEach var="shedWidth" items="${applicationScope.shedWidth}">
+                                            <option value="${shedWidth}">${shedWidth}</option>
+                                        </c:forEach>
+                                    </select> cm</td>
+                                </tr>
+                                <tr>
+                                    <td>Længde:</td>
+                                    <td><select id="shedLengthDropDown" name="shedLength" disabled type="text">
+                                        <option value="${sessionScope.order.shedLength}">${sessionScope.order.shedLength}</option>
+                                        <c:forEach var="shedLength" items="${applicationScope.shedLength}">
+                                            <option value="${shedLength}">${shedLength}</option>
+                                        </c:forEach>
+                                    </select> cm</td>
+                                </tr>
+                                <tr>
+                                    <td>Beklædning:</td>
+                                    <td>${applicationScope.claddinglist.get(sessionScope.order.claddingId)}</td>
+                                </tr>
+                            </table>
+                        </c:if>
+                        <form class="px-4 py-3" action="${pageContext.request.contextPath}/fc/updatemeasurements" method="post"></form>
+                        <input type="hidden" name="orderid" value="${sessionScope.order.orderId}">
+                        <button class="btn btn-outline-primary" type="submit">Opdater mål</button>
+                    </div>
                 </div>
             </div>
             <div class="row">
@@ -308,46 +427,6 @@
                         <div class="card card-body">
                             <form class="px-4 py-3" action="${pageContext.request.contextPath}/fc/updatemeasurements"
                                   method="post">
-                                <table class="table table-striped">
-                                    <thead>
-                                    <th>Carport Længde</th>
-                                    <th>Carport Bredde</th>
-                                    </thead>
-                                    <tr>
-                                        <td><select id="carportlength" name="carportLength" type="text">
-                                            <option value="${sessionScope.order.carportLength}">${sessionScope.order.carportLength}</option>
-                                            <c:forEach var="carportLength" items="${applicationScope.carportLength}">
-                                                <option value="${carportLength}">${carportLength}</option>
-                                            </c:forEach>
-                                        </select></td>
-                                        <td><select id="carportwidth" name="carportWidth" type="text">
-                                            <option value="${sessionScope.order.carportWidth}">${sessionScope.order.carportWidth}</option>
-                                            <c:forEach var="carportWidth" items="${applicationScope.carportWidth}">
-                                                <option value="${carportWidth}">${carportWidth}</option>
-                                            </c:forEach>
-                                        </select></td>
-                                    </tr>
-                                </table>
-                                <table class="table table-striped">
-                                    <thead>
-                                    <th>Skur Længde</th>
-                                    <th>Skur Bredde</th>
-                                    </thead>
-                                    <tr>
-                                        <td><select id="shedLength" name="shedLength" type="text">
-                                            <option value="${sessionScope.order.shedLength}">${sessionScope.order.shedLength}</option>
-                                            <c:forEach var="shedLength" items="${applicationScope.shedLength}">
-                                                <option value="${shedLength}">${shedLength}</option>
-                                            </c:forEach>
-                                        </select></td>
-                                        <td><select id="shedWidth" name="shedWidth" type="text">
-                                            <option value="${sessionScope.order.shedWidth}">${sessionScope.order.shedWidth}</option>
-                                            <c:forEach var="shedWidth" items="${applicationScope.shedWidth}">
-                                                <option value="${shedWidth}">${shedWidth}</option>
-                                            </c:forEach>
-                                        </select></td>
-                                    </tr>
-                                </table>
                                 <input type="hidden" name="orderid" value="${sessionScope.order.orderId}">
                                 <button type="submit">Opdater</button>
                             </form>
@@ -356,6 +435,7 @@
                     </div>
                 </div>
             </div>
+
         </c:if>
     </jsp:body>
 </t:genericpage>
