@@ -88,6 +88,11 @@ public class CommandOrder extends CommandProtectedPage {
         session.setAttribute("salesprice", salesPrice);
         session.setAttribute("baseprice", basePrice);
         session.setAttribute("bom", billOfMaterials);
+        session.setAttribute("sternList", sternList);
+        session.setAttribute("postList", postList);
+        session.setAttribute("rafterlist", rafterList);
+        session.setAttribute("beamlist", beamList);
+        session.setAttribute("rooflist", roofList);
         session.setAttribute("orderuser", orderUser);
         session.setAttribute("order", order);
 

@@ -312,44 +312,47 @@
                                 </table>
                             </c:if>
                             <input type="hidden" name="orderid" value="${sessionScope.order.orderId}">
-                            <button style="float: right" class="btn btn-outline-primary" type="submit">Opdater mål</button>
+                            <button style="float: right" class="btn btn-outline-primary" type="submit">Opdater mål
+                            </button>
                         </form>
                     </div>
                 </div>
             </div>
             <div class="container">
-            <div class="row">
-            <div class="col-6">
-                <table class="table table-striped table-sm">
-                    <thead>
-                    <th style="width: 40%">Pris</th>
-                    <th></th>
-                    </thead>
-                    <tr>
-                        <td>indkøbspris ex. moms:</td>
-                        <td>${sessionScope.bom.basePrice}</td>
-                    </tr>
-                    <tr>
-                    <form action="${pageContext.request.contextPath}/fc/admincalculate">
-                        <td>Dækningsgrad:</td>
-                        <td><input type="number" name="margin" value="${sessionScope.bom.margin}">%</td>
-                        <button type="submit">tryk</button>
-                    </form>
-                    </tr>
-                    <tr>
-                        <td>Dækningsbidrag</td>
-                        <td>${sessionScope.marginprice}</td>
-                    </tr>
-                    <tr>
-                        <td>Tilbudspris ex.moms:</td>
-                        <td>${sessionScope.salesprice}</td>
-                    </tr>
-                    <tr>
-                        <td>Tilbudspris incl. moms:</td>
-                        <td>${sessionScope.vatprice}</td>
-                    </tr>
-                </table>
-            </div></div></div>
+                <div class="row">
+                    <div class="col-6">
+                        <table class="table table-striped table-sm">
+                            <thead>
+                            <th style="width: 40%">Pris</th>
+                            <th></th>
+                            </thead>
+                            <tr>
+                                <td>indkøbspris ex. moms:</td>
+                                <td>${sessionScope.bom.basePrice}</td>
+                            </tr>
+                            <tr>
+                                <form action="${pageContext.request.contextPath}/fc/admincalculate">
+                                    <td>Dækningsgrad:</td>
+                                    <td><input type="number" name="margin" value="${sessionScope.bom.margin}">%</td>
+                                    <button type="submit">tryk</button>
+                                </form>
+                            </tr>
+                            <tr>
+                                <td>Dækningsbidrag</td>
+                                <td>${sessionScope.marginprice}</td>
+                            </tr>
+                            <tr>
+                                <td>Tilbudspris ex.moms:</td>
+                                <td>${sessionScope.salesprice}</td>
+                            </tr>
+                            <tr>
+                                <td>Tilbudspris incl. moms:</td>
+                                <td>${sessionScope.vatprice}</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
             <div class="container">
                 <div class="row">
                     <div class="col">
@@ -388,7 +391,8 @@
             </form>
 
             <a href="${pageContext.request.contextPath}/fc/adminsvgdraw">klik her for tegning</a>
-            <br>${requestScope.svgdrawing}
+            <br>
+            <div style="text-align: center">${requestScope.svgdrawing}</div>
 
         </c:if>
     </jsp:body>

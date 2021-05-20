@@ -23,7 +23,7 @@ public class SVG {
             "viewBox=\"%s\" " +
             "x=\"%d\" " +
             "y=\"%d\" " +
-            " preserveAspectRatio=\"xMinYMin\">";
+            " preserveAspectRatio=\"xMidYMin\">";
 
     private final String templateFooter = "</svg>";
     private final String templateRectangle = "<rect x=\"%f\" y=\"%f\" height=\"%f\" width=\"%f\" style=\"stroke:#000000; fill: #ffffff\" />";

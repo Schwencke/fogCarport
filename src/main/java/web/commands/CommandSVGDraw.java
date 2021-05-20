@@ -17,9 +17,9 @@ public class CommandSVGDraw extends CommandProtectedPage {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws UserException, SQLException {
 
-        svg = new SVG(100, 100, "0 0 1000 800", 0, 0);
+        svg = new SVG(1, 80, "0 0 1000 880", 0, 0);
         svg.SVGDefs();
-        svg.SVGNest(100, 100, "0 0 1200 1", 0, 0);
+        svg.SVGNest(100, 100, "0 0 1000 1", 0, 0);
         svg.drawRoof(request);
         svg.drawBeam(request);
         svg.drawRafter(request);
