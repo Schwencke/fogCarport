@@ -316,43 +316,51 @@
                             </button>
                         </form>
                     </div>
-                </div>
+             </div>
             </div>
             <div class="container">
-                <div class="row">
-                    <div class="col-6">
-                        <table class="table table-striped table-sm">
-                            <thead>
-                            <th style="width: 40%">Pris</th>
-                            <th></th>
-                            </thead>
-                            <tr>
-                                <td>indkøbspris ex. moms:</td>
-                                <td>${sessionScope.bom.basePrice}</td>
-                            </tr>
-                            <tr>
-                                <form action="${pageContext.request.contextPath}/fc/admincalculate">
-                                    <td>Dækningsgrad:</td>
-                                    <td><input type="number" name="margin" value="${sessionScope.bom.margin}">%</td>
-                                    <button type="submit">tryk</button>
-                                </form>
-                            </tr>
-                            <tr>
-                                <td>Dækningsbidrag</td>
-                                <td>${sessionScope.marginprice}</td>
-                            </tr>
-                            <tr>
-                                <td>Tilbudspris ex.moms:</td>
-                                <td>${sessionScope.salesprice}</td>
-                            </tr>
-                            <tr>
-                                <td>Tilbudspris incl. moms:</td>
-                                <td>${sessionScope.vatprice}</td>
-                            </tr>
-                        </table>
-                    </div>
-                </div>
-            </div>
+            <div class="row">
+            <div class="col-6">
+                <table class="table table-striped table-sm">
+                    <thead>
+                    <th style="width: 40%">Pris</th>
+                    <th></th>
+                    </thead>
+                    <tr>
+                        <td>indkøbspris ex. moms:</td>
+                        <td>${sessionScope.bom.basePrice}</td>
+                    </tr>
+                    <tr>
+                    <form action="${pageContext.request.contextPath}/fc/admincalculate">
+                        <td>Dækningsgrad:</td>
+                        <td><input type="number" name="margin" value="${sessionScope.bom.margin}">% <button class="btn btn-outline-danger btn-sm m-0" type="submit">Opdater</button></td>
+                    </form>
+                    </tr>
+                    <tr>
+                        <td>Dækningsbidrag</td>
+                        <c:choose>
+                            <c:when test="${sessionScope.marginprice > sessionScope.baseprice * 0.20}">
+                        <td style="color: green">${sessionScope.marginprice}</td>
+                            </c:when>
+                            <c:when test="${sessionScope.marginprice >= sessionScope.baseprice * 0.11}">
+                        <td style="color: #ff4900">${sessionScope.marginprice}</td>
+                            </c:when>
+                            <c:when test="${sessionScope.marginprice <= sessionScope.baseprice * 0.109}">
+                                <td style="color: red">${sessionScope.marginprice}</td>
+                            </c:when>
+                        </c:choose>
+                    </tr>
+                    <tr>
+                        <td>Tilbudspris ex.moms:</td>
+                        <td>${sessionScope.salesprice}</td>
+                    </tr>
+                    <tr>
+                        <td>Tilbudspris incl. moms:</td>
+                        <td>${sessionScope.vatprice}</td>
+                    </tr>
+                </table>
+            </div></div></div>
+
             <div class="container">
                 <div class="row">
                     <div class="col">
@@ -387,7 +395,7 @@
             <form action="${pageContext.request.contextPath}/fc/adminupdatestatus" method="post">
                 <input type="hidden" name="orderid" value="${sessionScope.order.orderId}">
                 <input type="hidden" name="statusid" value="99">
-                <button class="btn btn-outline-danger" type="submit">Slet ordre</button>
+                <button style="float: right" class="btn btn-outline-danger" type="submit">Slet ordre</button>
             </form>
 
             <a href="${pageContext.request.contextPath}/fc/adminsvgdraw">klik her for tegning</a>
