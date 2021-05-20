@@ -313,7 +313,7 @@
                             <button style="float: right" class="btn btn-outline-primary" type="submit">Opdater mål</button>
                         </form>
                     </div>
-                </div>
+             </div>
             </div>
             <div class="container">
             <div class="row">
@@ -330,13 +330,22 @@
                     <tr>
                     <form action="${pageContext.request.contextPath}/fc/Calculate">
                         <td>Dækningsgrad:</td>
-                        <td><input type="number" name="margin" value="${sessionScope.bom.margin}">%</td>
-                        <button type="submit">tryk</button>
+                        <td><input type="number" name="margin" value="${sessionScope.bom.margin}">% <button class="btn btn-outline-danger btn-sm m-0" type="submit">Opdater</button></td>
                     </form>
                     </tr>
                     <tr>
                         <td>Dækningsbidrag</td>
-                        <td>${sessionScope.marginprice}</td>
+                        <c:choose>
+                            <c:when test="${sessionScope.marginprice > sessionScope.baseprice * 0.20}">
+                        <td style="color: green">${sessionScope.marginprice}</td>
+                            </c:when>
+                            <c:when test="${sessionScope.marginprice >= sessionScope.baseprice * 0.11}">
+                        <td style="color: #ff4900">${sessionScope.marginprice}</td>
+                            </c:when>
+                            <c:when test="${sessionScope.marginprice <= sessionScope.baseprice * 0.109}">
+                                <td style="color: red">${sessionScope.marginprice}</td>
+                            </c:when>
+                        </c:choose>
                     </tr>
                     <tr>
                         <td>Tilbudspris ex.moms:</td>
