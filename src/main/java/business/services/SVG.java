@@ -73,9 +73,9 @@ public class SVG {
             svg.append(String.format(templateRectangle, posX + (height * i), posY, (double) order.getCarportWidth(), dimH));
         }
 
-        // Arrow (width)
+        // Arrow (left)
         double arrowX = 20;
-        svg.append(String.format(templateLineArrow, arrowX, posY, arrowX, posY + (double) order.getCarportWidth()));
+        svg.append(String.format(templateLineArrow, arrowX, posY - (dimH * 0.5), arrowX, posY + (double) order.getCarportWidth() + (dimH * 0.5)));
         svg.append(String.format(templateText, arrowX - 5, posY + ((double) order.getCarportWidth() * 0.5), -90, order.getCarportWidth() + " cm"));
     }
 
@@ -96,15 +96,38 @@ public class SVG {
             svg.append(String.format(templateRectangle, posX, posY + (width * i) + offsetW1 - (dimH * 0.5), dimH, (double) order.getCarportLength()));
         }
 
-        // Arrow (width)
+        // Arrow (left)
         double arrowX = 70;
-        svg.append(String.format(templateLineArrow, arrowX, posY + offsetW1, arrowX, posY + (double) order.getCarportWidth() - offsetW1));
-        svg.append(String.format(templateText, arrowX - 5, posY + ((double) order.getCarportWidth() * 0.5), -90, (order.getCarportWidth() - offsetW1) + " cm")); //TODO:FOR LOOP this
+        svg.append(String.format(templateLineArrow,
+                arrowX,
+                posY + offsetW1 - (dimH * 0.5),
+                arrowX,
+                posY + (double) order.getCarportWidth() - offsetW1 + (dimH * 0.5)));
 
-        // Arrow (length)
+        svg.append(String.format(templateText, arrowX - 5, posY + ((double) order.getCarportWidth() * 0.5), -90, (int) (order.getCarportWidth() - offsetW1) + " cm"));
+
+        // Arrow (right)
+        if (materials.get(0).getQuantity() > 2) {
+            for (int i = 0; i < (materials.get(0).getQuantity() - 1); i++) {
+                svg.append(String.format(templateLineArrow,
+                        posX + (double) order.getCarportLength() + 50,
+                        posY + offsetW1 + (width * i) - (dimH * 0.5),
+                        posX + (double) order.getCarportLength() + 50,
+                        posY + (offsetW1 + width * (i + 1)) + (dimH * 0.5) * i));
+
+                svg.append(String.format(templateText, posX + (double) order.getCarportLength() + 67, posY + offsetW1 + (width * 0.5) + (width * i), -90, ((order.getCarportWidth() - offsetW1) * 0.5) + " cm"));
+            }
+        }
+
+        // Arrow (bottom)
         double arrowY = 40;
-        svg.append(String.format(templateLineArrow, posX, posY + arrowY + (double) order.getCarportWidth(), posX + (double) order.getCarportLength(), posY + arrowY + (double) order.getCarportWidth()));
-        svg.append(String.format(templateText, posX + ((double) order.getCarportLength() * 0.5), posY + arrowY + 15 + (double) order.getCarportWidth(), 0, (order.getCarportLength() + " cm"));
+        svg.append(String.format(templateLineArrow,
+                posX - (dimH * 0.5),
+                posY + arrowY + (double) order.getCarportWidth(),
+                posX + (dimH * 0.5) + (double) order.getCarportLength(),
+                posY + arrowY + (double) order.getCarportWidth()));
+
+        svg.append(String.format(templateText, posX + ((double) order.getCarportLength() * 0.5), posY + arrowY + 15 + (double) order.getCarportWidth(), 0, (order.getCarportLength() + " cm")));
     }
 
     // Stolper
@@ -144,19 +167,6 @@ public class SVG {
             }
         }
     }
-
-//
-//        public void addRect(double x, double y, double height, double width) {
-//            svg.append(String.format(rectTemplate, x, y, height, width));
-//        }
-//
-//        public void addLine(int x1, int y1, int x2, int y2) {
-//            svg.append(String.format(lineTemplate, x1, y1, x2, y2));
-//        }
-//
-//        public void addSvg(SVG innerSVG) {
-//            svg.append(innerSVG.toString());
-//        }
 
     @Override
     public String toString() {
