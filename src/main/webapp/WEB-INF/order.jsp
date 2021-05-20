@@ -328,8 +328,11 @@
                         <td>${sessionScope.bom.basePrice}</td>
                     </tr>
                     <tr>
+                    <form action="${pageContext.request.contextPath}/fc/Calculate">
                         <td>Dækningsgrad:</td>
-                        <td><input type="number" value="${sessionScope.bom.margin}">%</td>
+                        <td><input type="number" name="margin" value="${sessionScope.bom.margin}">%</td>
+                        <button type="submit">tryk</button>
+                    </form>
                     </tr>
                     <tr>
                         <td>Dækningsbidrag</td>

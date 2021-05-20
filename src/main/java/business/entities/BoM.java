@@ -10,7 +10,7 @@ public class BoM {
     public BoM() {
     }
 
-    public BoM(List<Material> materials, double basePrice, int margin) {
+    public BoM(List<Material> materials, double basePrice, double margin) {
         this.materials = materials;
         this.basePrice = basePrice;
         this.margin = margin;
@@ -36,7 +36,7 @@ public class BoM {
         return margin;
     }
 
-    public void setMargin(int margin) {
+    public void setMargin(double margin) {
         this.margin = margin;
     }
 }

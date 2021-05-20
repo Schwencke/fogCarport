@@ -33,6 +33,7 @@ public abstract class Command {
         commands.put("signup", new CommandUnprotectedPage("signup"));
         commands.put("updatemeasurements", new CommandUpdateMeasurements("order", "salesperson"));
         commands.put("updatestatus", new CommandUpdateStatus("admin", "salesperson")); //TODO: Navn bør ændres til adminupdatestatus
+        commands.put("Calculate", new CommandPriceCalculations("order", "salesperson"));
     }
 
     public static Command fromPath(

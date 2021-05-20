@@ -22,6 +22,8 @@ public class CommandPriceCalculations extends CommandProtectedPage {
     protected BoM billOfMaterials;
     protected double basePrice;
     protected double salesPrice;
+    protected double marginPrice;
+    protected double vatPrice;
 
     protected double margin;
 
@@ -41,12 +43,17 @@ public class CommandPriceCalculations extends CommandProtectedPage {
         basePrice = (double)session.getAttribute("baseprice");
         if (request.getParameter("margin") != null) {
             margin = Double.parseDouble(request.getParameter("margin"));
-        } else { margin = billOfMaterials.getMargin();}
+            billOfMaterials.setMargin(margin);
+        } else { margin = (double) billOfMaterials.getMargin();}
 
         salesPrice = Utility.calcSalesPrice(basePrice, margin);
+        marginPrice = Utility.calcMarginPrice(basePrice,salesPrice);
+        vatPrice = Utility.calcVatPrice(salesPrice);
 
 
         session.setAttribute("salesprice", salesPrice);
+        session.setAttribute("marginprice", marginPrice);
+        session.setAttribute("vatprice", vatPrice);
 
         pageToShow = "order";
 
