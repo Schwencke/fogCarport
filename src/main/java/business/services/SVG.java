@@ -25,11 +25,8 @@ public class SVG {
             "y=\"%d\" " +
             " preserveAspectRatio=\"xMinYMin\">";
 
-//    private final String rectTemplate = "<rect x=\"%f\" y=\"%f\" height=\"%f\" width=\"%f\" style=\"stroke:#000000; fill: #ffffff\" />";
-//    private final String lineTemplate = "<line x1=\"%d\" y1=\"%d\" x2=\"%d\" y2=\"%d\" style=\"stroke:#000000; stroke-dasharray: 5 5;\" />";
-
     private final String rectTemplate = "<rect x=\"%f\" y=\"%f\" height=\"%f\" width=\"%f\" style=\"stroke:#000000; fill: #ffffff\" />";
-    private final String lineTemplate = "<line x1=\"%d\" y1=\"%d\" x2=\"%d\" y2=\"%d\" style=\"stroke:#000000; stroke-dasharray: 5 5;\" />"; //TODO: double to INT
+    private final String lineTemplate = "<line x1=\"%d\" y1=\"%d\" x2=\"%d\" y2=\"%d\" style=\"stroke:#000000; stroke-dasharray: 5 5;\" />";
 
     public SVG(int canvasWidth, int canvasHeight, String viewBox, int posX, int posY) {
         this.canvasWidth = canvasWidth;
@@ -41,7 +38,7 @@ public class SVG {
     }
 
     // Spær
-    public void addRafters(HttpServletRequest request) {
+    public void drawRafter(HttpServletRequest request) {
 
         HttpSession session = request.getSession();
         Order order = (Order) session.getAttribute("order");
@@ -58,7 +55,7 @@ public class SVG {
     }
 
     // Remme
-    public void addBeams(HttpServletRequest request) {
+    public void drawBeam(HttpServletRequest request) {
 
         HttpSession session = request.getSession();
         order = (Order) session.getAttribute("order");
@@ -76,7 +73,7 @@ public class SVG {
     }
 
     // Stolper
-    public void addPosts(HttpServletRequest request) {
+    public void drawPost(HttpServletRequest request) {
 
         HttpSession session = request.getSession();
         order = (Order) session.getAttribute("order");
@@ -87,70 +84,45 @@ public class SVG {
         double offsetW1 = 35;
         double offsetL1 = 110;
         double offsetL2 = 25;
-        double maxWidth = 600 - (offsetW1 * 2);
-        double maxLength = 600 - (offsetW1 * 2);
+
         double dimH = (double) materials.get(0).getHeight() / 10;
         double dimW = (double) materials.get(0).getWidth() / 10;
-        double width = ((((double) order.getCarportWidth() - (offsetW1 * 2)) / (materials.get(0).getQuantity() - 1)));
-        double length = ((((double) order.getCarportLength() - (offsetL1 + offsetL2)) / (materials.get(0).getQuantity() - 1)));
 
-        for (int i = 0; i < materials.get(0).getQuantity(); i++) {
-            svg.append(String.format(rectTemplate, posX + (length* i) + offsetL1 - (dimH * 0.5), posY + offsetW1 - (dimH * 0.5), dimH, dimW));
+        int maxWidth = 600;
+        int divByW = 2;
+        if (order.getCarportWidth() > maxWidth) {
+            divByW++;
+        }
+
+        int maxLength = 480;
+        int divByL = 3;
+        if (order.getCarportLength() < maxLength) {
+            divByL--;
+        }
+
+        double width = ((double) order.getCarportWidth() - (offsetW1 * 2)) / ((materials.get(0).getQuantity() / divByL) - 1);
+        double length = (((double) order.getCarportLength() - (offsetL1 + offsetL2)) / ((materials.get(0).getQuantity() / divByW) - 1));
+
+        for (int i = 0; i < (materials.get(0).getQuantity() / divByW); i++) {
+            for (int j = 0; j < divByW; j++) {
+                svg.append(String.format(rectTemplate, posX + (length * i) + offsetL1 - (dimH * 0.5), posY + (width * j) + offsetW1 - (dimH * 0.5), dimH, dimW));
+            }
         }
     }
-
 
     /*
-    int overhangSides = 35;
-    int overhangFront = 110;
-    int overhangBack = 25;
-    int start = 100 + overhangSides; // starting distance from viewbox
-    int second = order.getCarportWidth() + overhangSides;
-    int finish = order.getCarportLength() - overhangBack;
-    int distance = 100 + overhangFront; //starting distance from viewbox increments to get space between posts
-    int quant;
-    for (Material material : postList) {
-        int height = material.getHeight() / 10;
-        int width = material.getWidth() / 10;
-        quant = material.getQuantity();
-        for (int i = 1; i < quant + 1; i++) {
-            if (i <= quant / 2) {
-                if (i < quant / 2) {
-                    svg.append(String.format(rectTemplate, (distance - width / 2), start - 2, height, width));
-                    distance += 300;
-                } else {
-                    distance = (finish + 100) - height;
-                    svg.append(String.format(rectTemplate, (distance - width / 2), start - 2, height, width));
-                    distance = 100 + overhangFront;
-                }
-            }
-
-            if (i > quant / 2) {
-                if (i == quant) {
-                    distance = (finish + 100) - height;
-                    svg.append(String.format(rectTemplate, (distance - width / 2), second - 2, height, width));
-
-                } else {
-                    svg.append(String.format(rectTemplate, (distance - width / 2), second - 2, height, width));
-                    distance += 300;
-                }
-            }
+        public void addRect(double x, double y, double height, double width) {
+            svg.append(String.format(rectTemplate, x, y, height, width));
         }
-    }
-}*/
-/*
-    public void addRect(double x, double y, double height, double width) {
-        svg.append(String.format(rectTemplate, x, y, height, width));
-    }
 
-    public void addLine(int x1, int y1, int x2, int y2) {
-        svg.append(String.format(lineTemplate, x1, y1, x2, y2));
-    }
+        public void addLine(int x1, int y1, int x2, int y2) {
+            svg.append(String.format(lineTemplate, x1, y1, x2, y2));
+        }
 
-    public void addSvg(SVG innerSVG) {
-        svg.append(innerSVG.toString());
-    }
-*/
+        public void addSvg(SVG innerSVG) {
+            svg.append(innerSVG.toString());
+        }
+    */
     @Override
     public String toString() {
         return svg.toString() + "</svg>";
