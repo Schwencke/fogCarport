@@ -29,15 +29,16 @@ public class CommandUpdateMeasurements extends CommandProtectedPage {
         HttpSession session = request.getSession();
         orderId = Integer.parseInt(request.getParameter("orderid"));
 
-        carportLength = Integer.parseInt(request.getParameter("carportLength"));
-        carportWidth = Integer.parseInt(request.getParameter("carportWidth"));
-        orderFacade.updateCarportMeasurementsById(orderId,carportLength,carportWidth);
-
-        shedLength = Integer.parseInt(request.getParameter("shedLength"));
-        shedWidth = Integer.parseInt(request.getParameter("shedWidth"));
-
-        orderFacade.updateShedMeasurementsById(orderId, shedLength, shedWidth);
-
+        if (request.getParameter("carportLengthDropDown") != null) {
+            carportLength = Integer.parseInt(request.getParameter("carportLengthDropDown"));
+            carportWidth = Integer.parseInt(request.getParameter("carportWidthDropDown"));
+            orderFacade.updateCarportMeasurementsById(orderId, carportLength, carportWidth);
+        }
+        if (request.getParameter("shedLengthDropDown") != null) {
+            shedLength = Integer.parseInt(request.getParameter("shedLengthDropDown"));
+            shedWidth = Integer.parseInt(request.getParameter("shedWidthDropDown"));
+            orderFacade.updateShedMeasurementsById(orderId, shedLength, shedWidth);
+        }
         order = orderFacade.getOrderById(orderId);
         session.setAttribute("order", order);
 
