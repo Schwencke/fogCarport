@@ -2,6 +2,7 @@ package business.persistence;
 
 import business.entities.Material;
 import business.exceptions.UserException;
+import business.services.Utility;
 
 import java.sql.*;
 import java.util.ArrayList;

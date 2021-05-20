@@ -6,6 +6,7 @@ import business.entities.Order;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -14,6 +15,22 @@ import java.util.regex.Pattern;
 import java.util.stream.Stream;
 
 public class Utility {
+
+    @SafeVarargs
+    public static double calcBasePrice(List<Material>... lists){
+        DecimalFormat df = new DecimalFormat("#.##");
+        double total = 0.0;
+        List<Material> result = new ArrayList<>();
+        Stream.of(lists).forEach(result::addAll);
+
+        for (Material material : result) {
+           total += material.getQuantity() * material.getPrice();
+        }
+        total %= total * 0.60;
+        return Double.parseDouble(df.format(total));
+    }
+
+
 
     public static boolean validateEmailAddress(String email) {
         String regex = "^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$";
@@ -39,9 +56,10 @@ public class Utility {
         }
     }
 
-    public static List<Material> concatenateLists(List<Material> sternUnderFrontAndBackList, List<Material> sternUnderSidesList, List<Material> sternOverFrontList, List<Material> sternOverSidesList, List<Material> sternWaterFrontList, List<Material> sternWaterSidesList) {
+    @SafeVarargs
+    public static List<Material> concatenateLists(List<Material>... materials) {
         List<Material> result = new ArrayList<>();
-        Stream.of(sternUnderFrontAndBackList, sternUnderSidesList, sternOverFrontList, sternOverSidesList, sternWaterFrontList, sternWaterSidesList).forEach(result::addAll);
+        Stream.of(materials).forEach(result::addAll);
         return result;
     }
 }

@@ -1,5 +1,6 @@
 package business.entities;
 
+
 public class Material {
     private int materialID;
     private String name;

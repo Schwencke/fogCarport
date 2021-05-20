@@ -14,10 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-import java.util.stream.Stream;
 
 public class CommandOrder extends CommandProtectedPage {
 
@@ -36,9 +33,9 @@ public class CommandOrder extends CommandProtectedPage {
     protected List<Material> sternList;
     protected List<Material> beamList;
     Order order;
-    Material material;
     int carportWidth;
     int carportLength;
+    double basePrice;
     User orderUser;
 
     public CommandOrder(String pageToShow, String role) {
@@ -71,7 +68,10 @@ public class CommandOrder extends CommandProtectedPage {
         beamList = carportCalc.calcBeam(carportWidth,carportLength);
 
         sternList = Utility.concatenateLists(sternUnderFrontAndBackList,sternUnderSidesList,sternOverFrontList,sternOverSidesList,sternWaterFrontList,sternWaterSidesList);
+        basePrice = Utility.calcBasePrice(postList,rafterList,sternList,beamList);
 
+
+        session.setAttribute("basePrice", basePrice);
         session.setAttribute("sternList",sternList);
         session.setAttribute("postList", postList);
         session.setAttribute("rafterList", rafterList);

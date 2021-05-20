@@ -14,7 +14,7 @@
                 cleardata();
             }
         </script>
-
+        ${sessionScope.totalPrice}
         <c:if test="${sessionScope.role == 'customer'}">
             <c:choose>
                 <c:when test="${sessionScope.orderlist != null}">
@@ -96,7 +96,7 @@
                                 <c:if test="${order.shedWidth > 0}">
                                     <table class="table table-striped table-sm">
                                         <thead>
-                                        <th style="width: 40%">Skur</th>
+                                        <th style="width: 40%">Redskabsrum</th>
                                         <td></td>
                                         </thead>
                                         <tr>
@@ -234,190 +234,184 @@
                             </tr>
                         </table>
                         <form action="${pageContext.request.contextPath}/fc/updatemeasurements" method="post">
-                        <table class="table table-striped table-sm">
-                            <thead>
-                            <th style="width: 40%">Carport</th>
-                            <th>
-                                <label for="lockCarportCheck">Lås</label>
-                                <input onclick="lockCarport()" type="checkbox" id="lockCarportCheck" name="lockCarportCheck" checked>
-                            </th>
-                            </thead>
-                            <tr>
-                                <td>Bredde:</td>
-                                <td><select id="carportWidthDropDown" name="carportWidthDropDown" disabled type="text">
-                                    <option value="${sessionScope.order.carportWidth}">${sessionScope.order.carportWidth}</option>
-                                    <c:forEach var="carportWidth" items="${applicationScope.carportWidth}">
-                                        <option value="${carportWidth}">${carportWidth}</option>
-                                    </c:forEach>
-                                </select> cm
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Længde:</td>
-                                <td><select id="carportLengthDropDown" name="carportLengthDropDown" disabled type="text">
-                                    <option value="${sessionScope.order.carportLength}">${sessionScope.order.carportLength}</option>
-                                    <c:forEach var="carportLength" items="${applicationScope.carportLength}">
-                                        <option value="${carportLength}">${carportLength}</option>
-                                    </c:forEach>
-                                </select> cm
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Tag:</td>
-                                <td>${applicationScope.roofinglist.get(sessionScope.order.roofingId)}</td>
-                            </tr>
-                        </table>
-                        <c:if test="${sessionScope.order.shedWidth > 0}">
                             <table class="table table-striped table-sm">
                                 <thead>
-                                <th style="width: 40%">Skur</th>
+                                <th style="width: 40%">Carport</th>
                                 <th>
-                                    <label for="lockShedCheck">Lås</label>
-                                    <input onclick="lockShed()" type="checkbox" id="lockShedCheck" name="lockShedCheck" checked>
+                                    <label for="lockCarportCheck">Lås</label>
+                                    <input onclick="lockCarport()" type="checkbox" id="lockCarportCheck"
+                                           name="lockCarportCheck" checked>
                                 </th>
                                 </thead>
                                 <tr>
                                     <td>Bredde:</td>
-                                    <td><select id="shedWidthDropDown" name="shedWidthDropDown" disabled type="text">
-                                        <option value="${sessionScope.order.shedWidth}">${sessionScope.order.shedWidth}</option>
-                                        <c:forEach var="shedWidth" items="${applicationScope.shedWidth}">
-                                            <option value="${shedWidth}">${shedWidth}</option>
+                                    <td><select id="carportWidthDropDown" name="carportWidthDropDown" disabled
+                                                type="text">
+                                        <option value="${sessionScope.order.carportWidth}">${sessionScope.order.carportWidth}</option>
+                                        <c:forEach var="carportWidth" items="${applicationScope.carportWidth}">
+                                            <option value="${carportWidth}">${carportWidth}</option>
                                         </c:forEach>
-                                    </select> cm</td>
+                                    </select> cm
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td>Længde:</td>
-                                    <td><select id="shedLengthDropDown" name="shedLengthDropDown" disabled type="text">
-                                        <option value="${sessionScope.order.shedLength}">${sessionScope.order.shedLength}</option>
-                                        <c:forEach var="shedLength" items="${applicationScope.shedLength}">
-                                            <option value="${shedLength}">${shedLength}</option>
+                                    <td><select id="carportLengthDropDown" name="carportLengthDropDown" disabled
+                                                type="text">
+                                        <option value="${sessionScope.order.carportLength}">${sessionScope.order.carportLength}</option>
+                                        <c:forEach var="carportLength" items="${applicationScope.carportLength}">
+                                            <option value="${carportLength}">${carportLength}</option>
                                         </c:forEach>
-                                    </select> cm</td>
+                                    </select> cm
+                                    </td>
                                 </tr>
                                 <tr>
-                                    <td>Beklædning:</td>
-                                    <td>${applicationScope.claddinglist.get(sessionScope.order.claddingId)}</td>
+                                    <td>Tag:</td>
+                                    <td>${applicationScope.roofinglist.get(sessionScope.order.roofingId)}</td>
                                 </tr>
-
                             </table>
-                        </c:if>
+                            <c:if test="${sessionScope.order.shedWidth > 0}">
+                                <table class="table table-striped table-sm">
+                                    <thead>
+                                    <th style="width: 40%">Redskabsrum</th>
+                                    <th>
+                                        <label for="lockShedCheck">Lås</label>
+                                        <input onclick="lockShed()" type="checkbox" id="lockShedCheck"
+                                               name="lockShedCheck" checked>
+                                    </th>
+                                    </thead>
+                                    <tr>
+                                        <td>Bredde:</td>
+                                        <td><select id="shedWidthDropDown" name="shedWidthDropDown" disabled
+                                                    type="text">
+                                            <option value="${sessionScope.order.shedWidth}">${sessionScope.order.shedWidth}</option>
+                                            <c:forEach var="shedWidth" items="${applicationScope.shedWidth}">
+                                                <option value="${shedWidth}">${shedWidth}</option>
+                                            </c:forEach>
+                                        </select> cm
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Længde:</td>
+                                        <td><select id="shedLengthDropDown" name="shedLengthDropDown" disabled
+                                                    type="text">
+                                            <option value="${sessionScope.order.shedLength}">${sessionScope.order.shedLength}</option>
+                                            <c:forEach var="shedLength" items="${applicationScope.shedLength}">
+                                                <option value="${shedLength}">${shedLength}</option>
+                                            </c:forEach>
+                                        </select> cm
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Beklædning:</td>
+                                        <td>${applicationScope.claddinglist.get(sessionScope.order.claddingId)}</td>
+                                    </tr>
+
+                                </table>
+                            </c:if>
                             <input type="hidden" name="orderid" value="${sessionScope.order.orderId}">
-                            <button class="btn btn-outline-primary" type="submit">Opdater mål</button>
+                            <button style="float: right" class="btn btn-outline-primary" type="submit">Opdater mål</button>
                         </form>
                     </div>
                 </div>
             </div>
+            <div class="container">
             <div class="row">
-                <div class="col-6">
-                    <form action="#" method="post">
+            <div class="col-6">
+                <table class="table table-striped table-sm">
+                    <thead>
+                    <th style="width: 40%">Pris</th>
+                    <th></th>
+                    </thead>
+                    <tr>
+                        <td>indkøbspris ex. moms:</td>
+                        <td>${sessionScope.basePrice}</td>
+                    </tr>
+                    <tr>
+                        <td>Dækningsgrad:</td>
+                        <td><input type="number" value="60">%</td>
+                    </tr>
+                    <tr>
+                        <td>Tilbudspris ex.moms:</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>Tilbudspris incl. moms:</td>
+                        <td></td>
+                    </tr>
+                </table>
+            </div></div></div>
+            <div class="container">
+                <div class="row">
+                    <div class="col">
                         <table class="table table-striped">
                             <thead>
-                            <th>Carport Bredde</th>
-                            <th>Carport Længde</th>
-                            <th>Tag</th>
-                            <th>Skur Bredde</th>
-                            <th>Skur Længde</th>
-                            <th>Beklædning</th>
+                            <th>Varenummer</th>
+                            <th>Vare</th>
+                            <th>Beskrivelse</th>
+                            <th>Længde</th>
+                            <th>Antal</th>
+                            <th>Enhed</th>
+                            <th>Pris</th>
+                            <th>Total</th>
                             </thead>
-                            <tr>
-                                <td> ${sessionScope.order.carportWidth}</td>
-                                <td> ${sessionScope.order.carportLength}</td>
-                                <td>${sessionScope.order.roofingId}</td>
-                                <td> ${sessionScope.order.shedWidth}</td>
-                                <td> ${sessionScope.order.shedLength}</td>
-                                <td>${sessionScope.order.claddingId}</td>
-                            </tr>
+                            <c:forEach var="rafter" items="${sessionScope.rafterList}">
+                                <tr>
+                                    <td>${rafter.materialID}</td>
+                                    <td>${rafter.name}</td>
+                                    <td>${rafter.description}</td>
+                                    <td>${rafter.length} mm</td>
+                                    <td>${rafter.quantity}</td>
+                                    <td>${applicationScope.units.get(rafter.unitId)}</td>
+                                    <td>${rafter.price},-</td>
+                                    <td>${rafter.quantity * rafter.price}</td>
+                                </tr>
+                            </c:forEach>
+                            <c:forEach var="post" items="${sessionScope.postList}">
+                                <tr>
+                                    <td>${post.materialID}</td>
+                                    <td>${post.name}</td>
+                                    <td>${post.description}</td>
+                                    <td>${post.length} mm</td>
+                                    <td>${post.quantity}</td>
+                                    <td>${applicationScope.units.get(post.unitId)}</td>
+                                    <td>${post.price},-</td>
+                                    <td>${post.quantity * post.price}</td>
+                                </tr>
+                            </c:forEach>
+                            <c:forEach var="beam" items="${sessionScope.beamList}">
+                                <tr>
+                                    <td>${beam.materialID}</td>
+                                    <td>${beam.name}</td>
+                                    <td>${beam.description}</td>
+                                    <td>${beam.length} mm</td>
+                                    <td>${beam.quantity}</td>
+                                    <td>${applicationScope.units.get(beam.unitId)}</td>
+                                    <td>${beam.price},-</td>
+                                    <td>${beam.quantity * beam.price}</td>
+                                </tr>
+                            </c:forEach>
+                            <c:forEach var="stern" items="${sessionScope.sternList}">
+                                <tr>
+                                    <td>${stern.materialID}</td>
+                                    <td>${stern.name}</td>
+                                    <td>${stern.description}</td>
+                                    <td>${stern.length} mm</td>
+                                    <td>${stern.quantity}</td>
+                                    <td>${applicationScope.units.get(stern.unitId)}</td>
+                                    <td>${stern.price},-</td>
+                                    <td>${stern.quantity * stern.price}</td>
+                                </tr>
+                            </c:forEach>
                         </table>
-                        <button class="btn btn-outline-success" type="button" data-toggle="collapse"
-                                data-target="#collapseCalculate" aria-expanded="false"
-                                aria-controls="collapseCalculate">
-                            Materialeliste
-                        </button>
-                        <div class="collapse" id="collapseCalculate">
-                            <table>
-                                <thead>
-                                <th>Materiale ID</th>
-                                <th>Beskrivelse</th>
-                                <th>Beskrivelse</th>
-                                <th>Længde</th>
-                                <th>Antal</th>
-                                <th>Enhed</th>
-                                <th>a'pris</th>
-                                <th>Total</th>
-                                </thead>
-                                <c:forEach var="rafter" items="${sessionScope.rafterList}">
-                                    <tr>
-                                        <td>${rafter.materialID}</td>
-                                        <td>${rafter.name}</td>
-                                        <td>${rafter.description}</td>
-                                        <td>${rafter.length}</td>
-                                        <td>${rafter.quantity}</td>
-                                        <td>${applicationScope.units.get(rafter.unitId)}</td>
-                                        <td>${rafter.price}</td>
-                                        <td>${rafter.quantity * rafter.price}</td>
-                                    </tr>
-                                </c:forEach>
-                                <c:forEach var="post" items="${sessionScope.postList}">
-                                    <tr>
-                                        <td>${post.materialID}</td>
-                                        <td>${post.name}</td>
-                                        <td>${post.description}</td>
-                                        <td>${post.length}</td>
-                                        <td>${post.quantity}</td>
-                                        <td>${applicationScope.units.get(post.unitId)}</td>
-                                        <td>${post.price}</td>
-                                        <td>${post.quantity * post.price}</td>
-                                    </tr>
-                                </c:forEach>
-                                <c:forEach var="beam" items="${sessionScope.beamList}">
-                                    <tr>
-                                        <td>${beam.materialID}</td>
-                                        <td>${beam.name}</td>
-                                        <td>${beam.description}</td>
-                                        <td>${beam.length}</td>
-                                        <td>${beam.quantity}</td>
-                                        <td>${applicationScope.units.get(beam.unitId)}</td>
-                                        <td>${beam.price}</td>
-                                        <td>${beam.quantity * beam.price}</td>
-                                    </tr>
-                                </c:forEach>
-                                <c:forEach var="stern" items="${sessionScope.sternList}">
-                                    <tr>
-                                        <td>${stern.materialID}</td>
-                                        <td>${stern.name}</td>
-                                        <td>${stern.description}</td>
-                                        <td>${stern.length}</td>
-                                        <td>${stern.quantity}</td>
-                                        <td>${applicationScope.units.get(stern.unitId)}</td>
-                                        <td>${stern.price}</td>
-                                        <td>${stern.quantity * stern.price}</td>
-                                    </tr>
-                                </c:forEach>
-                            </table>
-                        </div>
-                    </form>
-                    <button class="btn btn-outline-primary" type="button" data-toggle="collapse"
-                            data-target="#collapseUpdate" aria-expanded="false" aria-controls="collapseUpdate">
-                        Rediger ordre
-                    </button>
-                    <form action="${pageContext.request.contextPath}/fc/updatestatus" method="post">
-                        <input type="hidden" name="orderid" value="${sessionScope.order.orderId}">
-                        <input type="hidden" name="statusid" value="99">
-                        <button class="btn btn-outline-danger" type="submit">Slet ordre</button>
-                    </form>
-                    <div class="collapse" id="collapseUpdate">
-                        <div class="card card-body">
-                            <form class="px-4 py-3" action="${pageContext.request.contextPath}/fc/updatemeasurements"
-                                  method="post">
-                                <input type="hidden" name="orderid" value="${sessionScope.order.orderId}">
-                                <button type="submit">Opdater</button>
-                            </form>
-                            <div class="dropdown-divider"></div>
-                        </div>
                     </div>
                 </div>
             </div>
-
+            <form action="${pageContext.request.contextPath}/fc/updatestatus" method="post">
+                <input type="hidden" name="orderid" value="${sessionScope.order.orderId}">
+                <input type="hidden" name="statusid" value="99">
+                <button class="btn btn-outline-danger" type="submit">Slet ordre</button>
+            </form>
         </c:if>
     </jsp:body>
 </t:genericpage>
