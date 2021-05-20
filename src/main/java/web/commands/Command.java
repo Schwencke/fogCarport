@@ -20,7 +20,11 @@ public abstract class Command {
     private static void initCommands(Database database) {
         commands = new HashMap<>();
         commands.put("admin", new CommandOrderList("admin", "salesperson"));
+        commands.put("admincalculate", new CommandPriceCalculations("order", "salesperson"));
         commands.put("adminorder", new CommandOrder("order", "salesperson"));
+        commands.put("adminsvgdraw", new CommandSVGDraw("order", "salesperson"));
+        commands.put("adminupdatemeasurements", new CommandUpdateMeasurements("order", "salesperson"));
+        commands.put("adminupdatestatus", new CommandUpdateStatus("admin", "salesperson"));
         commands.put("carportrequest", new CommandCarportRequest("index", "customer"));
         commands.put("commandlogin", new CommandLogin(""));
         commands.put("commandlogout", new CommandLogout(""));
@@ -31,9 +35,6 @@ public abstract class Command {
         commands.put("index", new CommandUnprotectedPage("index"));
         commands.put("login", new CommandUnprotectedPage("login"));
         commands.put("signup", new CommandUnprotectedPage("signup"));
-        commands.put("updatemeasurements", new CommandUpdateMeasurements("order", "salesperson"));
-        commands.put("updatestatus", new CommandUpdateStatus("admin", "salesperson")); //TODO: Navn bør ændres til adminupdatestatus
-        commands.put("Calculate", new CommandPriceCalculations("order", "salesperson"));
     }
 
     public static Command fromPath(

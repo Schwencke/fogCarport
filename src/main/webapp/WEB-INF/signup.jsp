@@ -61,7 +61,6 @@
                         <input id="password2" class="form-control" type="password" name="password2" value="${param.password2}"  placeholder="Gentag password">
                     </div>
                 </div>
-
                 <input class="btn btn-primary" type="submit" value="Opret bruger">
             </form>
 

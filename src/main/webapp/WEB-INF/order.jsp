@@ -233,7 +233,7 @@
                                 <td>${applicationScope.status.get(sessionScope.order.statusId)}</td>
                             </tr>
                         </table>
-                        <form action="${pageContext.request.contextPath}/fc/updatemeasurements" method="post">
+                        <form action="${pageContext.request.contextPath}/fc/adminupdatemeasurements" method="post">
                             <table class="table table-striped table-sm">
                                 <thead>
                                 <th style="width: 40%">Carport</th>
@@ -270,8 +270,10 @@
                                     <td>${applicationScope.roofinglist.get(sessionScope.order.roofingId)}</td>
                                 </tr>
                             </table>
+
                             <c:if test="${sessionScope.order.shedWidth > 0}">
                                 <table class="table table-striped table-sm">
+
                                     <thead>
                                     <th style="width: 40%">Redskabsrum</th>
                                     <th>
@@ -328,7 +330,7 @@
                         <td>${sessionScope.bom.basePrice}</td>
                     </tr>
                     <tr>
-                    <form action="${pageContext.request.contextPath}/fc/Calculate">
+                    <form action="${pageContext.request.contextPath}/fc/admincalculate">
                         <td>Dækningsgrad:</td>
                         <td><input type="number" name="margin" value="${sessionScope.bom.margin}">%</td>
                         <button type="submit">tryk</button>
@@ -378,11 +380,16 @@
                     </div>
                 </div>
             </div>
-            <form action="${pageContext.request.contextPath}/fc/updatestatus" method="post">
+
+            <form action="${pageContext.request.contextPath}/fc/adminupdatestatus" method="post">
                 <input type="hidden" name="orderid" value="${sessionScope.order.orderId}">
                 <input type="hidden" name="statusid" value="99">
                 <button class="btn btn-outline-danger" type="submit">Slet ordre</button>
             </form>
+
+            <a href="${pageContext.request.contextPath}/fc/adminsvgdraw">klik her for tegning</a>
+            <br>${requestScope.svgdrawing}
+
         </c:if>
     </jsp:body>
 </t:genericpage>
