@@ -1,5 +1,6 @@
 package web.commands;
 
+import business.entities.BoM;
 import business.entities.Material;
 import business.services.Utility;
 import business.entities.Order;
@@ -32,10 +33,14 @@ public class CommandOrder extends CommandProtectedPage {
     protected List<Material> sternWaterSidesList;
     protected List<Material> sternList;
     protected List<Material> beamList;
+    protected BoM billOfMaterials;
+    protected double basePrice;
+    protected double salesPrice;
+    protected double marginPrice;
+    protected double vatPrice;
     Order order;
     int carportWidth;
     int carportLength;
-    double basePrice;
     User orderUser;
 
     public CommandOrder(String pageToShow, String role) {
@@ -65,17 +70,23 @@ public class CommandOrder extends CommandProtectedPage {
         sternOverSidesList = carportCalc.calcSternOverSides(carportLength);
         sternWaterFrontList = carportCalc.calcSternWaterFront(carportWidth);
         sternWaterSidesList = carportCalc.calcSternWaterSides(carportLength);
-        beamList = carportCalc.calcBeam(carportWidth,carportLength);
-
         sternList = Utility.concatenateLists(sternUnderFrontAndBackList,sternUnderSidesList,sternOverFrontList,sternOverSidesList,sternWaterFrontList,sternWaterSidesList);
+        beamList = carportCalc.calcBeam(carportWidth,carportLength);
         basePrice = Utility.calcBasePrice(postList,rafterList,sternList,beamList);
+        if(billOfMaterials == null){
+            billOfMaterials = new BoM();
+        }
+        billOfMaterials.setMaterials(Utility.concatenateLists(postList,rafterList,sternList,beamList));
+        billOfMaterials.setBasePrice(basePrice);
+        salesPrice = Utility.calcSalesPrice(basePrice, billOfMaterials.getMargin());
+        vatPrice = Utility.calcVatPrice(salesPrice);
+        marginPrice = Utility.calcMarginPrice(basePrice, salesPrice);
 
-
-        session.setAttribute("basePrice", basePrice);
-        session.setAttribute("sternList",sternList);
-        session.setAttribute("postList", postList);
-        session.setAttribute("rafterList", rafterList);
-        session.setAttribute("beamList", beamList);
+        session.setAttribute("marginprice", marginPrice);
+        session.setAttribute("vatprice", vatPrice);
+        session.setAttribute("salesprice", salesPrice);
+        session.setAttribute("baseprice",basePrice);
+        session.setAttribute("bom", billOfMaterials);
         session.setAttribute("orderuser", orderUser);
         session.setAttribute("order", order);
 

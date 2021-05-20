@@ -325,19 +325,23 @@
                     </thead>
                     <tr>
                         <td>indkøbspris ex. moms:</td>
-                        <td>${sessionScope.basePrice}</td>
+                        <td>${sessionScope.bom.basePrice}</td>
                     </tr>
                     <tr>
                         <td>Dækningsgrad:</td>
-                        <td><input type="number" value="60">%</td>
+                        <td><input type="number" value="${sessionScope.bom.margin}">%</td>
+                    </tr>
+                    <tr>
+                        <td>Dækningsbidrag</td>
+                        <td>${sessionScope.marginprice}</td>
                     </tr>
                     <tr>
                         <td>Tilbudspris ex.moms:</td>
-                        <td></td>
+                        <td>${sessionScope.salesprice}</td>
                     </tr>
                     <tr>
                         <td>Tilbudspris incl. moms:</td>
-                        <td></td>
+                        <td>${sessionScope.vatprice}</td>
                     </tr>
                 </table>
             </div></div></div>
@@ -355,52 +359,16 @@
                             <th>Pris</th>
                             <th>Total</th>
                             </thead>
-                            <c:forEach var="rafter" items="${sessionScope.rafterList}">
+                            <c:forEach var="bom" items="${sessionScope.bom.materials}">
                                 <tr>
-                                    <td>${rafter.materialID}</td>
-                                    <td>${rafter.name}</td>
-                                    <td>${rafter.description}</td>
-                                    <td>${rafter.length} mm</td>
-                                    <td>${rafter.quantity}</td>
-                                    <td>${applicationScope.units.get(rafter.unitId)}</td>
-                                    <td>${rafter.price},-</td>
-                                    <td>${rafter.quantity * rafter.price}</td>
-                                </tr>
-                            </c:forEach>
-                            <c:forEach var="post" items="${sessionScope.postList}">
-                                <tr>
-                                    <td>${post.materialID}</td>
-                                    <td>${post.name}</td>
-                                    <td>${post.description}</td>
-                                    <td>${post.length} mm</td>
-                                    <td>${post.quantity}</td>
-                                    <td>${applicationScope.units.get(post.unitId)}</td>
-                                    <td>${post.price},-</td>
-                                    <td>${post.quantity * post.price}</td>
-                                </tr>
-                            </c:forEach>
-                            <c:forEach var="beam" items="${sessionScope.beamList}">
-                                <tr>
-                                    <td>${beam.materialID}</td>
-                                    <td>${beam.name}</td>
-                                    <td>${beam.description}</td>
-                                    <td>${beam.length} mm</td>
-                                    <td>${beam.quantity}</td>
-                                    <td>${applicationScope.units.get(beam.unitId)}</td>
-                                    <td>${beam.price},-</td>
-                                    <td>${beam.quantity * beam.price}</td>
-                                </tr>
-                            </c:forEach>
-                            <c:forEach var="stern" items="${sessionScope.sternList}">
-                                <tr>
-                                    <td>${stern.materialID}</td>
-                                    <td>${stern.name}</td>
-                                    <td>${stern.description}</td>
-                                    <td>${stern.length} mm</td>
-                                    <td>${stern.quantity}</td>
-                                    <td>${applicationScope.units.get(stern.unitId)}</td>
-                                    <td>${stern.price},-</td>
-                                    <td>${stern.quantity * stern.price}</td>
+                                    <td>${bom.materialID}</td>
+                                    <td>${bom.name}</td>
+                                    <td>${bom.description}</td>
+                                    <td>${bom.length} mm</td>
+                                    <td>${bom.quantity}</td>
+                                    <td>${applicationScope.units.get(bom.unitId)}</td>
+                                    <td>${bom.price},-</td>
+                                    <td>${bom.quantity * bom.price}</td>
                                 </tr>
                             </c:forEach>
                         </table>

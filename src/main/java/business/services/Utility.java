@@ -30,7 +30,13 @@ public class Utility {
         return Double.parseDouble(df.format(total));
     }
 
+    public static double calcSalesPrice(double baseprice, double margin){
+        DecimalFormat df = new DecimalFormat("#.##");
+        margin = margin / 100;
+        double salesprice = baseprice + (baseprice * margin);
 
+        return Double.parseDouble(df.format(salesprice));
+    }
 
     public static boolean validateEmailAddress(String email) {
         String regex = "^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$";
@@ -61,5 +67,19 @@ public class Utility {
         List<Material> result = new ArrayList<>();
         Stream.of(materials).forEach(result::addAll);
         return result;
+    }
+
+    public static double calcMarginPrice(double basePrice, double salesPrice) {
+        DecimalFormat df = new DecimalFormat("#.##");
+        double marginPrice;
+        marginPrice = salesPrice - basePrice;
+        return Double.parseDouble(df.format(marginPrice));
+    }
+
+    public static double calcVatPrice(double salesPrice) {
+        DecimalFormat df = new DecimalFormat("#.##");
+        double vatPrice = 0.0;
+        vatPrice = salesPrice * 1.25;
+        return Double.parseDouble(df.format(vatPrice));
     }
 }
