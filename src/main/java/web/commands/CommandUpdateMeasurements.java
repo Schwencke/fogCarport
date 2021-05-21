@@ -38,6 +38,42 @@ public class CommandUpdateMeasurements extends CommandProtectedPage {
             shedWidth = Integer.parseInt(request.getParameter("shedWidthDropDown"));
             orderFacade.updateShedMeasurementsById(orderId, shedLength, shedWidth);
         }
+
+        /* int carportWidth = order.getCarportWidth() * 10;
+        int carportLength = order.getCarportLength() * 10;
+
+        postList = carportCalc.calcPost(carportWidth, carportLength);
+        rafterList = carportCalc.calcRafter(carportWidth, carportLength);
+        sternUnderFrontAndBackList = carportCalc.calcSternUnderFrontAndBack(carportWidth);
+        sternUnderSidesList = carportCalc.calcSternUnderSides(carportLength);
+        sternOverFrontList = carportCalc.calcSternOverFront(carportWidth);
+        sternOverSidesList = carportCalc.calcSternOverSides(carportLength);
+        sternWaterFrontList = carportCalc.calcSternWaterFront(carportWidth);
+        sternWaterSidesList = carportCalc.calcSternWaterSides(carportLength);
+
+        sternList = Utility.concatenateLists(sternUnderFrontAndBackList, sternUnderSidesList, sternOverFrontList, sternOverSidesList, sternWaterFrontList, sternWaterSidesList);
+        beamList = carportCalc.calcBeam(carportWidth, carportLength);
+        roofList = carportCalc.calcRoofing(carportWidth, carportLength);
+        basePrice = Utility.calcBasePrice(postList, rafterList, sternList, beamList);
+
+        if (billOfMaterials == null) {
+            billOfMaterials = new BoM();
+        }
+        billOfMaterials.setMaterials(Utility.concatenateLists(postList, rafterList, sternList, beamList));
+        billOfMaterials.setBasePrice(basePrice);
+
+        salesPrice = Utility.calcSalesPrice(basePrice, billOfMaterials.getMargin());
+        vatPrice = Utility.calcVatPrice(salesPrice);
+        marginPrice = Utility.calcMarginPrice(basePrice, salesPrice);
+
+        session.setAttribute("marginprice", marginPrice);
+        session.setAttribute("vatprice", vatPrice);
+        session.setAttribute("salesprice", salesPrice);
+        session.setAttribute("baseprice", basePrice);
+        session.setAttribute("bom", billOfMaterials);
+
+        session.setAttribute("order", order);*/
+
         order = orderFacade.getOrderById(orderId);
         session.setAttribute("order", order);
 
