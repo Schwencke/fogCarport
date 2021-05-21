@@ -16,7 +16,7 @@
                     <th style="width: 8%">Ref. nr.</th>
                     <th style="width: 8%">Kunde nr.</th>
                     <th style="width: 12%">Telefon nr.</th>
-                    <th style="width: 20%">Navn</th>
+                    <th style="width: 20%">Fulde navn</th>
                     <th style="width: 18%">Oprettelse</th>
                     <th style="width: 18%">Seneste ændring</th>
                     <th>Status</th>
