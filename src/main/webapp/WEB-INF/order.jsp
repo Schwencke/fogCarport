@@ -181,7 +181,7 @@
                             <th></th>
                             </thead>
                             <tr>
-                                <td>Bruger ID:</td>
+                                <td>Kunde nr.:</td>
                                 <td>${sessionScope.orderuser.userId}</td>
                             </tr>
                             <tr>
@@ -312,7 +312,7 @@
                                 </table>
                             </c:if>
                             <input type="hidden" name="orderid" value="${sessionScope.order.orderId}">
-                            <button style="float: right" class="btn btn-outline-primary" type="submit">Opdater mål
+                            <button style="float: right" class="btn btn-outline-primary btn-sm" type="submit">Opdater mål
                             </button>
                         </form>
                     </div>
@@ -321,19 +321,22 @@
             <div class="container">
             <div class="row">
             <div class="col-6">
-                <table class="table table-striped table-sm">
+                <table class="table table-striped table-sm table-bordered">
                     <thead>
                     <th style="width: 40%">Pris</th>
+                    <th style="width: 25%"></th>
                     <th></th>
                     </thead>
                     <tr>
-                        <td>indkøbspris ex. moms:</td>
+                        <td>Indkøbspris ex. moms:</td>
                         <td>${sessionScope.bom.basePrice}</td>
+                        <td></td>
                     </tr>
                     <tr>
                     <form action="${pageContext.request.contextPath}/fc/admincalculate">
                         <td>Dækningsgrad:</td>
-                        <td><input type="number" name="margin" value="${sessionScope.bom.margin}">% <button class="btn btn-outline-danger btn-sm m-0" type="submit">Opdater</button></td>
+                        <td><input style="width: 45%" type="number" name="margin" value="${sessionScope.bom.margin}"> %</td>
+                        <td align="right"><button class="btn btn-outline-primary btn-sm m-0" type="submit">Opdater dækningsgrad</button></td>
                     </form>
                     </tr>
                     <tr>
@@ -349,14 +352,17 @@
                                 <td style="color: red">${sessionScope.marginprice}</td>
                             </c:when>
                         </c:choose>
+                        <td></td>
                     </tr>
                     <tr>
                         <td>Tilbudspris ex.moms:</td>
                         <td>${sessionScope.salesprice}</td>
+                        <td></td>
                     </tr>
                     <tr>
                         <td>Tilbudspris incl. moms:</td>
                         <td>${sessionScope.vatprice}</td>
+                        <td></td>
                     </tr>
                 </table>
             </div></div></div>
