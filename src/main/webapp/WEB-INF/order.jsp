@@ -150,6 +150,11 @@
                                             </button>
                                         </form>
                                     </c:if>
+                                    <c:if test="${sessionScope.order.statusId == 3}">
+                                        <button style="width: 100%" class="btn btn-outline-secondary btn-sm btn-block" disabled>
+                                            Betal
+                                        </button>
+                                    </c:if>
                                     <c:if test="${sessionScope.order.statusId == 4}">
                                         <form action="${pageContext.request.contextPath}/fc/checkout"
                                               method="post">
@@ -312,60 +317,69 @@
                                 </table>
                             </c:if>
                             <input type="hidden" name="orderid" value="${sessionScope.order.orderId}">
-                            <button style="float: right" class="btn btn-outline-primary btn-sm" type="submit">Opdater mål
+                            <button style="float: right" class="btn btn-outline-primary btn-sm" type="submit">Opdater
+                                mål
                             </button>
                         </form>
                     </div>
-             </div>
+                </div>
             </div>
             <div class="container">
-            <div class="row">
-            <div class="col-6">
-                <table class="table table-striped table-sm">
-                    <thead>
-                    <th style="width: 40%">Pris</th>
-                    <th style="width: 25%"></th>
-                    <th></th>
-                    </thead>
-                    <tr>
-                        <td>Indkøbspris ex. moms:</td>
-                        <td>${sessionScope.bom.basePrice}</td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                    <form action="${pageContext.request.contextPath}/fc/admincalculate">
-                        <td>Dækningsgrad:</td>
-                        <td><input style="width: 45%" type="number" name="margin" value="${sessionScope.bom.margin}"> %</td>
-                        <td align="right"><button class="btn btn-outline-primary btn-sm m-0" type="submit">Opdater dækningsgrad</button></td>
-                    </form>
-                    </tr>
-                    <tr>
-                        <td>Dækningsbidrag</td>
-                        <c:choose>
-                            <c:when test="${sessionScope.marginprice > sessionScope.baseprice * 0.20}">
-                        <td style="color: green">${sessionScope.marginprice}</td>
-                            </c:when>
-                            <c:when test="${sessionScope.marginprice >= sessionScope.baseprice * 0.11}">
-                        <td style="color: #ff4900">${sessionScope.marginprice}</td>
-                            </c:when>
-                            <c:when test="${sessionScope.marginprice <= sessionScope.baseprice * 0.109}">
-                                <td style="color: red">${sessionScope.marginprice}</td>
-                            </c:when>
-                        </c:choose>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td>Tilbudspris ex.moms:</td>
-                        <td>${sessionScope.salesprice}</td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td>Tilbudspris incl. moms:</td>
-                        <td>${sessionScope.vatprice}</td>
-                        <td></td>
-                    </tr>
-                </table>
-            </div></div></div>
+                <div class="row">
+                    <div class="col-6">
+                        <table class="table table-striped table-sm">
+                            <thead>
+                            <th style="width: 40%">Pris</th>
+                            <th style="width: 25%"></th>
+                            <th></th>
+                            </thead>
+                            <tr>
+                                <td>Indkøbspris ex. moms:</td>
+                                <td>${sessionScope.bom.basePrice}</td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <form action="${pageContext.request.contextPath}/fc/admincalculate">
+                                    <td>Dækningsgrad:</td>
+                                    <td><input style="width: 45%" type="number" name="margin"
+                                               value="${sessionScope.bom.margin}"> %
+                                    </td>
+                                    <td align="right">
+                                        <button class="btn btn-outline-primary btn-sm m-0" type="submit">Opdater
+                                            dækningsgrad
+                                        </button>
+                                    </td>
+                                </form>
+                            </tr>
+                            <tr>
+                                <td>Dækningsbidrag</td>
+                                <c:choose>
+                                    <c:when test="${sessionScope.marginprice > sessionScope.baseprice * 0.20}">
+                                        <td style="color: green">${sessionScope.marginprice}</td>
+                                    </c:when>
+                                    <c:when test="${sessionScope.marginprice >= sessionScope.baseprice * 0.11}">
+                                        <td style="color: #ff4900">${sessionScope.marginprice}</td>
+                                    </c:when>
+                                    <c:when test="${sessionScope.marginprice <= sessionScope.baseprice * 0.109}">
+                                        <td style="color: red">${sessionScope.marginprice}</td>
+                                    </c:when>
+                                </c:choose>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>Tilbudspris ex.moms:</td>
+                                <td>${sessionScope.salesprice}</td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>Tilbudspris incl. moms:</td>
+                                <td>${sessionScope.vatprice}</td>
+                                <td></td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
 
             <div class="container">
                 <div class="row">
@@ -407,7 +421,6 @@
             <a href="${pageContext.request.contextPath}/fc/adminsvgdraw">klik her for tegning</a>
             <br>
             <div style="text-align: center">${requestScope.svgdrawing}</div>
-
         </c:if>
     </jsp:body>
 </t:genericpage>

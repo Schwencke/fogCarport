@@ -29,6 +29,7 @@ public abstract class Command {
         commands.put("commandlogin", new CommandLogin(""));
         commands.put("commandlogout", new CommandLogout(""));
         commands.put("commandsignup", new CommandSignup(""));
+        commands.put("checkout", new CommandCheckout("checkout", "customer"));
         commands.put("customer", new CommandOrderList("customer", "customer"));
         commands.put("customerorder", new CommandOrder("order", "customer"));
         commands.put("customerupdatestatus", new CommandUpdateStatus("customer", "customer"));

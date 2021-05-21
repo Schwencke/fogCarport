@@ -4,13 +4,13 @@
 
 <t:genericpage>
     <jsp:attribute name="header">
-         Bekræft din bestilling
+         Bekræft din bestilling...
     </jsp:attribute>
     <jsp:attribute name="footer">
     </jsp:attribute>
 
     <jsp:body>
-        Bekræft din bestilling...
+
     </jsp:body>
 
 </t:genericpage>
