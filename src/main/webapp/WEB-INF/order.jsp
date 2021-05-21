@@ -321,7 +321,7 @@
             <div class="container">
             <div class="row">
             <div class="col-6">
-                <table class="table table-striped table-sm table-bordered">
+                <table class="table table-striped table-sm">
                     <thead>
                     <th style="width: 40%">Pris</th>
                     <th style="width: 25%"></th>
