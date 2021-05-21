@@ -14,10 +14,7 @@
                 cleardata();
             }
         </script>
-        ${sessionScope.totalPrice}
         <c:if test="${sessionScope.role == 'customer'}">
-            <c:choose>
-                <c:when test="${sessionScope.orderlist != null}">
                     <div class="container">
                         <div class="row">
                             <div class="col">
@@ -169,12 +166,6 @@
                             </div>
                         </div>
                     </div>
-                </c:when>
-                <c:otherwise>
-                    Der blev ikke fundet nogen tidligere eller igangværende ordre.
-                    Byg din første carport <a class="text-dark" href="${pageContext.request.contextPath}">her</a>.
-                </c:otherwise>
-            </c:choose>
         </c:if>
         <c:if test="${sessionScope.role == 'salesperson'}">
             <div class="container">
@@ -317,8 +308,7 @@
                                 </table>
                             </c:if>
                             <input type="hidden" name="orderid" value="${sessionScope.order.orderId}">
-                            <button style="float: right" class="btn btn-outline-primary btn-sm" type="submit">Opdater
-                                mål
+                            <button style="float: right" id="updatemeasurements" class="btn btn-outline-primary btn-sm" type="submit">Opdater mål
                             </button>
                         </form>
                     </div>

@@ -21,6 +21,7 @@ function cleardata() {
 }
 
 function lockCarport() {
+    document.getElementById("updatemeasurements").disabled = true
     if (document.getElementById("lockCarportCheck").checked === true) {
         document.getElementById("carportLengthDropDown").disabled = true
         document.getElementById("carportWidthDropDown").disabled = true
@@ -31,6 +32,7 @@ function lockCarport() {
 }
 
 function lockShed() {
+    document.getElementById("updatemeasurements").disabled = true
     if (document.getElementById("lockShedCheck").checked === true) {
         document.getElementById("shedLengthDropDown").disabled = true
         document.getElementById("shedWidthDropDown").disabled = true
