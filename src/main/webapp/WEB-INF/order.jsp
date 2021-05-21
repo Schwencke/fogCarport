@@ -308,7 +308,7 @@
                                 </table>
                             </c:if>
                             <input type="hidden" name="orderid" value="${sessionScope.order.orderId}">
-                            <button style="float: right" id="updatemeasurements" class="btn btn-outline-primary btn-sm" type="submit">Opdater mål
+                            <button style="float: right" id="updatemeasurements" class="btn btn-outline-primary btn-sm" disabled type="submit">Opdater mål
                             </button>
                         </form>
                     </div>
