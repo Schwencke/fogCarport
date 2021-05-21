@@ -361,4 +361,20 @@ public class OrderMapper {
         }
     }
     //</editor-fold>
+
+    //<editor-fold desc="updateOrderPrice">
+    public void updateOrderPrice(int orderId, double orderPrice) {
+        try (Connection connection = database.connect()) {
+            String sql = "UPDATE `order` SET `price`=? WHERE `order_id` = ?";
+
+            try (PreparedStatement ps = connection.prepareStatement(sql)) {
+                ps.setDouble(1, orderPrice);
+                ps.setInt(2, orderId);
+                ps.executeUpdate();
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+    }
+    //</editor-fold>
 }

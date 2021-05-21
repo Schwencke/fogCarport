@@ -139,7 +139,7 @@
                                     <input type="hidden" name="orderid"
                                            value="${sessionScope.order.orderId}">
                                     <button style="width: 20%" class="btn btn-success btn-sm" type="submit"
-                                            name="statusid" value="3">Acceptér
+                                            name="statusid" value="4">Acceptér
                                     </button>
                                     <button style="width: 20%" class="btn btn-outline-danger btn-sm"
                                             type="submit"
@@ -233,11 +233,19 @@
                             <table class="table table-striped table-sm">
                                 <thead>
                                 <th style="width: 40%">Carport</th>
-                                <th>
-                                    <label for="lockCarportCheck">Lås</label>
-                                    <input onclick="lockCarport()" type="checkbox" id="lockCarportCheck"
-                                           name="lockCarportCheck" checked>
-                                </th>
+                                <c:choose>
+                                    <c:when test="${sessionScope.order.statusId >= 2}">
+                                        <th> <label for="lockCarportCheckDisabled" style="color: gray">Lås</label>
+                                        <input type="checkbox" id="lockCarportCheckDisabled" name="lockCarportCheck" disabled checked></th>
+                                    </c:when>
+                                <c:otherwise>
+                                    <th>
+                                        <label for="lockCarportCheck">Lås</label>
+                                        <input onclick="lockCarport()" type="checkbox" id="lockCarportCheck"
+                                               name="lockCarportCheck"  checked>
+                                    </th>
+                                </c:otherwise>
+                                </c:choose>
                                 </thead>
                                 <tr>
                                     <td>Bredde:</td>
@@ -272,11 +280,19 @@
 
                                     <thead>
                                     <th style="width: 40%">Redskabsrum</th>
-                                    <th>
-                                        <label for="lockShedCheck">Lås</label>
-                                        <input onclick="lockShed()" type="checkbox" id="lockShedCheck"
-                                               name="lockShedCheck" checked>
-                                    </th>
+                                    <c:choose>
+                                        <c:when test="${sessionScope.order.statusId >= 2}">
+                                            <th> <label for="lockShedCheckDisabled" style="color: gray">Lås</label>
+                                                <input type="checkbox" id="lockShedCheckDisabled" name="lockCarportCheck" disabled checked></th>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <th>
+                                                <label for="lockShedCheck">Lås</label>
+                                                <input onclick="lockShed()" type="checkbox" id="lockShedCheck"
+                                                       name="lockShedCheck"  checked>
+                                            </th>
+                                        </c:otherwise>
+                                    </c:choose>
                                     </thead>
                                     <tr>
                                         <td>Bredde:</td>
@@ -308,7 +324,8 @@
                                 </table>
                             </c:if>
                             <input type="hidden" name="orderid" value="${sessionScope.order.orderId}">
-                            <button style="float: right" id="updatemeasurements" class="btn btn-outline-primary btn-sm" disabled type="submit">Opdater mål
+                            <button style="float: right" id="updatemeasurements" class="btn btn-outline-primary btn-sm"
+                                    disabled type="submit">Opdater mål
                             </button>
                         </form>
                     </div>
@@ -329,17 +346,34 @@
                                 <td></td>
                             </tr>
                             <tr>
-                                <form action="${pageContext.request.contextPath}/fc/admincalculate">
-                                    <td>Dækningsgrad:</td>
-                                    <td><input style="width: 45%" type="number" name="margin"
-                                               value="${sessionScope.bom.margin}"> %
-                                    </td>
-                                    <td align="right">
-                                        <button class="btn btn-outline-primary btn-sm m-0" type="submit">Opdater
-                                            dækningsgrad
-                                        </button>
-                                    </td>
-                                </form>
+                                <c:choose>
+                                    <c:when test="${sessionScope.order.statusId >= 2}">
+                                        <form action="${pageContext.request.contextPath}/fc/admincalculate">
+                                            <td>Dækningsgrad:</td>
+                                            <td><input style="width: 45%" disabled type="number" name="margin"
+                                                       value="${sessionScope.bom.margin}"> %
+                                            </td>
+                                            <td align="right">
+                                                <button class="btn btn-outline-primary btn-sm m-0" disabled type="submit">Opdater
+                                                    dækningsgrad
+                                                </button>
+                                            </td>
+                                        </form>
+                                </c:when>
+                                    <c:otherwise>
+                                        <form action="${pageContext.request.contextPath}/fc/admincalculate">
+                                            <td>Dækningsgrad:</td>
+                                            <td><input style="width: 45%" type="number" name="margin"
+                                                       value="${sessionScope.bom.margin}"> %
+                                            </td>
+                                            <td align="right">
+                                                <button class="btn btn-outline-primary btn-sm m-0" type="submit">Opdater
+                                                    dækningsgrad
+                                                </button>
+                                            </td>
+                                        </form>
+                                </c:otherwise>
+                                </c:choose>
                             </tr>
                             <tr>
                                 <td>Dækningsbidrag</td>
@@ -401,13 +435,22 @@
                     </div>
                 </div>
             </div>
-
-            <form action="${pageContext.request.contextPath}/fc/adminupdatestatus" method="post">
-                <input type="hidden" name="orderid" value="${sessionScope.order.orderId}">
-                <input type="hidden" name="statusid" value="99">
-                <button style="float: right" class="btn btn-outline-danger" type="submit">Slet ordre</button>
-            </form>
-
+            <div class="row d-inline">
+                <c:if test="${sessionScope.order.statusId == 1}">
+                <form class="form-group" action="${pageContext.request.contextPath}/fc/adminupdatestatus" method="post">
+                    <input type="hidden" name="orderid" value="${sessionScope.order.orderId}">
+                    <input type="hidden" name="statusid" value="99">
+                    <button style="float: right; margin-left: 10px" class="btn btn-outline-danger btn-sm" type="submit">Slet ordre</button>
+                </form>
+                <form class="form-group" action="${pageContext.request.contextPath}/fc/adminupdatestatus" method="post">
+                    <input type="hidden" name="orderprice" value="${sessionScope.vatprice}">
+                    <input type="hidden" name="orderid" value="${sessionScope.order.orderId}">
+                    <input type="hidden" name="statusid" value="2">
+                    <button style="float: right" class="btn btn-outline-success btn-sm" type="submit">Send tilbud
+                    </button>
+                </form>
+            </div>
+                </c:if>
             <a href="${pageContext.request.contextPath}/fc/adminsvgdraw">klik her for tegning</a>
             <br>
             <div style="text-align: center">${requestScope.svgdrawing}</div>

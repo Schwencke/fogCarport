@@ -64,4 +64,8 @@ public class OrderFacade {
     public void updateStatusById(int statusId, int orderId){
         orderMapper.updateStatusById(statusId, orderId);
     }
+
+    public void updateOrderPrice(int orderId, double orderPrice) {
+        orderMapper.updateOrderPrice(orderId, orderPrice);
+    }
 }
