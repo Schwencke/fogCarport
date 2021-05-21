@@ -35,6 +35,7 @@ public abstract class Command {
         commands.put("customerupdatestatus", new CommandUpdateStatus("customer", "customer"));
         commands.put("index", new CommandUnprotectedPage("index"));
         commands.put("login", new CommandUnprotectedPage("login"));
+        commands.put("payment", new CommandUpdateStatus("payment", "customer"));
         commands.put("signup", new CommandUnprotectedPage("signup"));
     }
 
