@@ -16,28 +16,6 @@ import java.util.stream.Stream;
 
 public class Utility {
 
-    @SafeVarargs
-    public static double calcBasePrice(List<Material>... lists){
-        DecimalFormat df = new DecimalFormat("#.##");
-        double total = 0.0;
-        List<Material> result = new ArrayList<>();
-        Stream.of(lists).forEach(result::addAll);
-
-        for (Material material : result) {
-           total += material.getQuantity() * material.getPrice();
-        }
-        total %= total * 0.60;
-        return Double.parseDouble(df.format(total));
-    }
-
-    public static double calcSalesPrice(double baseprice, double margin){
-        DecimalFormat df = new DecimalFormat("#.##");
-        margin = margin / 100;
-        double salesprice = baseprice + (baseprice * margin);
-
-        return Double.parseDouble(df.format(salesprice));
-    }
-
     public static boolean validateEmailAddress(String email) {
         String regex = "^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$";
         Pattern pattern = Pattern.compile(regex);
@@ -55,7 +33,7 @@ public class Utility {
         HttpSession session = request.getSession();
         if (orderList.size() > 0) {
             for (Order order : orderList) {
-                if (order.getStatusId() != 5) {
+                if (order.getStatusId() != 99) {
                     session.setAttribute("orderlist", orderList);
                 }
             }
@@ -81,5 +59,27 @@ public class Utility {
         double vatPrice = 0.0;
         vatPrice = salesPrice * 1.25;
         return Double.parseDouble(df.format(vatPrice));
+    }
+
+    @SafeVarargs
+    public static double calcBasePrice(List<Material>... lists){
+        DecimalFormat df = new DecimalFormat("#.##");
+        double total = 0.0;
+        List<Material> result = new ArrayList<>();
+        Stream.of(lists).forEach(result::addAll);
+
+        for (Material material : result) {
+            total += material.getQuantity() * material.getPrice();
+        }
+        total %= total * 0.60;
+        return Double.parseDouble(df.format(total));
+    }
+
+    public static double calcSalesPrice(double baseprice, double margin){
+        DecimalFormat df = new DecimalFormat("#.##");
+        margin = margin / 100;
+        double salesprice = baseprice + (baseprice * margin);
+
+        return Double.parseDouble(df.format(salesprice));
     }
 }

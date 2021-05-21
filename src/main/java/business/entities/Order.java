@@ -3,18 +3,18 @@ package business.entities;
 import java.sql.Timestamp;
 
 public class Order {
-   int orderId;
-   int userId;
-   int statusId;
-   double price;
-   Timestamp timeCreated;
-   Timestamp timeUpdated;
-   int carportLength;
-   int carportWidth;
-   int claddingId;
-   int roofingId;
-   int shedWidth;
-   int shedLength;
+    int orderId;
+    int userId;
+    int statusId;
+    double price;
+    Timestamp timeCreated;
+    Timestamp timeUpdated;
+    int carportLength;
+    int carportWidth;
+    int claddingId;
+    int roofingId;
+    int shedWidth;
+    int shedLength;
 
     public Order() {
     }

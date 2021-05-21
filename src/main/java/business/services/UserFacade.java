@@ -7,6 +7,7 @@ import business.persistence.UserMapper;
 
 import java.sql.SQLException;
 import java.util.HashMap;
+import java.util.List;
 
 public class UserFacade {
     UserMapper userMapper;
@@ -27,6 +28,10 @@ public class UserFacade {
 
     public User getUserById(int userId) throws UserException {
         return userMapper.getUserById(userId);
+    }
+
+    public HashMap<Integer, User> getUserByRoleId(int roleId) throws UserException {
+        return userMapper.getUserByRoleId(roleId);
     }
 
     public HashMap<Integer, String> getAllRoles() throws UserException {

@@ -85,7 +85,6 @@ public class UserMapper {
     }
 
     public User getUserById(int userId) throws UserException {
-
         try (Connection connection = database.connect()) {
             String sql = "SELECT * FROM `user` WHERE `user_id` = ?";
             User user = new User();
@@ -115,6 +114,32 @@ public class UserMapper {
         } catch (SQLException ex) {
             throw new UserException("Connection to database could not be established");
         }
+    }
+
+    public HashMap<Integer, User> getUserByRoleId(int roleId) throws UserException {
+        HashMap<Integer, User> userList = new HashMap<>();
+        try (Connection connection = database.connect()) {
+            String sql = "SELECT * FROM `user` WHERE `role_id` = ?";
+            try (PreparedStatement ps = connection.prepareStatement(sql)) {
+                ps.setInt(1, roleId);
+                ResultSet rs = ps.executeQuery();
+                while (rs.next()) {
+                    int userId = rs.getInt("user_id");
+                    String name = rs.getString("name");
+                    String address = rs.getString("address");
+                    int postalCode = rs.getInt("postal_code");
+                    String phoneNo = rs.getString("phone_no");
+                    String email = rs.getString("email");
+                    userList.put(userId, new User(name, address, postalCode, phoneNo, email));
+                }
+
+            } catch (SQLException ex) {
+                throw new UserException(ex.getMessage());
+            }
+        } catch (SQLException ex) {
+            throw new UserException("Connection to database could not be established");
+        }
+        return userList;
     }
 
     public HashMap<Integer, String> getAllRoles() throws UserException {

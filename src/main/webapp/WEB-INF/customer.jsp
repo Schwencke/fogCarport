@@ -10,28 +10,16 @@
     </jsp:attribute>
 
     <jsp:body>
-        <!--
-        You are now logged in as a CUSTOMER.<br>
-        Role: ${sessionScope.role}<br>
-        Role ID: ${sessionScope.user.roleId}<br>
-        User: ${sessionScope.user}<br>
-        Name: ${sessionScope.user.name}<br>
-        Email: ${sessionScope.email}<br>
-        Address: ${sessionScope.user.address}<br>
-        PostalCode: ${sessionScope.user.postalCode}<br>
-        City: ${sessionScope.city}<br>
-        PhoneNo: ${sessionScope.user.phoneNo}<br>
-        -->
         <c:choose>
             <c:when test="${sessionScope.orderlist != null}">
                 <table class="table table-striped">
                     <thead>
-                    <th style="width: 7%">Ref. nr.</th>
-                    <th style="width: 20%">Seneste ændring</th>
+                    <th style="width: 8%">Ref. nr.</th>
+                    <th style="width: 18%">Seneste ændring</th>
                     <th style="width: 12%">Carport bredde</th>
                     <th style="width: 12%">Carport længde</th>
                     <th style="width: 16%">Tag</th>
-                    <th style="width: 7%">Skur</th>
+                    <th style="width: 11%">Redskabsrum</th>
                     <th>Status</th>
                     <th style="width: 10%"></th>
                     </thead>
@@ -55,7 +43,7 @@
                                     <td align="right">
                                         <input type="hidden" value="${orderlist.orderId}" name="order">
                                         <button type="submit" class="btn btn-outline-primary btn-sm"
-                                                title="Tryk her for at se den valgte ordre"
+                                                title="Tryk her for at se den valgte bestilling"
                                                 value="${orderlist.orderId}">Se bestilling
                                         </button>
                                     </td>

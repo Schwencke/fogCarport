@@ -1,9 +1,11 @@
 package web.commands;
 
+import business.entities.BoM;
 import business.entities.Order;
 import business.entities.User;
 import business.exceptions.UserException;
 import business.services.OrderFacade;
+import business.services.UserFacade;
 import business.services.Utility;
 
 import javax.servlet.http.HttpServletRequest;
@@ -16,11 +18,13 @@ import static business.services.Utility.updateSessionScopeOrderList;
 public class CommandOrderList extends CommandProtectedPage {
 
     protected OrderFacade orderFacade;
+    protected UserFacade userFacade;
     List<Order> orderList;
 
     public CommandOrderList(String pageToShow, String role) {
         super(pageToShow, role);
         this.orderFacade = new OrderFacade(database);
+        this.userFacade = new UserFacade(database);
     }
 
     @Override
@@ -39,6 +43,9 @@ public class CommandOrderList extends CommandProtectedPage {
 
         if (pageToShow.equals("admin")) {
             orderList = orderFacade.getAllOrders();
+
+            session.setAttribute("userlist", userFacade.getUserByRoleId(1));
+
             pageToShow = "admin";
         } else {
             orderList = orderFacade.getAllOrdersById(user.getUserId());
