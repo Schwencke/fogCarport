@@ -7,10 +7,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.sql.SQLException;
 
-public class CommandSVGDraw extends CommandProtectedPage {
+public class CommandSVGGenerate extends CommandProtectedPage {
     SVG svg;
 
-    public CommandSVGDraw(String pageToShow, String role) {
+    public CommandSVGGenerate(String pageToShow, String role) {
         super(pageToShow, role);
     }
 

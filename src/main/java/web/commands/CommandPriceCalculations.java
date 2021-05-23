@@ -24,7 +24,7 @@ public class CommandPriceCalculations extends CommandProtectedPage {
     protected double salesPrice;
     protected double marginPrice;
     protected double vatPrice;
-
+    protected SVG svg;
     protected double margin;
 
     public CommandPriceCalculations(String pageToShow, String role) {
@@ -39,18 +39,33 @@ public class CommandPriceCalculations extends CommandProtectedPage {
     public String execute(HttpServletRequest request, HttpServletResponse response) throws UserException, SQLException {
 
         HttpSession session = request.getSession();
+        int orderId = Integer.parseInt(request.getParameter("order"));
         billOfMaterials = (BoM) session.getAttribute("bom");
         basePrice = (double)session.getAttribute("baseprice");
         if (request.getParameter("margin") != null) {
             margin = Double.parseDouble(request.getParameter("margin"));
             billOfMaterials.setMargin(margin);
-        } else { margin = (double) billOfMaterials.getMargin();}
+        } else { margin = billOfMaterials.getMargin();}
 
         salesPrice = Utility.calcSalesPrice(basePrice, margin);
         marginPrice = Utility.calcMarginPrice(basePrice,salesPrice);
         vatPrice = Utility.calcVatPrice(salesPrice);
 
 
+        svg = new SVG(1, 80, "0 0 1000 880", 0, 0);
+        svg.SVGDefs();
+        svg.SVGNest(100, 100, "0 0 1000 1", 0, 0);
+        svg.drawRoof(request);
+        svg.drawBeam(request);
+        svg.drawRafter(request);
+        svg.drawPost(request);
+        svg.SVGClose();
+
+        orderFacade.createSVG(orderId, svg);
+
+
+
+        session.setAttribute("svgdrawing", svg.toString());
         session.setAttribute("salesprice", salesPrice);
         session.setAttribute("marginprice", marginPrice);
         session.setAttribute("vatprice", vatPrice);

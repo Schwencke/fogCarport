@@ -1,13 +1,14 @@
 package business.persistence;
 
+import business.entities.BoM;
+import business.entities.Material;
 import business.entities.Order;
 import business.exceptions.UserException;
+import business.services.SVG;
+import sun.java2d.xr.MaskTile;
 
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class OrderMapper {
     private Database database;
@@ -375,6 +376,98 @@ public class OrderMapper {
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
+    }
+    //</editor-fold>
+    //<editor-fold desc="createSVG">
+    public void createSVG(int orderId, SVG svg) {
+        try (Connection connection = database.connect()) {
+            String sql = "UPDATE `order` SET `svg`=? WHERE `order_id` = ?";
+
+            try (PreparedStatement ps = connection.prepareStatement(sql)) {
+                ps.setString(1, svg.toString());
+                ps.setInt(2, orderId);
+                ps.executeUpdate();
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+    }
+    //</editor-fold>
+
+    //<editor-fold desc="getSVG">
+    public String getSVG(int orderId) {
+        String svg ="";
+        try (Connection connection = database.connect()) {
+            String sql = "SELECT `svg` FROM `order` WHERE `order_id` = ?";
+
+            try (PreparedStatement ps = connection.prepareStatement(sql)) {
+                ps.setInt(1, orderId);
+                ResultSet rs = ps.executeQuery();
+                while (rs.next()){
+                    svg = rs.getString("svg");
+                }
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return svg;
+    }
+    //</editor-fold>
+
+
+    //<editor-fold desc="setBoM">
+    public void setBoM(BoM billOfMaterials, int orderId){
+       List<Material> list = billOfMaterials.getMaterials();
+
+        StringBuilder sb = new StringBuilder();
+
+        for (Material material : list) {
+
+            sb.append(material.getName()).append(". ");
+            sb.append(material.getDescription()).append(". ");
+            sb.append(material.getLength()).append("mm ").append(" ");
+            sb.append(material.getQuantity()).append("Stk ").append("| ");
+
+        }
+           String test = sb.toString();
+
+            String[] d = test.split("\\|", sb.length());
+
+        System.out.println(Arrays.toString(d));
+
+        try (Connection connection = database.connect()){
+            String sql = "UPDATE `order` SET `bom`=? WHERE `order_id` = ?";
+
+            try (PreparedStatement ps = connection.prepareStatement(sql)){
+
+                ps.setString(1, sb.toString());
+                ps.setInt(2,orderId);
+                ps.executeUpdate();
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+    }
+    //</editor-fold>
+
+    //<editor-fold desc="getBOM">
+    public String[] getBOM(int orderId) {
+        String BoM ="";
+        try (Connection connection = database.connect()) {
+            String sql = "SELECT `bom` FROM `order` WHERE `order_id` = ?";
+
+            try (PreparedStatement ps = connection.prepareStatement(sql)) {
+                ps.setInt(1, orderId);
+                ResultSet rs = ps.executeQuery();
+                while (rs.next()){
+                    BoM = rs.getString("bom");
+                }
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
+        return BoM.split("\\|");
     }
     //</editor-fold>
 }

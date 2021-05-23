@@ -1,11 +1,11 @@
 package business.services;
 
+import business.entities.BoM;
 import business.entities.Order;
 import business.exceptions.UserException;
 import business.persistence.Database;
 import business.persistence.OrderMapper;
 
-import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -68,4 +68,20 @@ public class OrderFacade {
     public void updateOrderPrice(int orderId, double orderPrice) {
         orderMapper.updateOrderPrice(orderId, orderPrice);
     }
+
+    public void createSVG(int orderId, SVG svg){
+        orderMapper.createSVG(orderId, svg);
+    }
+
+    public String getSVG(int orderId){
+        return orderMapper.getSVG(orderId);
+    }
+
+    public void setBoM(BoM billOfMaterials, int orderId) {
+        orderMapper.setBoM(billOfMaterials, orderId);
+    }
+    public String[] getBOM(int orderId) {
+        return orderMapper.getBOM(orderId);
+    }
+
 }

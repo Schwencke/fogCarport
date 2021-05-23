@@ -30,6 +30,7 @@ public class CommandOrder extends CommandProtectedPage {
     protected List<Material> rafterList;
     protected List<Material> beamList;
     protected List<Material> roofList;
+    SVG svg;
 
     protected BoM billOfMaterials;
     protected double basePrice;
@@ -83,6 +84,9 @@ public class CommandOrder extends CommandProtectedPage {
         vatPrice = Utility.calcVatPrice(salesPrice);
         marginPrice = Utility.calcMarginPrice(basePrice, salesPrice);
 
+        orderFacade.setBoM(billOfMaterials, orderId);
+
+        session.setAttribute("order", order);
         session.setAttribute("marginprice", marginPrice);
         session.setAttribute("vatprice", vatPrice);
         session.setAttribute("salesprice", salesPrice);
@@ -94,7 +98,20 @@ public class CommandOrder extends CommandProtectedPage {
         session.setAttribute("beamlist", beamList);
         session.setAttribute("rooflist", roofList);
         session.setAttribute("orderuser", orderUser);
-        session.setAttribute("order", order);
+
+
+        svg = new SVG(1, 80, "0 0 1000 880", 0, 0);
+        svg.SVGDefs();
+        svg.SVGNest(100, 100, "0 0 1000 1", 0, 0);
+        svg.drawRoof(request);
+        svg.drawBeam(request);
+        svg.drawRafter(request);
+        svg.drawPost(request);
+        svg.SVGClose();
+
+        orderFacade.createSVG(orderId, svg);
+        session.setAttribute("svgdrawing", svg.toString());
+
 
         pageToShow = "order";
 

@@ -22,7 +22,7 @@ public abstract class Command {
         commands.put("admin", new CommandOrderList("admin", "salesperson"));
         commands.put("admincalculate", new CommandPriceCalculations("order", "salesperson"));
         commands.put("adminorder", new CommandOrder("order", "salesperson"));
-        commands.put("adminsvgdraw", new CommandSVGDraw("order", "salesperson"));
+        commands.put("adminsvgdraw", new CommandSVGGenerate("order", "salesperson"));
         commands.put("adminupdatemeasurements", new CommandUpdateMeasurements("order", "salesperson"));
         commands.put("adminupdatestatus", new CommandUpdateStatus("admin", "salesperson"));
         commands.put("carportrequest", new CommandCarportRequest("index", "customer"));
@@ -31,7 +31,7 @@ public abstract class Command {
         commands.put("commandsignup", new CommandSignup(""));
         commands.put("checkout", new CommandCheckout("checkout", "customer"));
         commands.put("customer", new CommandOrderList("customer", "customer"));
-        commands.put("customerorder", new CommandOrder("order", "customer"));
+        commands.put("customerorder", new CommandOrderCustomer("order", "customer"));
         commands.put("customerupdatestatus", new CommandUpdateStatus("customer", "customer"));
         commands.put("index", new CommandUnprotectedPage("index"));
         commands.put("login", new CommandUnprotectedPage("login"));
