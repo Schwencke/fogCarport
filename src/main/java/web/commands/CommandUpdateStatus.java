@@ -16,7 +16,6 @@ import static business.services.Utility.updateSessionScopeOrderList;
 public class CommandUpdateStatus extends CommandProtectedPage {
     protected OrderFacade orderFacade;
     protected double ordrePrice;
-    SVG svg;
     List<Order> orderList;
 
     public CommandUpdateStatus(String pageToShow, String role) {
@@ -34,8 +33,6 @@ public class CommandUpdateStatus extends CommandProtectedPage {
         if (statusId == 2){
             ordrePrice = Double.parseDouble((request.getParameter("orderprice")));
             orderFacade.updateOrderPrice(orderId, ordrePrice);
-            svg = (SVG) session.getAttribute("svgdrawing");
-            orderFacade.createSVG(orderId, svg);
         }
         orderFacade.updateStatusById(statusId, orderId);
 

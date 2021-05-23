@@ -38,6 +38,7 @@ public class CommandUpdateMeasurements extends CommandProtectedPage {
     protected double marginPrice;
     protected double vatPrice;
     protected BoM billOfMaterials;
+    SVG svg;
 
     public CommandUpdateMeasurements(String pageToShow, String role) {
         super(pageToShow, role);
@@ -89,6 +90,21 @@ public class CommandUpdateMeasurements extends CommandProtectedPage {
         salesPrice = Utility.calcSalesPrice(basePrice, billOfMaterials.getMargin());
         vatPrice = Utility.calcVatPrice(salesPrice);
         marginPrice = Utility.calcMarginPrice(basePrice, salesPrice);
+
+        svg = new SVG(1, 80, "0 0 1000 880", 0, 0);
+        svg.SVGDefs();
+        svg.SVGNest(100, 100, "0 0 1000 1", 0, 0);
+        svg.drawRoof(request);
+        svg.drawBeam(request);
+        svg.drawRafter(request);
+        svg.drawPost(request);
+        svg.SVGClose();
+
+        orderFacade.createSVG(orderId, svg);
+        session.setAttribute("svgdrawing", svg.toString());
+
+
+
 
         session.setAttribute("marginprice", marginPrice);
         session.setAttribute("vatprice", vatPrice);

@@ -32,8 +32,11 @@ public class CommandOrderCustomer extends CommandProtectedPage {
         HttpSession session = request.getSession();
         int orderId = Integer.parseInt(request.getParameter("order"));
         order = orderFacade.getOrderById(orderId);
-        svg = orderFacade.getSVG(orderId);
-        materials = orderFacade.getBOM(orderId);
+
+        if (order.getStatusId() == 5) {
+            svg = orderFacade.getSVG(orderId);
+            materials = orderFacade.getBOM(orderId);
+        }
 
 
         session.setAttribute("bommert", materials);
