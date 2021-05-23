@@ -167,7 +167,7 @@
             </div>
             <c:if test="${sessionScope.order.statusId == 5}">
                 <div class="row">
-                    <div class="col">
+                    <div class="col-12">
                         <c:forEach items="${sessionScope.bommert}" var="materials">
                             <p>${materials}</p>
                         </c:forEach>
