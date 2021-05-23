@@ -109,15 +109,6 @@ CREATE TABLE `order` (
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Dumping data for table `order`
---
-
-LOCK TABLES `order` WRITE;
-/*!40000 ALTER TABLE `order` DISABLE KEYS */;
-INSERT INTO `order` VALUES (1,2,99,0,'2021-05-19 13:49:06','2021-05-19 14:12:08',240,240,1,1,0,0),(2,2,3,0,'2021-05-19 14:12:15','2021-05-19 14:12:17',360,480,1,1,0,0);
-/*!40000 ALTER TABLE `order` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `postal_code`
