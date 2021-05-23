@@ -4,7 +4,7 @@
 
 <t:genericpage>
     <jsp:attribute name="header">
-        Betaling gennemført
+        Betaling gennemført...
     </jsp:attribute>
     <jsp:attribute name="footer">
     </jsp:attribute>
