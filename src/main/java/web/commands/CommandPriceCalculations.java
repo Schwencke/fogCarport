@@ -39,7 +39,7 @@ public class CommandPriceCalculations extends CommandProtectedPage {
     public String execute(HttpServletRequest request, HttpServletResponse response) throws UserException, SQLException {
 
         HttpSession session = request.getSession();
-        int orderId = Integer.parseInt(request.getParameter("order"));
+        int orderId = (int) session.getAttribute("orderid");
         billOfMaterials = (BoM) session.getAttribute("bom");
         basePrice = (double)session.getAttribute("baseprice");
         if (request.getParameter("margin") != null) {

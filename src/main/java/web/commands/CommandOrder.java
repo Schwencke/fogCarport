@@ -85,7 +85,7 @@ public class CommandOrder extends CommandProtectedPage {
         marginPrice = Utility.calcMarginPrice(basePrice, salesPrice);
 
         orderFacade.setBoM(billOfMaterials, orderId);
-
+        session.setAttribute("orderid", orderId);
         session.setAttribute("order", order);
         session.setAttribute("marginprice", marginPrice);
         session.setAttribute("vatprice", vatPrice);

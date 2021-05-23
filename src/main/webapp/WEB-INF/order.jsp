@@ -14,8 +14,8 @@
                 cleardata();
             }
         </script>
+        <div class="container">
         <c:if test="${sessionScope.role == 'customer'}">
-            <div class="container">
             <div class="row">
                 <div class="col">
                     <table class="table table-striped table-sm">
@@ -176,7 +176,6 @@
                     ${sessionScope.svgcustomer}
             </c:if>
         </c:if>
-        </div>
         <c:if test="${sessionScope.role == 'salesperson'}">
             <div class="container">
                 <div class="row">
@@ -473,6 +472,7 @@
                 </form>
                 </div>
             </c:if>
+            </div>
             <br>
         </c:if>
     </jsp:body>

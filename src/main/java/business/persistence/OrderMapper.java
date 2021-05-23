@@ -429,12 +429,6 @@ public class OrderMapper {
             sb.append(material.getQuantity()).append("Stk ").append("| ");
 
         }
-           String test = sb.toString();
-
-            String[] d = test.split("\\|", sb.length());
-
-        System.out.println(Arrays.toString(d));
-
         try (Connection connection = database.connect()){
             String sql = "UPDATE `order` SET `bom`=? WHERE `order_id` = ?";
 
