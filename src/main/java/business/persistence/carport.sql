@@ -95,7 +95,7 @@ CREATE TABLE `order` (
                          `roofing_id` int DEFAULT NULL,
                          `shed_width` int DEFAULT NULL,
                          `shed_length` int DEFAULT NULL,
-                         `svg` varchar(10000) DEFAULT NULL,
+                         `svg` varchar(12000) DEFAULT NULL,
                          `bom` varchar(1500) DEFAULT NULL,
                          PRIMARY KEY (`order_id`),
                          KEY `fk_order_cladding1_idx` (`cladding_id`),

@@ -166,14 +166,26 @@
                 </div>
             </div>
             <c:if test="${sessionScope.order.statusId == 5}">
+                <button style="float: right; margin-left: 5px" class="btn btn-outline-success btn-sm d-inline ml-2" type="button" data-toggle="collapse"
+                        data-target="#collapseMaterials" aria-expanded="false" aria-controls="collapseMaterials">
+                    Tryk for at se din materialeliste
+                </button>
                 <div class="row">
+                <div class="collapse" id="collapseMaterials">
+                <div class="card card-body">
                     <div class="col-12">
                         <c:forEach items="${sessionScope.bommert}" var="materials">
                             <p>${materials}</p>
                         </c:forEach>
-                    </div>
+                    </div></div></div>
                 </div>
-                    ${sessionScope.svgcustomer}
+                <button style="float: right" class="btn btn-outline-success btn-sm d-inline" type="button" data-toggle="collapse"
+                        data-target="#collapseSVG" aria-expanded="false" aria-controls="collapseSVG">
+                    Tryk for at se din tegning
+                </button>
+                <div class="collapse" id="collapseSVG">
+                <div class="card card-body">
+                        ${sessionScope.svgcustomer} </div></div>
             </c:if>
         </c:if>
         <c:if test="${sessionScope.role == 'salesperson'}">

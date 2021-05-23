@@ -99,7 +99,7 @@ public class CommandOrder extends CommandProtectedPage {
         session.setAttribute("rooflist", roofList);
         session.setAttribute("orderuser", orderUser);
 
-
+        svg = null;
         svg = new SVG(1, 80, "0 0 1000 880", 0, 0);
         svg.SVGDefs();
         svg.SVGNest(100, 100, "0 0 1000 1", 0, 0);

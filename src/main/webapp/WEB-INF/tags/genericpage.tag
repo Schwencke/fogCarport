@@ -20,33 +20,37 @@
     <script type="text/javascript" src="${pageContext.request.contextPath}/JS/script.js"></script>
     <meta name="theme-color" content="#7952b3">
 </head>
-<body>
+<body style="font-family: 'Roboto Light',sans-serif">
 <!--
     This header is inspired by this bootstrap
     example: https://getbootstrap.com/docs/5.0/examples/pricing/
 -->
-<header class="d-flex flex-column flex-md-row align-items-center p-3 pb-0 px-md-4 mb-4 bg-white border-bottom shadow-sm">
+<header class="container d-flex flex-column flex-md-row align-items-center mb-5 border-bottom shadow-sm"
+        style="background-color: #041b66; padding-left: 0;">
     <div class="h5 my-0 me-md-auto fw-normal">
-        <p>Fog® - Byg selv carport</p>
-        <p style="font-size: larger">
-            <jsp:invoke fragment="header"/>
-        </p>
+        <span class="navbar-brand m-0"><img style="display: block; margin: 0; float: left;" alt="logo"
+                                            src="${pageContext.request.contextPath}/images/logo.png"/> </span>
+
     </div>
-    <nav class="my-2 my-md-0 me-md-3">
-        <c:if test="${addHomeLink == null }">
-            <a class="p-2 text-dark" href="<%=request.getContextPath()%>">Forside</a>
-        </c:if>
+
+    <nav class="navbar sticky-top navbar-light" style="background-color: #041b66">
+
+        <span class="badge badge-light"><a class="btn btn-sm btn-secondary"
+                                           href="<%=request.getContextPath()%>">Forside</a></span>
+
         <c:if test="${sessionScope.role == 'customer'}">
-            <a class="p-2 text-dark" href="${pageContext.request.contextPath}/fc/customer">Oversigt</a>
+            <span class="badge badge-light"> <a class="btn btn-sm btn-secondary"
+                                                href="${pageContext.request.contextPath}/fc/customer">Oversigt</a></span>
         </c:if>
         <c:if test="${sessionScope.role == 'salesperson'}">
-            <a class="p-2 text-dark" href="${pageContext.request.contextPath}/fc/admin">Oversigt</a>
+            <span class="badge badge-light"> <a class="btn btn-sm btn-secondary"
+                                                href="${pageContext.request.contextPath}/fc/admin">Oversigt</a></span>
         </c:if>
-    </nav>
+
 
     <div>
         <c:if test="${sessionScope.user != null }">
-            ${sessionScope.user.email}&nbsp;&nbsp;&nbsp;&nbsp;
+            <span class="badge badge-light"> ${sessionScope.user.email}</span>
         </c:if>
 
         <c:set var="thisPage" value="${pageContext.request.servletPath}"/>
@@ -56,17 +60,17 @@
 
         <c:if test="${isNotLoginPage}">
             <c:if test="${sessionScope.user != null }">
-                <a type="button" class="btn btn-sm  btn-outline-secondary"
+                <a type="button" class="btn btn-sm btn-secondary"
                    href="${pageContext.request.contextPath}/fc/commandlogout">Log ud</a>
             </c:if>
 
             <c:if test="${sessionScope.user == null}">
                 <!--Dynamisk login/signup-->
                 <div class="dropdown-menu-left">
-                <button class="btn btn-sm btn-outline-secondary" type="button" id="dropdownLogin"
+                <button class="btn btn-sm btn-secondary" type="button" id="dropdownLogin"
                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Log ind
                 </button>
-                <div class="dropdown-menu" aria-labelledby="dropdownLogin">
+                <div class="dropdown-menu" aria-labelledby="dropdownLogin" style="z-index: 10">
                     <form class="px-4 py-3" action="${pageContext.request.contextPath}/fc/commandlogin"
                           method="post">
                         <div class="form-group">
@@ -87,7 +91,7 @@
                         registeret endnu?</a>
                 </div>
                 <c:if test="${isNotRegisterPage}">
-                    <a type="button" class="btn btn-sm  btn-outline-secondary"
+                    <a type="button" class="btn btn-sm btn-secondary"
                        href="${pageContext.request.contextPath}/fc/signup">Opret bruger</a>
                 </c:if>
             </c:if>
@@ -98,7 +102,7 @@
                href="${pageContext.request.contextPath}/fc/signup">Opret bruger</a>
         </c:if>
     </div>
-
+    </nav>
 </header>
 
 <div id="body" class="container" style="min-height: 20vh;">

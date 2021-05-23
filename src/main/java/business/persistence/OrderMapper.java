@@ -381,7 +381,7 @@ public class OrderMapper {
     //<editor-fold desc="createSVG">
     public void createSVG(int orderId, SVG svg) {
         try (Connection connection = database.connect()) {
-            String sql = "UPDATE `order` SET `svg`=? WHERE `order_id` = ?";
+            String sql = "UPDATE `order` SET `svg`=? WHERE order_id=?";
 
             try (PreparedStatement ps = connection.prepareStatement(sql)) {
                 ps.setString(1, svg.toString());
@@ -393,6 +393,22 @@ public class OrderMapper {
         }
     }
     //</editor-fold>
+
+//    //<editor-fold desc="createSVG">
+//    public void updateSVG(int orderId, SVG svg) {
+//        try (Connection connection = database.connect()) {
+//            String sql = "UPDATE `order` SET `svg`=? WHERE `order_id`=?";
+//
+//            try (PreparedStatement ps = connection.prepareStatement(sql)) {
+//                ps.setString(1, svg.toString());
+//                ps.setInt(2, orderId);
+//                ps.executeUpdate();
+//            }
+//        } catch (SQLException throwables) {
+//            throwables.printStackTrace();
+//        }
+//    }
+//    //</editor-fold>
 
     //<editor-fold desc="getSVG">
     public String getSVG(int orderId) {

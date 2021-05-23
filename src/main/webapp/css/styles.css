@@ -7,3 +7,8 @@
 {
     font-size: smaller;
 }
+
+.btn-outline-primary:disabled {
+    color: grey;
+    border: grey;
+}
