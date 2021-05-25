@@ -91,6 +91,18 @@ public class CommandUpdateMeasurements extends CommandProtectedPage {
         vatPrice = Utility.calcVatPrice(salesPrice);
         marginPrice = Utility.calcMarginPrice(basePrice, salesPrice);
 
+        session.setAttribute("order", order);
+        session.setAttribute("marginprice", marginPrice);
+        session.setAttribute("vatprice", vatPrice);
+        session.setAttribute("salesprice", salesPrice);
+        session.setAttribute("baseprice", basePrice);
+        session.setAttribute("bom", billOfMaterials);
+        session.setAttribute("sternList", sternList);
+        session.setAttribute("postList", postList);
+        session.setAttribute("rafterlist", rafterList);
+        session.setAttribute("beamlist", beamList);
+        session.setAttribute("rooflist", roofList);
+
         svg = new SVG(1, 80, "0 0 1000 880", 0, 0);
         svg.SVGDefs();
         svg.SVGNest(100, 100, "0 0 1000 1", 0, 0);
@@ -102,18 +114,6 @@ public class CommandUpdateMeasurements extends CommandProtectedPage {
 
         orderFacade.createSVG(orderId, svg);
         session.setAttribute("svgdrawing", svg.toString());
-
-
-
-
-        session.setAttribute("marginprice", marginPrice);
-        session.setAttribute("vatprice", vatPrice);
-        session.setAttribute("salesprice", salesPrice);
-        session.setAttribute("baseprice", basePrice);
-        session.setAttribute("bom", billOfMaterials);
-
-        session.setAttribute("order", order);
-
 
         return pageToShow;
     }
