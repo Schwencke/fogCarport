@@ -17,6 +17,7 @@ public class CommandLogout extends CommandUnprotectedPage {
         if (session != null) {
             session.invalidate();
         }
-        return REDIRECT_INDICATOR + request.getContextPath();
+        pageToShow = "index";
+        return REDIRECT_INDICATOR + pageToShow;
     }
 }

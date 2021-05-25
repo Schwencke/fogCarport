@@ -34,9 +34,9 @@
     </div>
 
     <nav class="navbar sticky-top navbar-light" style="background-color: #041b66">
-
+       <%-- <%=request.getContextPath()%>--%>
         <span class="badge badge-light"><a class="btn btn-sm btn-secondary"
-                                           href="<%=request.getContextPath()%>">Forside</a></span>
+                                           href="${pageContext.request.contextPath}/fc/index">Forside</a></span>
 
         <c:if test="${sessionScope.role == 'customer'}">
             <span class="badge badge-light"> <a class="btn btn-sm btn-secondary"
