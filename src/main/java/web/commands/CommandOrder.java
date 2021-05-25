@@ -112,7 +112,6 @@ public class CommandOrder extends CommandProtectedPage {
         orderFacade.createSVG(orderId, svg);
         session.setAttribute("svgdrawing", svg.toString());
 
-
         pageToShow = "order";
 
         return pageToShow;
