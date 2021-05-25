@@ -13,6 +13,10 @@
     <jsp:body>
         <c:choose>
             <c:when test="${sessionScope.role != 'salesperson'}">
+                <h3><img style="float: right;" alt="" src="${pageContext.request.contextPath}/images/quickurejs.gif" height="87" width="165" />Quick-Byg tilbud - carport med fladt tag</h3>
+                <p>Med et specialudviklet computerprogram kan vi lynhurtigt beregne prisen og udskrive en skitsetegning på en carport indenfor vores standardprogram, der tilpasses dine specifikke ønsker.</p>
+                <p>Tilbud behandles af vores dygtige sælgere hurtigst muligt.<br />Ved bestilling medfølger standardbyggevejledning.</p>
+                <p style="margin-bottom: 50px;"><strong>Udfyld nedenstående omhyggeligt og klik på "Send forspørgsel"</strong>
                 <form method="post" action="${pageContext.request.contextPath}/fc/carportrequest">
                 <div class="row justify-content-center">
                     <label for="carportwidth" class="fw-bold">Carport bredde</label>
