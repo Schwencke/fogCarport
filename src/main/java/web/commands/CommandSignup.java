@@ -56,6 +56,7 @@ public class CommandSignup extends CommandUnprotectedPage {
             request.setAttribute("error", "Ugyldigt postnummer.");
             return "signup";
         }
+
         ServletContext application = request.getServletContext();
         HashMap<Integer, String> cities;
         cities = (HashMap<Integer, String>) application.getAttribute("cities");
