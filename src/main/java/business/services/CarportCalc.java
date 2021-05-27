@@ -17,7 +17,7 @@ public class CarportCalc {
     }
 
     //<editor-fold desc="New Material">
-    private Material newItem(int quantity, int materialID, Material material) {
+    public Material newItem(int quantity, int materialID, Material material) {
         return new Material(materialID,
                 material.getName(),
                 material.getDescription(),

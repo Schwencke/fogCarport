@@ -120,7 +120,7 @@
                             <td>
                                 <c:choose>
                                     <c:when test="${sessionScope.order.price == 0}">Afventer tilbud</c:when>
-                                    <c:otherwise>${sessionScope.order.price},-</c:otherwise>
+                                    <c:otherwise>${sessionScope.order.price}</c:otherwise>
                                 </c:choose>
                             </td>
                         </tr>
@@ -458,7 +458,7 @@
                                     <td>${bom.length} mm</td>
                                     <td>${bom.quantity}</td>
                                     <td>${applicationScope.units.get(bom.unitId)}</td>
-                                    <td>${bom.price},-</td>
+                                    <td>${bom.price}</td>
                                     <td>${bom.quantity * bom.price}</td>
                                 </tr>
                             </c:forEach>
