@@ -17,7 +17,7 @@ public class CommandOrder extends CommandProtectedPage {
 
     protected OrderFacade orderFacade;
     protected UserFacade userFacade;
-    protected MaterialFacade materialFacade;
+    //protected MaterialFacade materialFacade;
     protected CarportCalc carportCalc;
     protected List<Material> sternUnderFrontAndBackList;
     protected List<Material> sternUnderSidesList;
@@ -45,7 +45,7 @@ public class CommandOrder extends CommandProtectedPage {
         super(pageToShow, role);
         this.orderFacade = new OrderFacade(database);
         this.userFacade = new UserFacade(database);
-        this.materialFacade = new MaterialFacade(database);
+      //  this.materialFacade = new MaterialFacade(database);
         this.carportCalc = new CarportCalc(database);
     }
 

@@ -5,9 +5,12 @@ import business.services.UserFacade;
 import business.exceptions.UserException;
 import business.services.Utility;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.ws.rs.core.Application;
+import java.util.HashMap;
 
 public class CommandSignup extends CommandUnprotectedPage {
     private UserFacade userFacade;
@@ -50,6 +53,13 @@ public class CommandSignup extends CommandUnprotectedPage {
 
         int digitsCount = (int) (Math.log10(postalCode) + 1);
         if (digitsCount != 4) {
+            request.setAttribute("error", "Ugyldigt postnummer.");
+            return "signup";
+        }
+        ServletContext application = request.getServletContext();
+        HashMap<Integer, String> cities;
+        cities = (HashMap<Integer, String>) application.getAttribute("cities");
+        if (!cities.containsKey(postalCode)){
             request.setAttribute("error", "Ugyldigt postnummer.");
             return "signup";
         }
