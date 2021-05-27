@@ -50,6 +50,7 @@ public class UserMapper {
         }
     }
 
+
     public User login(String email, String password) throws UserException, SQLException {
         try (Connection connection = database.connect()) {
             String sql = "SELECT * FROM `user` WHERE `email` = ? AND `password` = ?";
