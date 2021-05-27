@@ -49,7 +49,10 @@ class CarportCalcTest {
 
     @Test
     void calcRafter() throws UserException {
-        assertEquals(new Material(), carportCalc.calcRafter(6000, 7800));
+        Material material = new Material();
+        List<Material> result = new ArrayList<>();
+        result.add(carportCalc.newItem(15, 1534, material));
+        assertEquals(result, carportCalc.calcRafter(6000, 7800));
     }
 
     @Test
