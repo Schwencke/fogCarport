@@ -61,7 +61,7 @@ public class CommandSignup extends CommandUnprotectedPage {
         HashMap<Integer, String> cities;
         cities = (HashMap<Integer, String>) application.getAttribute("cities");
         if (!cities.containsKey(postalCode)){
-            request.setAttribute("error", "Ugyldigt postnummer.");
+            request.setAttribute("error", "Ugyldigt postnummer. Du kan bruge følgende; " + cities);
             return "signup";
         }
 
